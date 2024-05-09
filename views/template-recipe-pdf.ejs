@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Órden Médica <%= recipe.createdDate.toLocaleDateString() %></title>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="data:image/jpeg;base64,<%= logo %>" alt="Logo del sitio web" title="MediConnect">
+            <h1>Órden Médica</h1>
+        </div>
+        <div class="header-right">
+            <p class="bold">Número de Orden: <span><%= recipe.id %></span></p>
+        </div>
+    </header>
+    <main>
+        <section class="content-main">
+            <article>
+                <h3 class="subtitle">Información General</h3>
+                <div class="profile">
+                    <p class="bold">Fecha de Impresión: <span><%= recipe.createdDate.toLocaleDateString() %></span>.</p>
+                    <p class="bold">Médico: <span><%= doctor.name %></span>.</p>
+                    <p class="bold">Paciente: <span><%= patient.name %></span>.</p>
+                    <p class="bold">Fecha de Nacimiento: <span><%= patient.birthdate.toLocaleDateString() %></span>.</p>
+                    <p class="bold">Edad: <span><%= new Date().getFullYear() - patient.birthdate.getFullYear() %></span>.</p>
+                    <p class="bold">Numero de Telefono: <span><%= (patient.extensionTelephone && patient.telephone) ? `+${patient.extensionTelephone} ${patient.telephone}` : 'Desconocido' %></span>.</p>
+                    <p class="bold">Correo Electronico: <span><%= patient.email %></span>.</p>
+                    <p class="bold">Fecha de Registro: <span><%= patient.createdAt.toLocaleDateString() %></span>.</p>
+                </div>
+            </article>
+            <article>
+                <h3 class="subtitle">Preescripción</h3>
+                <p class="description"><%= recipe.preescription %></p>
+            </article>
+            <article class="medicaments">
+                <div class="container-table">
+                    <h3 class="title-table">Medicamentos</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Nombre</th>
+                                <th>Cantidades</th>
+                                <th>Presentaciones</th>
+                                <th>Información</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (medicines instanceof Array) for(let i = 0; i < medicines.length; i++) { %>
+                                <% if (medicines[i] instanceof Object) { %>
+                            <tr>
+                                <td><%= (i + 1) %></td>
+                                <td><%= medicines[i].name %></td>
+                                <td><%= medicines[i].quantities %></td>
+                                <td><%= medicines[i].presentations %></td>
+                                <td><%= medicines[i].information %></td>
+                            </tr>
+                                <% } %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <a href="http://localhost:5000/">MEDICONNECT</a>
+    </footer>
+</body>
+</html>

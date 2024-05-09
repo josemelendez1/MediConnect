@@ -1,0 +1,270 @@
+.modal .container-video {
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal .container-video .content-video-left {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.modal .container-video .content-video-right {
+    position: relative;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    align-content: start;
+    justify-content: center;
+}
+
+.modal .container-video .content-video-left .container-video-relative {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: .5rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: skeleton-loading 1s linear infinite;
+}
+
+.modal .container-video .content-video-left .container-video-relative video {
+    width: 100%;
+    height: 100%;
+    padding: 0rem !important;
+    object-fit: cover;
+}
+
+.modal .container-video .content-video-left .container-video-relative .template-video {
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+}
+
+.modal .container-video .content-video-left .container-video-relative .template-video.open {
+    z-index: 2;
+}
+
+.modal .container-video .content-video-left .container-video-relative .template-video .image {
+    width: 25%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.modal .container-video .content-video-left .container-video-relative .template-video .image.skeleton-loading,
+.modal .container-video .content-video-right .content .profile-call-person .image.skeleton-loading {
+    background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: skeleton-loading 1s linear infinite;
+}
+
+.modal .container-video .content-video-left .container-video-relative .template-video .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.modal .container-video .content-video-left .container-video-relative .options {
+    gap: 1rem;
+    left: 0;
+    bottom: 0;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+    position: absolute;
+}
+
+.modal .container-video .content-video-left .container-video-relative .options button {
+    width: 2rem;
+    height: 2rem;
+    min-height: 2rem;
+    max-height: 2rem;
+    min-width: 2rem;
+    max-width: 2rem;
+    color: var();
+    cursor: pointer;
+    border-radius: 50%;
+    opacity: .5;
+    color: var(--gray-900);
+    transition: all ease-out .3s;
+    border: 0px solid transparent;
+    background-color: var(--gray-50);
+}
+
+.modal .container-video .content-video-left .container-video-relative .options button:hover {
+    opacity: 1;
+    background-color: var(--gray-50);
+}
+
+.modal .container-video .content-video-left .container-video-relative .options button.disabled {
+    color:white;
+    background-color: red;
+}
+
+.modal .container-video .content-video-right .title {
+    width: 100%;
+    font-size: 2rem;
+    line-height: 2.25rem;
+    font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.modal .container-video .content-video-right .content {
+    gap: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal .container-video .content-video-right .content .profile-call-person {
+    gap: .25rem;
+    min-width: 80%;
+    max-width: 100%;
+    display: flex;
+    padding: 1rem .5rem;
+    border-radius: .5rem;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.modal .container-video .content-video-right .content .profile-call-person .image {
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    max-width: 3rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.modal .container-video .content-video-right .content .profile-call-person .image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.modal .container-video .content-video-right .content .profile-call-person .name {
+    width: 100%;
+    font-size: .875rem;
+    text-align: center;
+    line-height: 1.25rem;
+    text-overflow: ellipsis;
+}
+
+.modal .container-video .content-video-right .content .button-red-rounded {
+    padding: .75rem 2rem;
+    border-radius: 5rem;
+    font-size: 1rem;
+}
+
+.modal .container-video .content-video-right .footer-content-video {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal .container-video .content-video-right .footer-content-video .date-call {
+    width: 100%;
+    text-align: center;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: var(--gray-500);
+}
+
+@keyframes skeleton-loading {
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+@media (min-width: 640px) {
+
+}
+
+@media (min-width: 768px) {
+
+    .modal .container-video {
+        gap: .25rem;
+    }
+
+    .modal .container-video .content-video-left, .modal .container-video .content-video-right {
+        width: calc(50% - .5rem);
+    }
+
+    .modal .container-video .content-video-left .container-video-relative .options button {
+        width: 2.5rem;
+        height: 2.5rem;
+        min-height: 2.5rem;
+        max-height: 2.5rem;
+        min-width: 2.5rem;
+        max-width: 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .modal .container-video .content-video-left {
+        width: calc(60% - .5rem);
+    }
+
+    .modal .container-video .content-video-right {
+        width: calc(40% - .5rem);
+    }
+
+    .modal .container-video .content-video-left .container-video-relative .options button {
+        width: 3rem;
+        height: 3rem;
+        min-height: 3rem;
+        max-height: 3rem;
+        min-width: 3rem;
+        max-width: 3rem;
+    }
+}
+
+@media (min-width: 1280px) {
+
+}
+
+@media (min-width: 1536px) {
+
+}

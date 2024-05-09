@@ -1,0 +1,697 @@
+main .content {
+    gap: 1rem;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: start;
+    padding: 1rem;
+}
+
+main .content .header-content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main .content .header-content .title {
+    font-size: 1.25rem;
+    color: var(--gray-500);
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.appointments-container {
+    width: 100%;
+    padding: 1rem;
+    display: block;
+    position: relative;
+    border-radius: .5rem;
+    background-color: white;
+    border: 1px solid var(--gray-200);
+    z-index: 2;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.appointments-container .seeker-appointments {
+    width: 100%;
+    gap: .5rem;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    display: inline-flex;
+    justify-content: end;
+}
+
+.seeker-appointments .relative {
+    display: block;
+    position: relative;
+}
+
+.seeker-appointments .relative:nth-child(1) {
+    width: 100%
+}
+
+.seeker-appointments .relative:nth-child(2) {
+    width: 60%;
+}
+
+
+.seeker-appointments .relative input {
+    width: 100%;
+    display: block;
+    font-size: .875rem;
+    padding: .5rem .5rem;
+    padding: 0.5rem 1rem;
+    line-height: 1.25rem;
+    border-radius: .25rem;
+    color: var(--gray-800);
+    background-color: white;
+    transition: all ease-out .2s;
+    padding-inline-start: 2.75rem;
+    outline: 1px solid transparent;
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.seeker-appointments .relative input:focus {
+    border: solid 1px var(--blue-500);
+    outline: solid 1px var(--blue-500);
+}
+
+.seeker-appointments .relative i {
+    top: 0;
+    left: 0;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    position: absolute;
+    color: var(--gray-500);
+    padding-top: .7rem;
+    padding-inline-start: 1rem;
+}
+
+.container-table-appointments {
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: auto;
+    margin-top: 1rem;
+    border-radius: .25rem;
+}
+
+.container-table-appointments table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.container-table-appointments table thead th {
+    padding: .75rem 1rem;
+    font-weight: 500;
+    text-align: start;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: var(--gray-800);
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.container-table-appointments table thead th:nth-child(1) {
+   width: 4rem;
+   max-width: 4rem;
+   text-align: center;
+}
+
+.container-table-appointments table thead th:nth-last-child(1), .container-table-appointments table tbody td:nth-last-child(1),
+.container-table-appointments table thead th:nth-last-child(2), .container-table-appointments table tbody td:nth-last-child(2)
+{
+    width: 5rem;
+    max-width: 5rem;
+    text-align: center;
+}
+
+.container-table-appointments table tbody td:nth-last-child(1) i, .container-table-appointments table tbody td:nth-last-child(2) i {
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.container-table-appointments table tbody td:nth-last-child(1) i:hover, .container-table-appointments table tbody td:nth-last-child(2) i:hover {
+    color: var(--gray-950);
+}
+
+.container-table-appointments table tbody {
+    border-radius: .5rem;
+}
+
+.container-table-appointments table tbody tr {
+    border-radius: .25rem;
+    transition: all ease-in-out .2s;
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-100);
+}
+
+.container-table-appointments table tbody tr:hover {
+    background-color: var(--gray-100);
+}
+
+.container-table-appointments table tbody tr td {
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    padding: .75rem 1rem;
+    text-transform: capitalize;
+    color: var(--gray-500);
+    white-space: nowrap;
+}
+
+.container-table-appointments td .image {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    margin-right: .5rem;
+    border: 1px solid var(--gray-100);
+}
+
+.container-table-appointments td .image.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate !important;
+} 
+
+.container-table-appointments td .image img {
+    width: 2.5rem;
+    height: 2.5rem;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.container-table-appointments td .profile-text {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.container-table-appointments td .profile-text .name {
+    color: var(--gray-950);
+    font-weight: 600;
+}
+
+.container-table-appointments td .profile-text .email {
+    text-transform: none;
+    color: var(--gray-500);
+}
+
+.container-table-appointments tbody tr td .bg-gray, .container-table-appointments tbody tr td .bg-yellow, .container-table-appointments tbody tr td .bg-green {
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+.container-table-appointments tbody tr td .bg-gray {
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+}
+
+.container-table-appointments tbody tr td .bg-yellow {
+    background-color: rgb(254 249 195);
+    color: rgb(202 138 4);
+}
+
+.container-table-appointments tbody tr td .bg-green {
+    background-color: rgb(220 252 231);
+    color: rgb(22 163 74);
+}
+
+.container-table-appointments tbody tr td:nth-child(1) {
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+
+.container-table-appointments tbody tr td:nth-child(1) span {
+    color: white;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    background-color: var(--blue-200);
+}
+
+.container-table-appointments tbody tr.skeleton td {
+    background-color: var(--gray-50);
+    height: 4rem;
+}
+
+.container-table-appointments tbody tr:not(.skeleton) td {
+    animation: opacity .5s;
+}
+
+.container-table-appointments tbody tr.skeleton td div {
+    animation: skeleton-loading 1s linear infinite alternate;
+    width: 100%;
+    height: 70%;
+    border-radius: .5rem;
+}
+
+.form-modal #button-create-appointments {
+    width: 100%;
+}
+
+.form-modal #button-update-appointments {
+    width: 75%;
+}
+
+.form-modal #button-delete-appointments {
+    width: 25%;
+}
+
+.form-modal .message {
+    background-color: white !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: -1;
+    display: grid;
+    overflow: hidden;
+    align-items: center;
+    place-items: center;
+    width: 100% !important;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+    padding: .5rem;
+    transform: translateX(0);
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.modal-open {
+    opacity: 1;
+    z-index: 100;
+}
+
+.modal .container {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    margin: auto 0;
+    flex-wrap: nowrap;
+    position: relative;
+    flex-direction: row;
+    border-radius: .5rem;
+    justify-content: start;
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.modal .container .icon-close {
+    top: 0;
+    z-index: -1;
+    cursor: pointer;
+    position: absolute;
+    padding: .5rem .65rem;
+    margin: .75rem;
+    font-size: 1.25rem;
+}
+
+.modal .container .message {
+    background-color: white !important;
+}
+
+.content-record form .icon-close, .content-recipe form .icon-close {
+    right: 0;
+}
+
+.modal .container .image-aside {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.modal .container .image-aside img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.modal .container .content-record, .modal .container .content-recipe {
+    width: 0;
+    gap: .5rem;
+    opacity: 0;
+    height: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: start;
+    transition: all ease-out .2s;
+}
+
+.modal .container #open-content:not(:checked) ~ .content-record, .modal .container #open-content:checked ~ .content-recipe {
+    opacity: 1;
+    width: 100%;
+    max-height: 100%;
+}
+
+.modal .container #open-content:not(:checked) ~ .content-record form .icon-close, .modal .container #open-content:checked ~ .content-recipe form .icon-close {
+    z-index: 1;
+}
+
+.content-record form, .content-recipe form {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 !important;
+    background-color: var(--gray-100);
+}
+
+.content-record form .content-form, .content-recipe form .content-form {
+    width: 100%;
+    gap: .5rem;
+    max-height: 45rem;
+    display: flex;
+    padding: .5rem;
+    overflow: visible;
+    align-items: start;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.content-record form .header-form, .content-recipe form .header-form {
+    gap: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.content-record form .header-form .logo, .content-recipe form .header-form .logo {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.content-record form .title, .content-recipe form .title {
+    width: calc(100% - 5.5rem);
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: start;
+    overflow: hidden;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.content-record form .subtitle, .content-recipe form .subtitle {
+    width: 100%;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 300;
+    text-align: justify;
+    text-justify: inter-word;
+    color: var(--gray-800);
+}
+
+.content-record form .subtitle label, .content-recipe form .subtitle label {
+    cursor: pointer;
+    font-weight: 400;
+    color: var(--blue-600);
+    text-decoration: none;
+}
+
+.content-record form .subtitle label:hover, .content-recipe form .subtitle label:hover {
+    text-decoration: underline;
+}
+
+.content-record form .button-outline-blue, .content-recipe form .button-outline-blue {
+    border-radius: .25rem;
+    margin-left: auto;
+}
+
+.content-record form .group-patient, .content-record form .group-doctor,
+.content-recipe form .group-patient, .content-recipe form .group-doctor {
+    gap: .25rem;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content-record form .group-patient .profile, .content-record form .group-doctor .profile,
+.content-recipe form .group-patient .profile, .content-recipe form .group-doctor .profile {
+    gap: .5rem;
+    width: 100%;
+    display: flex;
+    padding: .5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: .5rem;
+    justify-content: start;
+    background-color: white;
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.content-record form .group-patient .legend-profile, .content-record form .group-doctor .legend-profile,
+.content-recipe form .group-patient .legend-profile, .content-recipe form .group-doctor .legend-profile {
+    width: 100%;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    color: var(--gray-600);
+    overflow: hidden;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.content-record form .group-patient .image, .content-record form .group-doctor .image,
+.content-recipe form .group-patient .image, .content-recipe form .group-doctor .image {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--gray-100);
+}
+
+.content-record form .group-patient .image img, .content-record form .group-doctor .image img,
+.content-recipe form .group-patient .image img, .content-recipe form .group-doctor .image img {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.content-record form .group-patient .profile-text, .content-record form .group-doctor .profile-text,
+.content-recipe form .group-patient .profile-text, .content-recipe form .group-doctor .profile-text {
+    width: calc(100% - 3rem);
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content-record form .group-patient .profile-text p, .content-record form .group-doctor .profile-text p,
+.content-recipe form .group-patient .profile-text p, .content-recipe form .group-doctor .profile-text p {
+    width: 100%;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    overflow: hidden;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;;
+}
+
+.content-record form .group-patient .profile-text .name, .content-record form .group-doctor .profile-text .name,
+.content-recipe form .group-patient .profile-text .name, .content-recipe form .group-doctor .profile-text .name {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: var(--gray-950);
+}
+
+.content-record form .group-patient .profile-text .email, .content-record form .group-doctor .profile-text .email,
+.content-recipe form .group-patient .profile-text .email, .content-recipe form .group-doctor .profile-text .email {
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: var(--gray-600);
+}
+
+.form-group {
+    gap: .25rem;
+    margin-top: 0;
+}
+
+.form-group .form-label {
+    margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
+    .dates-month li {
+        height: 5rem !important;
+    }
+
+    .content-appointments .seeker-appointments {
+        gap: 1rem;
+        justify-content: start;
+    }
+
+    .seeker-appointments .relative:nth-child(1) {
+        width: 80%;
+    }
+
+    .seeker-appointments .relative:nth-child(2) {
+        width: calc(20% - .5rem);
+    }
+}
+
+@media (min-width: 768px) { 
+    .dates-month li {
+        height: 6rem !important;
+    }
+
+    .modal .container {
+        padding: .5rem;
+    }
+
+    .modal .container .message {
+        width: auto !important;
+        margin: 0 auto;
+        background-color: var(--gray-100) !important;
+    }
+
+    .content-recipe form .icon-close {
+        right: auto;
+        left: 0;
+    }
+
+    .content-record form .header-form, .content-recipe form .header-form {
+        position: relative;
+    }
+
+    .content-record form .title, .content-recipe form .title {
+        width: calc(85% - 5.5rem) !important;
+    }
+
+    .content-record form .header-form .logo, .content-recipe form .header-form .logo {
+        background-color: var(--gray-50);
+    }
+
+    .content-record form .header-form .title, .content-record form .header-form .subtitle,
+    .content-recipe form .header-form .title, .content-recipe form .header-form .subtitle {
+        width: calc(100% - 3.5rem);
+    }
+
+    .content-record form .header-form .logo, .content-recipe form .header-form .logo {
+        display: block;   
+    }
+
+    .content-record form .button-outline-blue, .content-recipe form .button-outline-blue {
+        position: absolute;
+        max-width: 20%;
+        width: auto;
+        top: 0;
+        right: 0;
+    }
+
+    .content-record form, .modal .container .image-aside, .content-recipe form, .modal .container .image-aside {
+        width: calc(50% - .25rem);
+    }
+
+    .content-record form, .content-recipe form {
+        border-radius: .5rem;
+        border: 1px solid var(--gray-100);
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .content-record form .content-form, .content-recipe form .content-form {
+        padding: 1rem;
+    }
+
+    .modal .container .image-aside {
+        display: flex;
+    }
+
+    .modal {
+        grid-template-columns: 97%;
+    }
+
+    .content-record form .group-patient .profile, .content-record form .group-doctor .profile,
+    .content-recipe form .group-patient .profile, .content-recipe form .group-doctor .profile,
+    .form-group .form-field, .mult-select-tag .wrapper .body.rounded {
+        border: 1px solid var(--gray-100);
+        background-color: var(--gray-50);
+    }
+
+    .content-record form .group-patient .image, .content-record form .group-doctor .image,
+    .content-recipe form .group-patient .image, .content-recipe form .group-doctor .image {
+        border: 1px solid var(--gray-100);
+    }
+}
+
+@media (min-width: 1024px) {
+    .dates-month li {
+        height: 6.5rem !important;
+    }
+
+    .container-table-appointments tbody tr td {
+        max-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .modal {
+        grid-template-columns: 90%;
+    }
+}
+
+@media (min-width: 1280px) {
+    .dates-month li {
+        height: 7rem !important;
+    }
+
+    .modal {
+        grid-template-columns: 85%;
+    }
+}
+
+@media (min-width: 1536px) {
+    .dates-month li {
+        height: 7.5rem !important;
+    }
+
+    .modal {
+        grid-template-columns: 80%;
+    }
+}

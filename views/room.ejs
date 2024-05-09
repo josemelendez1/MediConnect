@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=4, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/room.css">
+    <title>MEDICONNECT | Sala de Atención</title>
+    <script>const ROOM_ID = "<%= roomId %>";</script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="/room.js" defer></script>
+</head>
+<body>
+    <main>
+        <nav>
+            <img class="logo" src="/images/logo.jpg" alt="logo">
+            <ul>
+                <li><div class="icon"><i class="fa-solid fa-comments"></i></div></li>
+                <li><div class="icon"><i class="fa-solid fa-users-rectangle"></i></div></li>
+                <li><div class="icon"><i class="fa-solid fa-gear"></i></div></li>
+            </ul>
+        </nav>
+        <section class="content">
+            <div class="row">
+                <div class="col-1">
+                    <div id="video-main"></div>
+                    <div class="controls">
+                        <div id="button-toggle-audio" class="icon"><i class="fa-solid fa-microphone" style="color:#22c55e;"></i></div>
+                        <a href="/" class="icon"><i class="fa-solid fa-phone fa-rotate-by" style="--fa-rotate-angle: 135deg;"></i></a>
+                        <div id="button-toggle-cam" class="icon"><i class="fa-solid fa-video" style="color:#22c55e;"></i></div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div id="video-container" class="joined">
+                        <h3 class="title">Personas en la sala</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

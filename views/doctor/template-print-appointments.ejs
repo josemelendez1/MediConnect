@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/doctor/css/template-pdf.css">
+    <title>Lista citas <%= date %></title>
+</head>
+<body>
+    <header>
+        <img src="data:image/jpeg;base64,<%= image %>" alt="Logo del sitio web" title="Logo">
+        <h2 class="title-logo">MediConnect</h2>
+        <aside>
+            <p>Fecha: <%= date %></p>
+            <p>Doctor: <%= doctor %></p>
+        </aside>
+    </header>
+    <div class="container-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Paciente</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Hora</th>
+                    <th>Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (appointments instanceof Array) for(let i = 0; i < appointments.length; i++) { %>
+                    <% if (appointments[i] instanceof Object) { %>
+                        <tr>
+                            <td><%= appointments[i].index %></td>
+                            <td><%= appointments[i].patient %></td>
+                            <td><%= appointments[i].email %></td>
+                            <td><%= (appointments[i].ext && appointments[i].tel) ? `+${appointments[i].ext} ${appointments[i].tel}` : '' %></td>
+                            <td><%= appointments[i].time %></td>
+                            <td><%= appointments[i].type %></td>
+                        </tr>
+                    <% } %>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

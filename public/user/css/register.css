@@ -1,0 +1,207 @@
+.modal-register {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    z-index: -10;
+    width: 100%;
+    height: 100%;
+    padding: .5rem;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    transition: all ease-out .3s;
+    background-color: rgba(80, 80, 80, .7);
+}
+
+.modal-register.modal-open {
+    z-index: 100;
+    opacity: 1;
+}
+
+.modal-register .content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: .5rem;
+    justify-content: start;
+    background-color: var(--gray-50);
+    border-radius: .5rem;
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.modal-register .content .form-register {
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: .75rem;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    justify-content: start;
+}
+
+.modal-register .icon-close {
+    padding: .5rem .75rem;
+    font-size: 1.25rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.modal-register .logo {
+    gap: 1rem;
+    width: 100% !important;
+    height: auto;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.modal-register .logo img {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--gray-200);
+    background-color: white;
+}
+
+.modal-register .logo h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.modal-register .title {
+    font-size: 2rem;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    text-align: start;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.modal-register .subtitle {
+    margin-top: .25rem;
+    font-weight: 400;
+    text-align: start;
+    font-size: .975rem;
+    line-height: 1.25rem;
+    padding: 0 !important;
+    color: var(--gray-600);
+}
+
+.modal-register .subtitle a {
+    color: var(--blue-600);
+    cursor: pointer;
+}
+
+.modal-register .subtitle a:hover {
+    text-decoration: underline;
+}
+
+.modal-register .image {
+    display: none;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.modal-register .image img {
+    width: 100%;
+}
+
+.form-group .relative {
+    width: 100%;
+}
+
+.modal-register .button-blue-rounded {
+    width: 100%;
+}
+
+.form-check {
+    width: 100%;
+    gap: .5rem;
+}
+
+.form-check label {
+    font-size: .875rem;
+    font-weight: 400;
+    color: var(--gray-950);
+}
+
+@media (min-width: 640px) {
+    .modal-register {
+        padding: 1rem 5rem;
+    }
+
+    .modal-register .content .form-register {
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-register {
+        display: grid;
+        align-items: center;
+        place-items: center;
+        padding: 1rem;
+        overflow: auto;
+    }
+
+    .modal-register .content {
+        margin: auto 0;
+        height: auto;
+    }
+
+    .modal-register .content {
+        position: relative;
+        padding: .5rem;
+    }
+
+    .modal-register .content .form-register {
+        overflow: hidden;
+        width: 50%;
+        position: initial;
+        border-radius: .5rem;
+        background-color: white;
+        border: 1px solid var(--gray-100);
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .modal-register .image {
+        display: flex;
+        width: 50%;
+    }
+
+    .modal-register .form-group {
+        width: calc(50% - .5rem);
+    }
+}
+
+@media (min-width: 1024px) {
+    .modal-register .content {
+        width: 75%;
+    }
+}
+
+@media (min-width: 1280px) {
+
+}
+
+@media (min-width: 1536px) {
+
+}

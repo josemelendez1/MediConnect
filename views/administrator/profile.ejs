@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <link rel="stylesheet" href="/administrator/css/index.css">
+        <link rel="stylesheet" href="/administrator/css/profile.css">
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/screen.js"></script>
+        <script src="/navbar.js"></script>
+        <script type="module" src="/administrator/js/profile.js"></script>
+        <script type="module" src="/administrator/js/profile-image.js"></script>
+        <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+        <title>Administrador | Perfil</title>
+    </head>
+    <body>
+        <header id="header">
+            <nav>
+                <section>
+                    <article class="menu-content">
+                        <div id="menu"><i class="fa-solid fa-bars"></i></div>
+                    </article>
+                    <article>
+                        <div id="buttonScreen"><i class="fa-solid fa-expand"></i></div>
+                    </article>
+                    <article class="profile">
+                        <input type="checkbox" id="check-profile">
+                        <label for="check-profile">
+                            <img id="profile-image" src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                        </label>
+                        <section class="dropdown-profile">
+                            <article class="profile-information">
+                                <p>Registrado como</p>
+                                <p class="email-profile"></p>
+                            </article>
+                            <article class="profile-link">
+                                <i class="fa-solid fa-user"></i>
+                                <a href="/administrador/perfil">Perfil de usuario</a>
+                            </article>
+                            <article class="profile-logout logout">
+                                <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                                <a href="/sesion/cerrar/administrador">Cerrar Sesión</a>
+                            </article>  
+                        </section>
+                    </article>
+                </section>
+            </nav>
+        </header>
+        <aside id="navbar">
+            <section class="header">
+                <img src="/images/logo.jpg" alt="Imagen de logo" class="logo">
+                <h1>MEDI<span>CONNECT</span></h1>
+            </section>
+            <article class="item-nav">
+                <i class="fa-solid fa-house"></i>
+                <a href="/administrador">Inicio</a>
+            </article>
+            <article class="item-nav">
+                <i class="fa-solid fa-prescription-bottle-medical"></i>
+                <a href="/administrador/medicinas">Medicinas</a>
+            </article>
+            <article class="item-nav">
+                <i class="fa-solid fa-virus"></i>
+                <a href="/administrador/enfermedades">Enfermedades</a>
+            </article>
+            <article class="item-nav">
+                <i class="fa-solid fa-users"></i>
+                <a href="/administrador/usuarios">Usuarios</a>
+            </article>
+            <article class="item-nav">
+                <i class="fa-solid fa-chart-simple"></i>
+                <a href="/administrador/balance">Balance</a>
+            </article>
+            <section class="footer-aside">
+                <div class="content logout">
+                    <a href="/sesion/cerrar/administrador">
+                        <p>Cerrar Sesión</p>
+                        <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                    </a>
+                </div>
+            </section>
+        </aside>
+        <div id="shadow" class="shadow"></div>
+        <main id="main">
+            <section class="content">
+                <article class="profile">
+                    <section class="form-image">
+                        <form id="form-image-administrator" method="post">
+                            <label for="input-image" class="label-image">
+                                <img class="image-form image-profile" src="/images/user-solid.jpg" alt="Imagen de Perfil">
+                            </label>
+                            <input class="input-image" type="file" accept=".png, .jpg, .jpeg, .svg" name="image" id="input-image">
+                            <div class="buttons">
+                                <button id="button-upload-image" type="button" class="button-outline-gray">
+                                    <i class="fa-solid fa-upload"></i>
+                                    Subir imagen de perfil
+                                </button>
+                                <button id="button-delete-image" type="button" class="button-outline-gray text-red">
+                                    <i class="fa-solid fa-trash"></i>
+                                    Borrar
+                                </button>
+                            </div>
+                            <p id="form-image-administrator-image-helper" class="helper"></p>
+                        </form>
+                    </section>
+                    <section class="form-data">
+                        <form id="profile-administrator" method="POST">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Nombre</label>
+                                <div class="relative">
+                                    <input type="text" name="name" class="form-field">
+                                    <i class="fa-solid fa-user icon-input"></i>
+                                </div>
+                                <p id="profile-administrator-name-helper" class="helper"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Correo Electronico</label>
+                                <div class="relative">
+                                    <input type="email" name="email" class="form-field" autocomplete="email">
+                                    <i class="fa-solid fa-envelope icon-input"></i>
+                                </div>
+                                <p id="profile-administrator-email-helper" class="helper"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="telephone" class="form-label">Telefono</label>
+                                <div class="relative">
+                                    <input type="tel" name="telephone" class="form-field">
+                                    <i class="fa-solid fa-phone icon-input"></i>
+                                </div>
+                                <p id="profile-administrator-telephone-helper" class="helper"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="area" class="form-label">Area</label>
+                                <div class="relative">
+                                    <input type="text" name="area" class="form-field">
+                                    <i class="fa-solid fa-layer-group icon-input"></i>
+                                </div>
+                                <p id="profile-administrator-area-helper" class="helper"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass" class="form-label">Contraseña</label>
+                                <div class="relative">
+                                    <input type="password" name="pass" class="form-field">
+                                    <i class="fa-solid fa-lock icon-input"></i>
+                                </div>
+                                <p id="profile-administrator-pass-helper" class="helper"></p>
+                            </div>
+                            <div class="form-button">
+                                <button id="button-update-data" class="button-rounded-blue" type="button">Actualizar</button>
+                            </div>
+                        </form>
+                        <article class="information-dates">
+                            <p>Cuenta creada el <b>?</b></p>
+                            <p>Ultima actualización: <b>?</b></p>
+                        </article>
+                    </section>
+                    <section id="form-message" class="form-message">
+                    </section>
+                </article>
+            </section>
+        </main>
+        <footer id="footer">
+            <section class="content">
+                <article class="references">
+                    <div class="start">
+                        <p>Terminos y Condiciones</p>
+                        <p>Politica de Privacidad</p>
+                        <p>Licencia</p>
+                    </div>
+                    <div class="end">
+                        <i class="fa-solid fa-at"></i>
+                        <i class="fa-brands fa-github"></i>
+                    </div>
+                </article>
+                <article class="copyright">
+                    <p>© 2024 - <span id="copyright-date">2024</span> copyright. Todos los derechos resevados.</p>
+                </article>
+            </section>
+        </footer>
+    </body>
+</html>

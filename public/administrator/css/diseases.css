@@ -1,0 +1,612 @@
+main {
+    display: flex;
+    align-items: start;
+    align-content: start;
+    flex-direction: column;
+    justify-content: start;
+}
+
+main .content {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    position: relative;
+    align-items: start;
+    align-content: start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main .content .header-diseases {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+main .content .header-diseases h2 {
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    margin-bottom: .5rem;
+}
+
+.button-outline-blue {
+    cursor: pointer;
+    border: transparent;
+    padding: 0.65rem .8rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    align-items: center;
+    display: inline-flex;
+    color: var(--blue-600);
+    transition: all ease-out .2s;
+    background-color: transparent;
+}
+
+.button-outline-blue:hover {
+    background-color: var(--blue-600);
+    color: white;
+}
+
+main .content .container-diseases {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
+.container-diseases .diseases {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    align-content: start;
+    justify-content: center;
+}
+
+.container-diseases .diseases .disease {
+    width: 100%;
+    height: auto;
+    padding: .4rem;
+    margin-top: .75rem;
+    border-radius: .25rem;
+    background-color: white;
+    border: 1px solid var(--gray-100);
+    transition: all ease-in-out .2s;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.disease:not(.skeleton) {
+    animation: opacity .5s;
+}
+
+.container-diseases .diseases .disease:not(.skeleton):hover {
+    background-color: var(--blue-100);
+}
+
+.disease.skeleton .image {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.disease .image.skeleton, .disease .image-user.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.disease.skeleton .title, .disease.skeleton .subtitle {
+    height: 1.25rem;
+    border-radius: .25rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.disease .footer-disease .image-user {
+    width: 2.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    border-radius: 50%;
+}
+
+.disease.skeleton .footer-disease .image-user {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.disease.skeleton .footer-disease .information-user .title-user, .disease.skeleton .footer-disease .information-user .subtitle-user {
+    width: 100%;
+    height: 1.25rem;
+    border-radius: .25rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.disease.skeleton .footer-disease .information-user .subtitle-user {
+    height: 1rem;
+    width: 90% !important;
+}
+
+.disease.skeleton .footer-disease .information-disease {
+    animation: skeleton-loading 1s linear infinite alternate;
+    border-radius: .25rem;
+    color: transparent;
+}
+
+.disease .content-disease {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.disease .content-disease .image {
+    width: 100%;
+    height: 10rem;
+    max-height: 10rem;
+    border-radius: .25rem;
+}
+
+.disease .content-disease img {
+    width: 100%;
+    height: 10rem;
+    border-radius: .25rem;
+    object-fit: cover;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.disease .content-disease p {
+    width: 100%;
+    overflow: hidden;
+    font-weight: 600;
+    font-size: .9rem;
+    line-height: 1.25rem;
+    margin: .6rem 0rem;
+    white-space: nowrap;
+    color: var(--gray-700);
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.disease .content-disease small {
+    width: 50%;
+    overflow: hidden;
+    font-weight: 500;
+    text-align: start;
+    font-size: .775rem;
+    line-height: 1.25rem;
+    color: var(--gray-600);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.disease .footer-disease {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    align-content: start;
+    justify-content: start;
+    margin-top: 1rem;
+}
+
+.disease .footer-disease img {
+    width: 2.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--gray-200);
+}
+
+.disease .footer-disease .information-user {
+    gap: .1rem;
+    width: 80%;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0rem .5rem;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.footer-disease .information-user p, .footer-disease .information-user small {
+    text-transform: capitalize;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: start;
+    line-height: 1.25rem;
+}
+
+.footer-disease .information-user p {
+    font-weight: 500;
+    font-size: .875rem;
+    color: var(--gray-700);
+}
+
+.footer-disease .information-user small {
+    color: var(--gray-400);
+    width: 100%;
+}
+
+.footer-disease .information-disease {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--gray-400);
+}
+
+.footer-disease .information-disease:hover {
+    color: var(--gray-800);
+}
+
+main .content .aside-diseases {
+    width: 100%;
+    max-height: 25rem;
+    display: flex;
+    padding: .7rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    overflow-y: auto;
+    align-items: center;
+    flex-direction: row;
+    align-content: start;
+    border-radius: .5rem;
+    justify-content: start;
+    background-color: var(--gray-100);
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+main .content .aside-diseases .title {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 2rem;
+    color: var(--gray-500);
+}
+
+main .content .aside-diseases .relative {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: .5rem;
+}
+
+.aside-diseases .relative .seeker-field {
+    width: 100%;
+    border-radius: .25rem;
+    padding: .5rem 1rem;
+    padding-inline-end: 2rem;
+    border: 2.2px solid var(--gray-100);
+    outline: transparent;
+    font-size: .875rem;
+    font-weight: 400;
+    color: var(--gray-700);
+}
+
+.aside-diseases .relative .seeker-field:focus {
+    outline: 2.3px solid var(--blue-400);
+}
+
+.aside-diseases .relative .seeker-field::placeholder {
+    color: var(--gray-200);
+}
+
+.aside-diseases .relative .icon-seeker {
+    right: 0;
+    top: 0;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    font-size: .875rem;
+    color: var(--gray-300);
+    margin-top: .75rem;
+    margin-right: .75rem;
+}
+
+.aside-diseases .diseases-requests {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+    align-items: center;
+    align-content: start;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.disease-request {
+    width: 100%;
+    display: flex;
+    padding: .25rem;
+    align-items: center;
+    border-radius: .25rem;
+    justify-content: start;
+    transition: all ease-out .2s;
+}
+
+.disease-request:not(.skeleton) {
+    animation: opacity .5s;
+}
+
+.disease-request.skeleton .image, .disease-request .image.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.information-disease:not(.skeleton):hover {
+    cursor: pointer;
+    background-color: var(--blue-100);
+}
+
+.disease-request .image, .disease-request img {
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 50%;
+}
+
+.disease-request .image {
+    margin-right: .5rem;
+}
+
+.disease-request .image img {
+    object-fit: cover;
+}
+
+.disease-request .content-text {
+    gap: .1rem;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 3.2rem);
+}
+
+.disease-request .content-text p {
+    width: 100%;
+    height: 1.25rem;
+    overflow: hidden;
+    text-align: start;
+    white-space: nowrap;  
+    line-height: 1.25rem;
+    text-overflow: ellipsis;
+}
+
+.disease-request.skeleton .content-text p {
+    animation: skeleton-loading 1s linear infinite alternate;
+    border-radius: .25rem;
+}
+
+.disease-request .content-text .name {
+    font-weight: 500;
+    font-size: .875rem;
+    color: var(--gray-700);
+}
+
+.disease-request .content-text .date {
+    width: 90% !important;
+    font-weight: 400;
+    font-size: .785rem;
+    color: var(--gray-400);
+}
+
+.container-diseases .absolute-center-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40%;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--gray-200);
+    text-align: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: -1;
+}
+
+main .content .footer-diseases {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer-diseases .count {
+    font-weight: 500;
+    font-size: .875rem;
+    color: var(--gray-600);
+    text-align: center;
+    width: 100%;
+    margin-bottom: .25rem;
+}
+
+.footer-diseases .pagination {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.footer-diseases .pagination article {
+    width: 50%;
+    margin: .25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.25rem;
+    color: var(--gray-500);
+    padding: 0.65rem .8rem;
+    border-radius: .25rem;
+    transition: all ease-out .2s;
+}
+
+.footer-diseases .pagination article:hover {
+    background-color: var(--gray-200);
+    color: var(--gray-800);
+}
+
+.pagination p {
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.pagination .prev p {
+    margin-left: .25rem;
+}
+
+.pagination .next p {
+    margin-right: .25rem;
+}
+
+.pagination i {
+    height: .9rem;
+}
+
+main .content .form-modal .button-blue-rounded {
+    width: 100%;
+}
+
+.form-modal {
+    width: 100%;
+    padding-top: 1.5rem;
+    background-color: var(--gray-50);
+}
+
+.form-modal .form-field {
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.modal .relative {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal .form-modal .relative {
+    overflow: initial;
+}
+
+.height-35rem {
+    height: 35rem !important;
+    min-height: 35rem !important;
+}
+
+@media (min-width: 640px) {
+    main .content .header-diseases h2 {
+        width: auto;
+        margin-bottom: 0;
+    }
+    
+    main .content .header-diseases {
+        justify-content: space-between;
+    }
+
+    .container-diseases .diseases .disease {
+        margin: .25rem;
+        width: calc(50% - .5rem);
+    }
+}
+
+@media (min-width: 768px) {
+
+    main .content .footer-diseases .count {
+        width: auto;
+        margin-bottom: 0;
+    }
+
+    main .content .footer-diseases .pagination {
+        width: auto;
+    }
+
+    footer .content {
+        padding: 1rem !important;
+    }
+
+    .container-diseases .diseases {
+        justify-content: start;
+    }
+
+    .container-diseases .diseases .disease {
+        margin: .25rem;
+        width: 32%;
+    }
+
+    .container-diseases .disease p {
+        text-align: initial;
+        margin-right: .5rem;
+        width: 50%;
+    }
+
+    .container-diseases .disease small {
+        width: calc(50% - .5rem);
+    }
+}
+
+@media (min-width: 1024px) {
+    
+}
+
+@media (min-width: 1280px) {
+    main .content {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    main .content .container-diseases {
+        width: 75%;
+    }
+
+    .container-diseases .diseases .disease {
+        width: 31%;
+    }
+
+    main .content .footer-diseases {
+        width: 98.3%;
+        padding: 0rem .5rem;
+    }
+
+    main .content .aside-diseases {
+        position: sticky;
+        width: 25%;
+        max-height: 50rem !important;
+        margin-top: .35rem;
+    }
+
+    .container-diseases .diseases .disease {
+        margin: .45rem;
+    }
+}
+
+@media (min-width: 1536px) {
+
+}

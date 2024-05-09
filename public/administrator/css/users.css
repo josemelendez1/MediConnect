@@ -1,0 +1,347 @@
+main .title-main {
+    width: 100%;
+    color: var(--gray-400);
+    font-weight: 500;
+    font-size: 1.1rem;
+    text-align: center;
+    line-height: 1.5rem;
+    margin-left: 0 !important;
+}
+
+main .content {
+    gap: .5rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    align-content: start;
+    justify-content: center;
+    padding: 1rem;
+}
+
+main .content .table-container {
+    gap: .5rem;
+    width: 100%;
+    padding: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: .5rem;
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border: 1px solid var(--gray-200);
+}
+
+.table-container .header-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.table-container .header-container h3 {
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    color: var(--gray-800);
+}
+
+.table-container .header-container button {
+    cursor: pointer;
+    color: var(--blue-600);
+    font-weight: 500;
+    font-size: 0.875rem;
+    align-items: center;
+    display: inline-flex;
+    line-height: 1.25rem;
+    padding: 0.65rem .8rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: all ease-out .2s;
+    background-color: transparent;
+    border: 1px solid var(--gray-200);
+}
+
+.table-container .header-container button:hover {
+    background-color: var(--gray-100);
+}
+
+.table-container .content {
+    padding: 0;
+    width: 100%;
+    min-height: 0vh;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: visible;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.table-container .content .relative {
+    width: 100%;
+    height: auto;
+    position: relative;
+    align-items: center;
+    display: inline-flex;
+    justify-content: end;
+}
+
+.table-container .content .seeker {
+    width: 100%;
+    outline: none;
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    border-radius: .5rem;
+    padding: 0.5rem 0.75rem;
+    padding-inline-end: 2.75rem;
+    border: solid 1px var(--gray-200);
+    transition: all ease-in-out .2s;
+}
+
+.table-container .content .seeker:focus {
+    border: solid 1px var(--blue-500);
+}
+
+.table-container .content .icon-seeker {
+    top: 0;
+    right: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-top: .7rem;
+    margin-right: .9rem;
+    position: absolute;
+    color: var(--gray-400);
+}
+
+.table-container .content .overflow-table {
+    width: 100%;
+    height: 20rem;
+    overflow: auto;
+    margin-top: .5rem;
+    border-radius: .5rem;
+}
+
+.table-container .content table {
+    width: 100%;
+    border-top-width: 1px;
+    border-bottom-width: 0px;
+    border-collapse: collapse;
+}
+
+.table-container table thead {
+    background-color: var(--blue-100);
+}
+
+.table-container table tr {
+    border-bottom: 2px solid var(--gray-300);
+}
+
+.table-container table td span, .table-container table th {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: start;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.table-container table th {
+    padding: 0.4rem .25rem;
+    color: var(--gray-500);
+    line-height: 32px;
+}
+
+.table-container table td {
+    height: 2rem;
+    padding: .4rem .25rem;
+    color: var(--gray-700);
+}
+
+.table-container table th:nth-child(1), .table-container table td:nth-child(1) {
+    width: 5%;
+}
+
+.table-container table td:nth-child(1) span, .table-container table th:nth-child(1) {
+    text-align: center;
+}
+
+.table-container table th:nth-last-child(1), .table-container table td:nth-last-child(1) {
+    text-align: center;
+    text-overflow: clip;
+    vertical-align: middle;
+    width: 10%;
+}
+
+.table-container table .view-information {
+    cursor: pointer;
+    font-size: 1.05rem;
+    color: var(--gray-400);
+}
+
+.table-container table .view-information:hover {
+    color: var(--blue-400);
+}
+
+tr:not(.skeleton) {
+    animation: opacity .5s;
+}
+
+tr td span {
+    width: 100%;
+    display: block;
+    height: 1.25rem;
+    border-radius: .25rem;
+}
+
+tr.skeleton td span {
+    border-radius: .25rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+tr td .profile {
+    width: 10rem;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+}
+
+tr td .profile span {
+    width: calc(100% - 2.75rem);
+}
+
+tr.skeleton td i {
+    color: transparent !important;
+    border-radius: .25rem;
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+tr.skeleton td .profile .image {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+tr td .profile .image, tr td .profile .image img {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    border-radius: 50%;
+}
+
+tr td .profile .image {
+    margin-right: .25rem;
+    background-color: var(--gray-200);
+}
+
+tr td .profile .image img {
+    object-fit: cover;
+}
+
+tr td .profile .image.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;   
+}
+
+.table-container .count {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    align-content: start;
+    justify-content: end;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    margin-top: 1%;
+    padding: .7rem 1rem;
+}
+
+.table-container .count p {
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--gray-400);
+}
+
+.table-container .count p b {
+    color: var(--gray-800);
+    font-weight: 500;
+}
+
+.form-modal {
+    padding-top: 2.5rem;
+}
+
+.modal .form-modal .form-group.image-group label, .modal .form-modal .form-group.image-group img {
+    width: 7.5rem;
+    height: 7.5rem;
+    max-width: 7.5rem;
+    max-height: 7.5rem;
+    border-radius: 50%;
+}
+
+#modal-users .relative-content::after {
+    top: 0;
+    left: 0;
+    width: 100%;
+    content: '';
+    z-index: -1;
+    opacity: .2;
+    height: 100%;
+    position: absolute;
+    background-size: contain;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: url('/images/users.png');
+}
+
+@media (min-width: 640px) {
+    main .title-main {
+        margin-left: 1rem;
+        text-align: start;
+    }
+
+    .table-container .header-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 768px) {
+    .table-container table td, .table-container table th {
+        max-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-width: 1024px) {
+
+}
+
+@media (min-width: 1280px) {
+
+    main .content .table-container {
+        width: calc(50% - .25rem);
+    }
+
+    main .content .table-container:nth-child(1) .overflow-table {
+        height: 25rem;
+    }
+}
+
+@media (min-width: 1536px) {
+
+}

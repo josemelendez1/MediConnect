@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/user/css/index.css">
+    <link rel="stylesheet" href="/user/css/home.css">
+    <link rel="stylesheet" href="/user/css/call.css">
+    <link rel="stylesheet" href="/user/css/appointments.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/user/js/call.js"></script>
+    <script type="module" src="/user/js/appointments.js"></script>
+    <script type="module" src="/user/js/image-profile.js"></script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <title>Paciente | Citas</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menu">
+                <input type="checkbox" id="open-navbar">
+                <label class="show-navbar" for="open-navbar">
+                    <i class="fa-solid fa-bars"></i>
+                </label>
+                <section class="navbar">
+                    <label class="close-navbar" for="open-navbar">
+                        <i class="fa-solid fa-xmark"></i>
+                    </label>
+                    <div class="logo">
+                        <div class="image">
+                            <a href="/">
+                                <img src="/images/logo.jpg" alt="Logo de MediConnect" title="Logo de MediConnect">
+                            </a>
+                        </div>
+                        <h2>Medi<span>Connect</span></h2>
+                    </div>
+                    <ul>
+                        <li><a href="/paciente"><i class="fa-solid fa-calendar-check"></i> Citas</a></li>
+                        <li><a href="/paciente/historial"><i class="fa-solid fa-file-medical"></i> Registros Medicos</a></li>
+                    </ul>
+                </section>
+            </div>
+            <div class="profile">
+                <input type="checkbox" id="check-profile">
+                <label for="check-profile">
+                    <img id="profile-image" src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                </label>
+                <section class="dropdown-profile">
+                    <article class="profile-information">
+                        <p>Registrado como</p>
+                        <p class="email-profile"></p>
+                    </article>
+                    <article class="profile-link">
+                        <i class="fa-solid fa-user"></i>
+                        <a href="/paciente/perfil">Perfil de usuario</a>
+                    </article>
+                    <article class="profile-logout logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                        <a href="/sesion/cerrar/paciente">Cerrar Sesión</a>
+                    </article>  
+                </section>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="content">
+            <article class="container-appointment">
+                <div class="image-aside">
+                    <img src="/images/appointments.png" alt="Imagen de citas" title="Imagen de Citas">
+                </div>
+                <div id="content-appointment-patient" class="content">
+                    <h4 class="title">Datos de la cita <i class="fa-solid fa-clipboard-list"></i></h4>
+                    <div class="profile-patient">
+                        <h4>Paciente</h4>
+                        <div class="profile">
+                            <img src="/images/user-solid.jpg" alt="Imagen de Persona">
+                            <div class="text">
+                                <p class="name"></p>
+                                <p class="email"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-doctor">
+                        <h4>Doctor</h4>
+                        <div class="profile">
+                            <img src="/images/user-solid.jpg" alt="Imagen de Persona">
+                            <div class="text">
+                                <p class="name"></p>
+                                <p class="email"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fields-appointment">
+                        <div class="information">
+                            <p>Tipo de cita medica: <span id="type-appointment"></span></p>
+                            <p>Estado: <span id="state-appointment"></span></p>
+                            <p>Fecha: <span id="date-appointment"></span></p>
+                            <p>Hora: <span id="time-appointment"></span></p>
+                        </div>
+                        <p class="description">Razon: <span id="description-appointment"></span></p>
+                    </div>
+                    <button id="button-cancel-appointment" type="button" class="button-outline-red">Cancelar cita</button>
+                </div>
+            </article>
+            <h3 class="subtitle-appointment">Nueva Cita Medica</h3>
+            <article class="container-new-appointment">
+                <div class="container-calendar">
+                    <h4 class="title">Calendario - Selecciona una fecha <i class="fa-solid fa-calendar-day"></i></h4>
+                    <article class="calendar">
+                        <section class="header-calendar">
+                            <h3 id="title-calendar"></h3>
+                            <nav>
+                                <button id="prev-calendar" type="button"><i class="fa-solid fa-angle-left"></i></button>
+                                <button id="next-calendar" type="button"><i class="fa-solid fa-angle-right"></i></button>
+                            </nav>
+                        </section>
+                        <section class="content-calendar">
+                            <ul class="days-week">
+                                <li>Domingo</li>
+                                <li>Lunes</li>
+                                <li>Martes</li>
+                                <li>Miercoles</li>
+                                <li>Jueves</li>
+                                <li>Viernes</li>
+                                <li>Sabado</li>
+                            </ul>
+                            <ul class="dates-month"></ul>
+                        </section>
+                    </article>
+                    <p class="date-selected" id="date-selected">Fecha seleccionada: </p>
+                </div>
+                <form class="form-appointment" id="form-appointment" method="post">
+                    <div class="image-top"></div>
+                    <h4 class="title-form">Formulario de la cita medica <i class="fa-solid fa-clipboard-list"></i></h4>
+                    <section id="message-form" class="message"></section>
+                    <div class="form-group">
+                        <label class="form-label" for="type">Tipo de Cita Medica</label>
+                        <div class="relative">
+                            <select name="type" class="form-field">
+                                <option value="Cita de control">Cita de control</option>
+                                <option value="Cita preoperatoria">Cita preoperatoria</option>
+                                <option value="Cita de seguimiento">Cita de seguimiento</option>
+                                <option value="Cita por dolencia">Cita por dolencia</option>
+                                <option value="Cita de urgencia">Cita de urgencia</option>
+                                <option value="Medicina de familia">Medicina de familia</option>
+                                <option value="Pediatría">Pediatría</option>
+                                <option value="Enfermería">Enfermería</option>
+                                <option value="Matrona">Matrona</option>
+                                <option value="Odontología">Odontología</option>
+                                <option value="Trabajo social">Trabajo social</option>
+
+                            </select>
+                            <i class="fa-solid fa-circle-info form-icon"></i>
+                        </div>
+                        <p id="form-appointment-type-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="time">Hora de la cita</label>
+                        <div class="relative">
+                            <select name="time" class="form-field">
+                                <option value="06:00">6:00 AM</option>
+                                <option value="07:00">7:00 AM</option>
+                                <option value="08:00">8:00 AM</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM (Mediodia)</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                                <option value="17:00">05:00 PM</option>
+                            </select>
+                            <i class="fa-solid fa-clock form-icon"></i>
+                        </div>
+                        <p id="form-appointment-time-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reason">Razón</label>
+                        <div class="relative">
+                            <textarea name="reason" class="form-field" cols="30" rows="8"></textarea>
+                            <i class="fa-solid fa-message form-icon"></i>
+                        </div>
+                        <p id="form-appointment-reason-helper" class="helper"></p>
+                    </div>
+                    <div class="form-button">
+                        <button id="button-create-data" type="button" class="button-blue-rounded">Solicitar</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+        <section class="modal modal-call">
+            <article class="container-call">
+                <div class="header-call">
+                    <p class="date-call">12:00 PM</p>
+                    <div class="logo">
+                        <div class="image"><img src="/images/logo.jpg" alt="Logo de imagen"></div>
+                    </div>
+                </div>
+                <div class="content-call">
+                    <h4 class="title-call">LLamada Entrante</h4>
+                    <div class="profile-user"></div>
+                </div>
+                <div class="footer-call">
+                    <button id="button-accept-call" class="accept-call" type="button"><i class="fa-solid fa-phone"></i></button>
+                    <button id="button-cancel-call" class="cancel-call" type="button"><i class="fa-solid fa-phone fa-rotate-by" style="--fa-rotate-angle: 135deg;"></i></button>
+                </div>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <section class="contact">
+            <article class="logo">
+                <img src="/images/logo.png" alt="Logo de MediConnect">
+                <h2 class="name-logo">Medi<b>Connect</b></h2>
+            </article>  
+            <h3 class="title">Contacta con Nosotros</h3>
+            <a href="/">
+                <i class="fa-solid fa-location-dot"></i>
+                Localización
+            </a>
+            <a href="/">
+                <i class="fa-solid fa-phone"></i>
+                +57 301231312
+            </a>
+            <a href="/">
+                <i class="fa-solid fa-envelope"></i>
+                admin@gmail.com
+            </a>
+        </section>
+        <section class="doctors">
+            <h3 class="title">Doctores</h3>
+            <p>
+                El doctor debe tener la capacidad de comunicarse 
+                eficazmente con sus pacientes. Debe explicar los 
+                procedimientos y la terminología médica en un modo 
+                sencillo de entender.
+            </p>
+        </section>
+        <section class="links">
+            <h3 class="title">Enlaces Utiles</h3>
+            <a href="/">Enlace 1</a>
+            <a href="/">Enlace 2</a>
+            <a href="/">Enlace 3</a>
+            <a href="/">Enlace 4</a>
+        </section>
+        <section class="socials">
+            <h3 class="title">Redes Sociales</h3>
+            <a href="/">
+                <i class="fa-brands fa-facebook" style="color: #284bd7;"></i>
+                Facebook
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-square-twitter" style="color: #74C0FC;"></i>
+                Twitter
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-linkedin" style="color: #3061b5;"></i>
+                Linkedin
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-square-instagram" style="color: #8665ec;"></i>
+                Instagram
+            </a>
+        </section>
+        <section class="copy">
+            <p>2024© Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</body>
+</html>

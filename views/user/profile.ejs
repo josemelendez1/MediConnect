@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/user/css/index.css">
+    <link rel="stylesheet" href="/user/css/home.css">
+    <link rel="stylesheet" href="/user/css/profile.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/user/js/image-profile.js"></script>
+    <script type="module" src="/user/js/profile.js"></script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <title>Paciente | Perfil</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menu">
+                <input type="checkbox" id="open-navbar">
+                <label class="show-navbar" for="open-navbar">
+                    <i class="fa-solid fa-bars"></i>
+                </label>
+                <section class="navbar">
+                    <label class="close-navbar" for="open-navbar">
+                        <i class="fa-solid fa-xmark"></i>
+                    </label>
+                    <div class="logo">
+                        <div class="image">
+                            <a href="/">
+                                <img src="/images/logo.jpg" alt="Logo de MediConnect" title="Logo de MediConnect">
+                            </a>
+                        </div>
+                        <h2>Medi<span>Connect</span></h2>
+                    </div>
+                    <ul>
+                        <li><a href="/paciente/"><i class="fa-solid fa-calendar-check"></i> Citas</a></li>
+                        <li><a href="/paciente/historial"><i class="fa-solid fa-file-medical"></i> Registros Medicos</a></li>
+                    </ul>
+                </section>
+            </div>
+            <div class="profile">
+                <input type="checkbox" id="check-profile">
+                <label for="check-profile">
+                    <img id="profile-image" src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                </label>
+                <section class="dropdown-profile">
+                    <article class="profile-information">
+                        <p>Registrado como</p>
+                        <p class="email-profile"></p>
+                    </article>
+                    <article class="profile-link">
+                        <i class="fa-solid fa-user"></i>
+                        <a href="/paciente/perfil">Perfil de usuario</a>
+                    </article>
+                    <article class="profile-logout logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                        <a href="/sesion/cerrar/paciente">Cerrar Sesión</a>
+                    </article>  
+                </section>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="content">
+            <article class="profile">
+                <section class="form-image">
+                    <form id="form-image-patient" method="post">
+                        <label for="input-image" class="label-image">
+                            <img class="image-form image-profile" src="/images/user-solid.jpg" alt="Imagen de Perfil">
+                        </label>
+                        <input class="input-image" type="file" accept=".png, .jpg, .jpeg, .svg" name="image" id="input-image">
+                        <div class="buttons">
+                            <button id="button-upload-image" type="button" class="button-outline-gray">
+                                <i class="fa-solid fa-upload"></i>
+                                Subir imagen de perfil
+                            </button>
+                            <button id="button-delete-image" type="button" class="button-outline-gray text-red">
+                                <i class="fa-solid fa-trash"></i>
+                                Borrar
+                            </button>
+                        </div>
+                        <p id="form-image-patient-image-helper" class="helper"></p>
+                    </form>
+                </section>
+                <section class="form-data">
+                    <form id="profile-patient" method="POST">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nombre</label>
+                            <div class="relative">
+                                <input type="text" name="name" class="form-field">
+                                <i class="fa-solid fa-user form-icon"></i>
+                            </div>
+                            <p id="profile-patient-name-helper" class="helper"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Correo Electronico</label>
+                            <div class="relative">
+                                <input type="email" name="email" class="form-field" autocomplete="email">
+                                <i class="fa-solid fa-at form-icon"></i>
+                            </div>
+                            <p id="profile-patient-email-helper" class="helper"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="extension-telephone" class="form-label">Teléfono del país</label>
+                            <div class="relative">
+                                <select name="extension" class="extension-phone-number form-field" autocomplete="tel-country-code"></select>
+                                <i class="fa-solid fa-globe form-icon"></i>
+                            </div>
+                            <p id="profile-patient-extension-helper" class="helper"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" class="form-label">Telefono</label>
+                            <div class="relative">
+                                <input type="tel" name="telephone" class="form-field">
+                                <i class="fa-solid fa-phone form-icon"></i>
+                            </div>
+                            <p id="profile-patient-telephone-helper" class="helper"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthdate" class="form-label">Fecha de Nacimiento</label>
+                            <div class="relative">
+                                <input type="date" name="birthdate" class="form-field">
+                                <i class="fa-solid fa-calendar-day form-icon"></i>
+                            </div>
+                            <p id="profile-patient-birthdate-helper" class="helper"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass" class="form-label">Contraseña</label>
+                            <div class="relative">
+                                <input type="password" name="pass" class="form-field">
+                                <i class="fa-solid fa-lock form-icon"></i>
+                            </div>
+                            <p id="profile-patient-pass-helper" class="helper"></p>
+                        </div>
+                        <div class="form-button">
+                            <button id="button-update-data" class="button-rounded-blue" type="button">Actualizar</button>
+                        </div>
+                    </form>
+                    <article class="information-dates">
+                        <p>Cuenta creada el <b>?</b></p>
+                        <p>Ultima actualización: <b>?</b></p>
+                    </article>
+                </section>
+                <section id="form-message" class="form-message">
+                </section>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <section class="contact">
+            <article class="logo">
+                <img src="/images/logo.png" alt="Logo de MediConnect">
+                <h2 class="name-logo">Medi<b>Connect</b></h2>
+            </article>  
+            <h3 class="title">Contacta con Nosotros</h3>
+            <a href="/">
+                <i class="fa-solid fa-location-dot"></i>
+                Localización
+            </a>
+            <a href="/">
+                <i class="fa-solid fa-phone"></i>
+                +57 301231312
+            </a>
+            <a href="/">
+                <i class="fa-solid fa-envelope"></i>
+                admin@gmail.com
+            </a>
+        </section>
+        <section class="doctors">
+            <h3 class="title">Doctores</h3>
+            <p>
+                El doctor debe tener la capacidad de comunicarse 
+                eficazmente con sus pacientes. Debe explicar los 
+                procedimientos y la terminología médica en un modo 
+                sencillo de entender.
+            </p>
+        </section>
+        <section class="links">
+            <h3 class="title">Enlaces Utiles</h3>
+            <a href="/">Enlace 1</a>
+            <a href="/">Enlace 2</a>
+            <a href="/">Enlace 3</a>
+            <a href="/">Enlace 4</a>
+        </section>
+        <section class="socials">
+            <h3 class="title">Redes Sociales</h3>
+            <a href="/">
+                <i class="fa-brands fa-facebook" style="color: #284bd7;"></i>
+                Facebook
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-square-twitter" style="color: #74C0FC;"></i>
+                Twitter
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-linkedin" style="color: #3061b5;"></i>
+                Linkedin
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-square-instagram" style="color: #8665ec;"></i>
+                Instagram
+            </a>
+        </section>
+        <section class="copy">
+            <p>2024© Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</body>
+</html>

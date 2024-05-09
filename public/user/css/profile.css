@@ -1,0 +1,297 @@
+main .content {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    position: relative;
+}
+
+main .content .profile {
+    padding: .5rem;
+    padding-top: 2.5rem;
+    overflow: hidden;
+    position: relative;
+    border-radius: .5rem;
+    background-color: var(--gray-50);
+    border: 2px solid var(--gray-100);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+main .content .profile::after {
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5rem;
+    opacity: .8;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('/images/modal-administrator-background.svg');
+}
+
+main .content .profile .form-image {
+    display: block;
+}
+
+main .content .profile .form-image form {
+    z-index: 1;
+    padding: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: start;
+    justify-content: center;
+    position: relative;
+}
+
+main .content .profile .form-image form .helper {
+    display: block;
+    margin-top: .5rem;
+    text-align: center;
+}
+
+main .content .profile .form-image .buttons {
+    display: block;
+    text-align: center;
+}
+
+main .content .profile .form-image form input {
+    display: none;
+}
+
+main .content .profile .form-image form label {
+    cursor: pointer;
+}
+
+main .content .profile .form-image img {
+    width: 7rem;
+    height: 7rem;
+    max-width: 7rem;
+    max-height: 7rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid white;
+    background-color: var(--gray-100);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.button-rounded-blue {
+    width: 100%;
+    color: white;
+    cursor: pointer;
+    padding: .5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    column-gap: 0.5rem;
+    font-weight: 400;
+    border-radius: .25rem;
+    border: 1px solid transparent;
+    transition: all ease-in-out .2s;
+    background-color: var(--blue-600);
+}
+
+.button-rounded-blue:hover {
+    background-color: var(--blue-700);
+}
+
+.text-red {
+    color: rgb(239 68 68) !important;
+}
+
+main .content .profile .form-data {
+    margin-top: 0.5rem;
+}
+
+main .content .profile .form-data form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: start;
+    justify-content: start;
+}
+
+main .content .profile .form-data form .form-group, .form-data form .form-button {
+    width: 100%;
+}
+
+.form-data form .form-button {
+    margin-top: 1rem;
+}
+
+.form-data form .form-group .form-label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-top: 0.625rem;
+    display: inline-block;
+    color: var(--gray-800);
+}
+
+.form-data form .form-group .form-field {
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.form-data .information-dates {
+    width: 100%;
+    margin-top: .5rem;
+}
+
+.form-data .information-dates p {
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    color: var(--gray-400);
+    margin-top: .25rem;
+}
+
+.helper {
+    font-size: .800rem;
+}
+
+.form-message {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -100;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    transition: all ease-out .2s;
+    background-color: rgba(241, 245, 249, .6);
+}
+
+.form-message.message-open {
+    opacity: 1;
+    z-index: 100;
+}
+
+.form-message .content {
+    display: block;
+    width: 92.5%;
+    height: auto !important;
+    min-height: auto !important;
+    text-align: center;
+    border-radius: .5rem;
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.form-message .content i {
+    font-size: 3rem;
+    margin-top: 1rem;
+}
+
+.form-message .content h3 {
+    font-size: 1.5rem;
+    color: var(--gray-600);
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.form-message .content p {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: var(--gray-800);
+    font-weight: 500;
+    margin-top: .5rem;
+}
+
+.form-message .content button {
+    margin-top: 1rem;
+    padding: .5rem 1.25rem;
+    background-color: var(--blue-400);
+    border-radius: .25rem;
+    border: transparent;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: white;
+}
+
+.form-message .content h3, .form-message .content p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@media (min-width: 640px) {
+    .form-message .content {
+        width: 50%;
+    }
+}
+
+@media (min-width: 768px) {
+    main .content .profile .form-image form {
+        justify-content: start;
+    }
+
+    main .content .profile .form-image form .button-outline-gray:nth-child(1) {
+        margin-left: .5rem;
+    }
+
+    main .content .profile .form-data form {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    main .content .profile .form-data form .form-group {
+        width: 100%;
+    }
+
+    .form-data form .form-button {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .form-data .form-button .button-rounded-blue {
+        width: auto;
+    }
+
+    main .content .profile .form-image form .helper {
+        text-align: start;
+        margin-top: 0;
+        margin-left: .5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    main .content .profile .form-data form .form-group:nth-child(1), main .content .profile .form-data form .form-group:nth-child(2),
+    main .content .profile .form-data form .form-group:nth-child(5) {
+        width: calc(50% - .5rem);
+    }
+
+    main .content .profile .form-data form .form-group:nth-child(3), main .content .profile .form-data form .form-group:nth-child(4) {
+        width: calc(25% - .75rem);
+    }
+
+    .form-data form .form-button {
+        width: 100%;
+        text-align: end;
+    }
+
+    .form-message .content {
+        width: 30%;
+    }
+}
+
+@media (min-width: 1280px) {
+    .form-message .content {
+        width: 25%;
+    }
+}
+
+@media (min-width: 1536px) {
+    .form-message .content {
+        width: 20%;
+    }
+}

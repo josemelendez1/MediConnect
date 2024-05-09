@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+header {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header-left {
+    width: 50%;
+    gap: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+header .header-right {
+    gap: .25rem;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    width: 100%;
+    gap: 1rem;
+    display: flex;
+    margin-top: 2rem;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main .header-main {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main .header-main .title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+main .header-main small {
+    width: 80%;
+}
+
+main .content-main {
+    gap: 1rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-left img {
+    width: 4rem;
+    height: 4rem;
+    border: 1px solid #d1d5db;
+    object-fit: cover;
+}
+
+p.bold {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+}
+
+p.bold span {
+    font-weight: 400;
+}
+
+h3.subtitle {
+    font-weight: 500;
+    margin-bottom: .5rem;
+    text-decoration: underline;
+}
+
+p.description {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.profile {
+    gap: .25rem;
+    width: 100%;
+    padding: .5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid #9ca3af;
+}
+
+.profile p.bold {
+    width: calc(50% - .125rem);
+}
+
+.medicaments {
+    width: 100%;
+    display: block;
+}
+
+.container-table {
+    gap: .5rem;
+    width: 100%;
+    display: flex;
+    margin-top: 1.5rem;
+    align-items: center;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.container-table .title-table {
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+.container-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #9ca3af;
+}
+
+.container-table table tr {
+    border-bottom: 1px solid #9ca3af;
+}
+
+.container-table table tr th, .container-table table tr td {
+    padding: .35rem;
+    font-size: .875rem;
+    text-align: center;
+    border-right: 1px solid #9ca3af;
+}
+
+.container-table table tr td:nth-child(3) {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.container-table table tr :nth-child(1), .container-table table tr :nth-child(2) {
+    width: 15%;
+}
+
+footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+}
+
+footer a {
+    cursor: pointer;
+    font-size: .9rem;
+    font-weight: 400;
+    text-decoration: none;
+    text-transform: uppercase;
+}

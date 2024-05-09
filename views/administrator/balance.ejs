@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/administrator/css/index.css">
+    <link rel="stylesheet" href="/administrator/css/balance.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/screen.js"></script>
+    <script src="/navbar.js"></script>
+    <script type="module" src="/administrator/js/balance.js"></script>
+    <script type="module" src="/administrator/js/profile-image.js"></script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <title>Administrador | Balance</title>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <section>
+                <article class="menu-content">
+                    <div id="menu"><i class="fa-solid fa-bars"></i></div>
+                </article>
+                <article>
+                    <div id="buttonScreen"><i class="fa-solid fa-expand"></i></div>
+                </article>
+                <article class="profile">
+                    <input type="checkbox" id="check-profile">
+                    <label for="check-profile">
+                        <img src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                    </label>
+                    <section class="dropdown-profile">
+                        <article class="profile-information">
+                            <p>Registrado como</p>
+                            <p class="email-profile"></p>
+                        </article>
+                        <article class="profile-link">
+                            <i class="fa-solid fa-user"></i>
+                            <a href="/administrador/perfil">Perfil de usuario</a>
+                        </article>
+                        <article class="profile-logout logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                            <a href="/sesion/cerrar/administrador">Cerrar Sesión</a>
+                        </article>  
+                    </section>
+                </article>
+            </section>
+        </nav>
+    </header>
+    <aside id="navbar">
+        <section class="header">
+            <img src="/images/logo.jpg" alt="Imagen de logo" class="logo">
+            <h1>MEDI<span>CONNECT</span></h1>
+        </section>
+        <article class="item-nav">
+            <i class="fa-solid fa-house"></i>
+            <a href="/administrador">Inicio</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-prescription-bottle-medical"></i>
+            <a href="/administrador/medicinas">Medicinas</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-virus"></i>
+            <a href="/administrador/enfermedades">Enfermedades</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-users"></i>
+            <a href="/administrador/usuarios">Usuarios</a>
+        </article>
+        <article class="item-nav select">
+            <i class="fa-solid fa-chart-simple"></i>
+            <a href="/administrador/balance">Balance</a>
+        </article>
+        <section class="footer-aside">
+            <div class="content logout">
+                <a href="/sesion/cerrar/administrador">
+                    <p>Cerrar Sesión</p>
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                </a>
+            </div>
+        </section>
+    </aside>
+    <div id="shadow" class="shadow"></div>
+    <main id="main">
+        <section class="content">
+            <h2 class="title">Balances Generales</h2>
+            <article class="container-balances">
+                <section id="balance-1" class="balance">
+                    <article class="header-balance">
+                        <p>Balance del total de citas semanal.</p>
+                        <div class="download"><i class="fa-solid fa-download"></i></div>
+                        <div class="toggle-visible"><i class="fa-solid fa-minus"></i></div>
+                        <div class="close"><i class="fa-solid fa-xmark"></i></div>
+                    </article>
+                    <article class="content-balance">
+                        <canvas></canvas>
+                    </article>
+                </section>
+                <section id="balance-2" class="balance">
+                    <article class="header-balance">
+                        <p>Balance del total de citas por usuario.</p>
+                        <div class="download"><i class="fa-solid fa-download"></i></div>
+                        <div class="toggle-visible"><i class="fa-solid fa-minus"></i></div>
+                        <div class="close"><i class="fa-solid fa-xmark"></i></div>
+                    </article>
+                    <article class="content-balance">
+                        <canvas></canvas>
+                    </article>
+                </section>
+                <section id="balance-3" class="balance">
+                    <article class="header-balance">
+                        <p>Balance de los medicamentos mas utilizados.</p>
+                        <div class="download"><i class="fa-solid fa-download"></i></div>
+                        <div class="toggle-visible"><i class="fa-solid fa-minus"></i></div>
+                        <div class="close"><i class="fa-solid fa-xmark"></i></div>
+                    </article>
+                    <article class="content-balance">
+                        <canvas></canvas>
+                    </article>
+                </section>
+                <section id="balance-4" class="balance">
+                    <article class="header-balance">
+                        <p>Balance de las enfermedades mas frecuentes.</p>
+                        <div class="download"><i class="fa-solid fa-download"></i></div>
+                        <div class="toggle-visible"><i class="fa-solid fa-minus"></i></div>
+                        <div class="close"><i class="fa-solid fa-xmark"></i></div>
+                    </article>
+                    <article class="content-balance">
+                        <canvas></canvas>
+                    </article>
+                </section>
+            </article>
+        </section>
+    </main>
+    <footer id="footer">
+        <section class="content">
+            <article class="references">
+                <div class="start">
+                    <p>Terminos y Condiciones</p>
+                    <p>Politica de Privacidad</p>
+                    <p>Licencia</p>
+                </div>
+                <div class="end">
+                    <i class="fa-solid fa-at"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </article>
+            <article class="copyright">
+                <p>© 2024 - <span id="copyright-date">2024</span> copyright. Todos los derechos resevados.</p>
+            </article>
+        </section>
+    </footer>
+</body>
+</html>

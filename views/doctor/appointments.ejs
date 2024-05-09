@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/doctor/css/index.css">
+    <link rel="stylesheet" href="/doctor/css/appointments.css">
+    <link rel="stylesheet" href="/doctor/css/video-chat.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/screen.js"></script>
+    <script src="/seeker.js"></script>
+    <script src="/navbar.js"></script>
+    <script type="module" src="/doctor/js/image-profile.js"></script>
+    <script type="module" src="/doctor/js/appointments.js"></script>
+    <script type="module" src="/doctor/js/record-medical.js"></script>
+    <script type="module" src="/doctor/js/recipe.js"></script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+
+    <!-- multi-select-tag -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css">
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+    <!-- end multi-select-tag -->
+    <title>Doctor | Citas</title>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <section>
+                <article class="menu-content">
+                    <div id="menu"><i class="fa-solid fa-bars"></i></div>
+                </article>
+                <article>
+                    <div id="buttonScreen"><i class="fa-solid fa-expand"></i></div>
+                </article>
+                <article class="profile">
+                    <input type="checkbox" id="check-profile">
+                    <label for="check-profile">
+                        <img id="profile-image" src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                    </label>
+                    <section class="dropdown-profile">
+                        <article class="profile-information">
+                            <p>Registrado como</p>
+                            <p class="email-profile"></p>
+                        </article>
+                        <article class="profile-link">
+                            <i class="fa-solid fa-user"></i>
+                            <a href="/doctor/perfil">Perfil de usuario</a>
+                        </article>
+                        <article class="profile-logout logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                            <a href="/sesion/cerrar/doctor">Cerrar Sesión</a>
+                        </article>  
+                    </section>
+                </article>
+            </section>
+        </nav>
+    </header>
+    <aside id="navbar">
+        <section class="header">
+            <img src="/images/logo.jpg" alt="Imagen de logo" class="logo">
+            <h1>MEDI<span>CONNECT</span></h1>
+        </section>
+        <article class="item-nav">
+            <i class="fa-solid fa-prescription-bottle-medical"></i>
+            <a href="/doctor/">Medicinas</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-virus"></i>
+            <a href="/doctor/enfermedades">Enfermedades</a>
+        </article>
+        <article class="item-nav select">
+            <i class="fa-solid fa-calendar-days"></i>
+            <a href="/doctor/citas">Citas Agendadas</a>
+        </article>
+        <section class="footer-aside">
+            <div class="content logout">
+                <a href="/sesion/cerrar/doctor">
+                    <p>Cerrar Sesión</p>
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                </a>
+            </div>
+        </section>
+    </aside>
+    <div id="shadow" class="shadow"></div>
+    <main id="main">
+        <section class="content">
+            <article class="header-content">
+                <h2 class="title">Citas Medicas Asignadas</h2>
+                <button id="button-print-table" type="button" class="button-outline-blue">Imprimir</button>
+            </article>
+            <article class="appointments-container">
+                <section class="seeker-appointments">
+                    <div class="relative">
+                        <input type="text" name="seeker-appointments" id="seeker-appointments" placeholder="Buscar por tipo de cita">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div class="relative">
+                        <input type="date" name="seeker-date-appointments" id="seeker-date-appointments">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                </section>
+                <section class="container-table-appointments">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Paciente</th>
+                                <th>Telefono</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Tipo</th>
+                                <th>Información</th>
+                                <th>Videoconferencia</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-appointments"></tbody>
+                    </table>
+                </section>
+            </article>
+        </section>
+        <section id="form-hidden" class="hidden"></section>
+    </main>
+    <article id="modal-record-recipe" class="modal">
+        <div class="container">
+            <input id="open-content" type="checkbox" class="hidden">
+            <article class="content-record">
+                <form class="form-record" id="form-record">
+                    <div class="content-form">
+                        <i class="fa-solid fa-xmark icon-close close-modal-record-recipe"></i>
+                        <div class="header-form">
+                            <img src="/images/logo.png" class="logo" alt="Imagen de logo" title="Logo de Mediconnect">
+                            <h2 class="title">Registro Medico</h2>
+                            <p class="subtitle">Mantener un registro sistemático de los datos recopilados de diagnóstico, tratamiento y evolución de los problemas de salud. <label for="open-content">Mostrar receta</label></p>
+                            <button id="button-print-medical-record" class="button-outline-blue" type="button">Imprimir <i class="fa-solid fa-print"></i></button>
+                        </div>
+                        <div class="message" id="message-record"></div>
+                        <div class="form-group group-patient"></div>
+                        <div class="form-group group-doctor"></div>
+                        <div class="form-group">
+                            <label class="form-label" for="diseases">Enfermedades</label>
+                            <select name="diseases" id="select-diseases" class="optional" multiple></select>
+                            <p id="form-record-diseases-helper" class="helper"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="risk">Nivel de Riesgo</label>
+                            <div class="relative">
+                                <select name="risk" class="form-field" required>
+                                    <option value="" selected disabled hidden>Selecciona una opción</option>
+                                    <option value="1">Bajo Riesgo</option>
+                                    <option value="2">Riesgo Moderado</option>
+                                    <option value="3">Riesgo Alto</option>
+                                    <option value="4">Muy Alto Riesgo</option>
+                                </select>
+                                <i class="fa-solid fa-layer-group icon-input"></i>
+                            </div>
+                            <p id="form-record-risk-helper" class="helper"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="reason">Razon de registro medico</label>
+                            <div class="relative">
+                                <textarea name="reason" cols="30" rows="8" class="form-field"></textarea>
+                                <i class="fa-solid fa-message icon-input"></i>
+                            </div>
+                            <p id="form-record-reason-helper" class="helper"></p>
+                        </div>
+                        <button id="button-save-record" class="button-blue-rounded w-100" type="button">Guardar</button>
+                    </div>
+                </form>
+                <div class="image-aside">
+                    <img src="/images/medical-record.png" alt="Imagen de registro medico" title="Registro Medico">
+                </div>
+            </article>
+            <article class="content-recipe">
+                <div class="image-aside">
+                    <img src="/images/recipe.png" alt="Imagen de receta" title="Receta">
+                </div>
+                <form class="form-recipe" id="form-recipe">
+                    <div class="content-form">
+                        <i class="fa-solid fa-xmark icon-close close-modal-record-recipe"></i>
+                        <div class="header-form">
+                            <img src="/images/logo.png" class="logo" alt="Imagen de logo" title="Logo de Mediconnect">
+                            <h2 class="title">Receta Medica</h2>
+                            <p class="subtitle">Mantener un registro sistemático de los datos recopilados de diagnóstico, tratamiento y evolución de los problemas de salud. <label for="open-content">Mostrar registro medico</label></p>
+                            <button id="button-print-recipe" class="button-outline-blue" type="button">Imprimir <i class="fa-solid fa-print"></i></button>
+                        </div>
+                        <div class="message" id="message-recipe"></div>
+                        <div class="form-group group-patient"></div>
+                        <div class="form-group group-doctor"></div>
+                        <div class="form-group">
+                            <label class="form-label" for="diseases">Medicamentos</label>
+                            <select name="medicines" id="select-medicines" class="optional" multiple></select>
+                            <p id="form-recipe-medicines-helper" class="helper"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="preescription">Preescripción</label>
+                            <div class="relative">
+                                <textarea name="preescription" cols="30" rows="12" class="form-field"></textarea>
+                                <i class="fa-solid fa-message icon-input"></i>
+                            </div>
+                            <p id="form-recipe-preescription-helper" class="helper"></p>
+                        </div>
+                        <button id="button-save-recipe" class="button-blue-rounded w-100" type="button">Guardar</button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </article>
+    <article id="modal-call" class="modal">
+        <div class="container container-video">
+            <div class="content-video-left">
+                <div class="container-video-relative">
+                    <video id="video-data"></video>
+                    <div class="options">
+                        <button id="toggle-microphone" type="button"><i class="fa-solid fa-microphone"></i></button>
+                        <button id="toggle-camera" type="button"><i class="fa-solid fa-video"></i></button>
+                    </div>
+                    <div class="template-video"></div>
+                </div>
+            </div>
+            <div class="content-video-right">
+                <h3 class="title">Llamando a</h3>
+                <div class="content">
+                    <div class="profile-call-person"></div>
+                    <button id="hide-call" type="button" class="button-red-rounded"><i class="fa-solid fa-phone fa-rotate-by" style="--fa-rotate-angle: 135deg;"></i></button>
+                </div>
+                <div class="footer-content-video">
+                    <p class="date-call"></p>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer id="footer">
+        <section class="content">
+            <article class="references">
+                <div class="start">
+                    <p>Terminos y Condiciones</p>
+                    <p>Politica de Privacidad</p>
+                    <p>Licencia</p>
+                </div>
+                <div class="end">
+                    <i class="fa-solid fa-at"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </article>
+            <article class="copyright">
+                <p>© 2024 - <span id="copyright-date">2024</span> copyright. Todos los derechos resevados.</p>
+            </article>
+        </section>
+    </footer>
+</body>
+</html>

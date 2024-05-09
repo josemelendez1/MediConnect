@@ -1,0 +1,157 @@
+main .content{
+    padding: 1rem;
+}
+
+main .content .title {
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    margin-bottom: .5rem;
+}
+
+main .content .container-balances {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.container-balances .balance {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin-top: .8rem;
+    border-radius: .25rem;
+    background-color: white;
+    transition: all ease-out .3s;
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.container-balances .balance.balance-close {
+    width: 0;
+    height: 0;
+    box-shadow: none;
+    border: none;
+    margin-left: 0;
+}
+
+.container-balances .balance .header-balance {
+    width: 100%;
+    padding: .65rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.container-balances .balance .header-balance p {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 5rem;
+    font-weight: 500;
+    color: var(--gray-800);
+    font-size: .975rem;
+}
+
+.container-balances .balance .header-balance .download {
+    cursor: pointer;
+    margin-right: .75rem;
+}
+
+.container-balances .balance .header-balance .download i {
+    color: var(--gray-700);
+}
+
+.container-balances .balance .header-balance .download i:hover {
+    color: var(--blue-700);
+}
+
+.container-balances .balance .header-balance .toggle-visible {
+    cursor: pointer;
+    margin-right: .75rem;
+}
+
+.container-balances .balance .header-balance .close {
+    cursor: pointer;
+}
+
+.container-balances .balance:nth-child(1) .header-balance {
+    background-color: var(--blue-100);
+}
+
+.container-balances .balance:nth-child(2) .header-balance {
+    background-color: var(--blue-200);
+}
+
+.container-balances .balance:nth-child(3) .header-balance {
+    background-color: var(--blue-300);
+}
+
+.container-balances .balance:nth-child(4) .header-balance {
+    background-color: var(--blue-400);
+}
+
+.container-balances .balance .content-balance {
+    opacity: 1;
+    width: 100%;
+    height: 25rem;
+    display: block;
+    padding: .5rem;
+    max-height: 25rem;
+    transition: all ease-out .3s;
+}
+
+.container-balances .balance .content-balance.balance-minus {
+    height: 0;
+    padding: 0;
+    max-height: 0;
+}
+
+.container-balances .balance .content-balance canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.container-balances .balance .content-balance canvas.hide-canvas {
+    display: none;
+}
+
+@media (min-width: 640px) {
+
+}
+
+@media (min-width: 768px) {
+    main .content .title {
+        text-align: initial;
+    }
+
+    .container-balances .balance {
+        width: calc(50% - .8rem);
+        margin-left: .8rem;
+    }
+
+    .container-balances .balance:nth-child(1n) .header-balance {
+        background-color: var(--blue-100);
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-balances .balance .content-balance {
+        height: 30rem;
+        max-height: 30rem;
+    }
+}
+
+@media (min-width: 1280px) {
+
+}
+
+@media (min-width: 1536px) {
+
+}

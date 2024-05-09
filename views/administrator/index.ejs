@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="/administrator/css/index.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/screen.js"></script>
+    <script src="/navbar.js"></script>
+    <script type="module" src="/administrator/js/stats.js"></script>
+    <script type="module" src="/administrator/js/carrousel.js"></script>
+    <script type="module" src="/administrator/js/profile-image.js"></script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <title>Administrador | Inicio</title>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <section>
+                <article class="menu-content">
+                    <div id="menu"><i class="fa-solid fa-bars"></i></div>
+                </article>
+                <article>
+                    <div id="buttonScreen"><i class="fa-solid fa-expand"></i></div>
+                </article>
+                <article class="profile">
+                    <input type="checkbox" id="check-profile">
+                    <label for="check-profile">
+                        <img id="profile-image" src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                    </label>
+                    <section class="dropdown-profile">
+                        <article class="profile-information">
+                            <p>Registrado como</p>
+                            <p class="email-profile"></p>
+                        </article>
+                        <article class="profile-link">
+                            <i class="fa-solid fa-user"></i>
+                            <a href="/administrador/perfil">Perfil de usuario</a>
+                        </article>
+                        <article class="profile-logout logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                            <a href="/sesion/cerrar/administrador">Cerrar Sesión</a>
+                        </article>  
+                    </section>
+                </article>
+            </section>
+        </nav>
+    </header>
+    <aside id="navbar">
+        <section class="header">
+            <img src="/images/logo.jpg" alt="Imagen de logo" class="logo">
+            <h1>MEDI<span>CONNECT</span></h1>
+        </section>
+        <article class="item-nav select">
+            <i class="fa-solid fa-house"></i>
+            <a href="/administrador">Inicio</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-prescription-bottle-medical"></i>
+            <a href="/administrador/medicinas">Medicinas</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-virus"></i>
+            <a href="/administrador/enfermedades">Enfermedades</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-users"></i>
+            <a href="/administrador/usuarios">Usuarios</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-chart-simple"></i>
+            <a href="/administrador/balance">Balance</a>
+        </article>
+        <section class="footer-aside">
+            <div class="content logout">
+                <a href="/sesion/cerrar/administrador">
+                    <p>Cerrar Sesión</p>
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                </a>
+            </div>
+        </section>
+    </aside>
+    <div id="shadow" class="shadow"></div>
+    <main id="main">
+        <section class="content">
+            <article class="stats">
+                <section class="card-stats">
+                    <article class="content-stat">
+                        <div class="text-stat">
+                            <h3 class="count-stat" id="count-users-stat">0</h3>
+                            <p class="subititle">Usuarios totales.</p>
+                        </div>
+                        <div class="img-stat">
+                            <img src="/images/users-line-solid.svg" alt="Imagen de usuarios">
+                        </div>
+                    </article>
+                    <a href="/administrador/usuarios" class="footer-stat">
+                        <p>Mas información</p>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </section>
+                <section class="card-stats">
+                    <article class="content-stat">
+                        <div class="text-stat">
+                            <h3 id="count-medicines-stat">0</h3>
+                            <p>Medicamentos totales.</p>
+                        </div>
+                        <div class="img-stat">
+                            <img src="/images/bottle-medical-solid.svg" alt="Imagen de usuarios">
+                        </div>
+                    </article>
+                    <a href="/administrador/medicinas" class="footer-stat">
+                        <p>Mas información</p>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </section>
+                <section class="card-stats">
+                    <article class="content-stat">
+                        <div class="text-stat">
+                            <h3 id="count-diseases-stat">0</h3>
+                            <p>Enfermedades totales.</p>
+                        </div>
+                        <div class="img-stat">
+                            <img src="/images/square-virus-solid.svg" alt="Imagen de usuarios">
+                        </div>
+                    </article>
+                    <a href="/administrador/enfermedades" class="footer-stat">
+                        <p>Mas información</p>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </section>
+                <section class="card-stats">
+                    <article class="content-stat">
+                        <div class="text-stat">
+                            <h3 id="count-appointments-stat">0</h3>
+                            <p>Citas totales.</p>
+                        </div>
+                        <div class="img-stat">
+                            <img src="/images/calendar-check-solid.svg" alt="Imagen de usuarios">
+                        </div>
+                    </article>
+                    <a href="/administrador" class="footer-stat">
+                        <p>Mas información</p>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </section>
+            </article>
+            <section class="carrousel">
+                <article class="slider-cards">
+                </article>
+                <template id="template-slider-card">
+                    <div class="slider-card skeleton-slider-card"></div>
+                </template>
+                <article class="slider-info">
+                    <button id="button-delete-image-carrousel" class="button-outline-red text-red bg-white">Eliminar Imagen</button>
+                </article>
+            </section>
+        </section>
+    </main>
+    <footer id="footer">
+        <section class="content">
+            <article class="references">
+                <div class="start">
+                    <p>Terminos y Condiciones</p>
+                    <p>Politica de Privacidad</p>
+                    <p>Licencia</p>
+                </div>
+                <div class="end">
+                    <i class="fa-solid fa-at"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </article>
+            <article class="copyright">
+                <p>© 2024 - <span id="copyright-date">2024</span> copyright. Todos los derechos resevados.</p>
+            </article>
+        </section>
+    </footer>
+</body>
+</html>

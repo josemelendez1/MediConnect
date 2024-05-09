@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/user/css/index.css">
+    <link rel="stylesheet" href="/user/css/register.css">
+    <script type="module" src="/user/js/index.js"></script>
+    <script type="module" src="/user/js/session.js"></script>
+    <script type="module" src="/user/js/register.js"></script>
+    <script type="module" src="/user/js/carrousel.js"></script>
+    <title>MEDICONNECT</title>
+</head>
+<body>
+    <header> 
+        <nav>
+            <div class="logo">
+                <img src="/images/logo.jpg" alt="Imagen de logo" title="MediConnect Logo">
+            </div>
+            <ul>
+                <li>
+                    <p>Acceder como</p><i class="fa-solid fa-angle-down"></i>
+                    <ul class="sub-menu">
+                        <li class="button-session" data-id="patient">Paciente</li>
+                        <li class="button-session" data-id="doctor">Doctor</li>
+                        <li class="button-session" data-id="assistant">Asistente</li>
+                        <li class="button-session" data-id="administrator">Administrador</li>
+                    </ul>
+                </li>
+                <li id="button-show-register"><p>Registrarse</p><i class="fa-solid fa-arrow-right-to-bracket"></i></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="carrousel">
+            <div class="container-title">
+                <h1 class="title-app">Medi<span>Connect</span></h1>
+            </div>
+            <div class="container-subtitle">
+                <p>Optimiza tiempos de espera y atención con citas medicas en linea.</p>
+            </div>
+            <div class="buttons-container">
+                <a href="" class="button-blue-rounded">Contacta ahora</a>
+                <a href="" class="button-gray-rounded">Solicitar una Cita</a>
+            </div>
+            <div class="footer-carrousel">
+                <button id="carrousel-button-prev" type="button"><i class="fa-solid fa-angle-left"></i></button>
+                <button id="carrousel-button-next" type="button"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+            <div id="carrousel-container" class="images"></div>
+        </section>
+        <h3 class="subtitle">¿Por qué elegir atención domiciliaria las 24 horas?</h3>
+        <p class="text-description">Recuperación más rápida: Los pacientes se recuperan mucho más rápido y con mayor éxito en la comodidad de su casa.</p>
+        <section class="cards">
+            <article class="card-1">
+                <div class="image-card">
+                    <img src="/images/card-1.jpg" alt="Imagen relacionada con medicina.">
+                </div>
+                <h4>Expertos en cuidado diario</h4>
+            </article>
+            <article class="card-2">
+                <div class="image-card">
+                    <img src="/images/card-2.jpg" alt="Imagen relacionada con medicina.">
+                </div>
+                <h4>Disponible 24/7</h4>
+            </article>
+            <article class="card-3">
+                <div class="image-card">
+                    <img src="/images/card-3.jpg" alt="Imagen relacionada con medicina.">
+                </div>
+                <h4>Cuidado Equilibrado</h4>
+            </article>
+        </section>
+        <section class="appointment-container">
+            <h2 class="title">Lo que hacemos</h2>
+            <article class="list-features">
+                <div>
+                    <img src="/images/icon-6.png" alt="Imagen de Microscopio">
+                    <p>Oncología médica y quirúrgica.</p>
+                </div>
+                <div>
+                    <img src="/images/icon-5.png" alt="Imagen de Microscopio">
+                    <p>Obstetricia y ginecología.</p>
+                </div>
+                <div>
+                    <img src="/images/icon-7.png" alt="Imagen de Microscopio">
+                    <p>Asesoramiento sobre diabetes y obesidad.</p>
+                </div>
+            </article>
+            <article class="appointment-form-container">
+                <form id="form-appointment">
+                    <h3 class="title-form">Reservar una cita.</h3>
+                    <div class="form-group">
+                        <label class="form-label" for="date">Fecha</label>
+                        <div class="relative">
+                            <input type="date" name="date" class="form-field" required>
+                            <i class="fa-solid fa-calendar-days icon-field"></i>
+                        </div>
+                        <p id="form-appointment-date-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="type">Tipo</label>
+                        <div class="relative">
+                            <select name="type" class="form-field" required>
+                                <option value=""></option>
+                                <option value=""></option>
+                                <option value=""></option>
+                            </select>
+                            <i class="fa-solid fa-layer-group icon-field"></i>
+                        </div>
+                        <p id="form-appointment-type-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reason">Razón</label>
+                        <div class="relative">
+                            <textarea class="form-field" name="reason" cols="30" rows="4"></textarea>
+                            <i class="fa-solid fa-quote-left icon-field"></i>
+                        </div>
+                        <p id="form-appointment-reason-helper" class="helper"></p>
+                    </div>
+                    <button class="button-blue-rounded">Enviar</button>
+                </form>
+            </article>
+        </section>
+        <section id="modal-session" class="modal-session">
+            <form id="form-session" class="form-session" method="post">
+                <i id="button-hide-session" class="fa-solid fa-xmark fa-lg close-session"></i>
+                <h2 class="title">Inicio de Sesión</h2>
+                <p class="subtitle">Completa todos los campos para continuar.</p>
+                <section id="message" class="message"></section>
+                <section class="form-group">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <div class="relative">
+                        <input type="email" name="email" class="form-field" autocomplete="email">
+                        <i class="fa-solid fa-at icon-field"></i>
+                    </div>
+                    <p id="form-session-email-helper" class="helper"></p>
+                </section>
+                <section class="form-group">
+                    <label for="pass" class="form-label">Contraseña</label>
+                    <div class="relative">
+                        <input type="password" name="pass" class="form-field" autocomplete="current-password">
+                        <i class="fa-solid fa-unlock-keyhole icon-field"></i>
+                    </div>
+                    <p id="form-session-pass-helper" class="helper"></p>
+                </section>
+                <button type="button" id="button-session" class="button-blue-rounded">Acceder</button>
+            </form>
+        </section>
+        <section class="modal-register">
+            <div class="content">
+                <form id="form-register" class="form-register" method="post">
+                    <i id="button-hide-register" class="fa-solid fa-xmark icon-close"></i>
+                    <div class="logo">
+                        <img src="/images/logo.png" alt="Logo del sitio web">
+                        <h3>MediConnect</h3>
+                    </div>
+                    <div class="text">
+                        <h2 class="title">Crea tu cuenta</h2>
+                        <p class="subtitle">Aparta tus citas en este sitio web en segundos. ¿Ya tienes una cuenta? <a id="button-show-login">Entre aquí</a></p>
+                    </div>
+                    <section id="message-register" class="message"></section>
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nombre</label>
+                        <div class="relative">
+                            <input type="text" class="form-field" name="name" required autocomplete="cc-name">
+                            <i class="fa-solid fa-user form-icon"></i>
+                        </div>
+                        <p id="form-register-name-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <div class="relative">
+                            <input type="email" class="form-field" name="email" required autocomplete="email">
+                            <i class="fa-solid fa-at form-icon"></i>
+                        </div>
+                        <p id="form-register-email-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="extension-telephone" class="form-label">Teléfono del país</label>
+                        <div class="relative">
+                            <select name="extension" class="extension-phone-number form-field" autocomplete="tel-country-code"></select>
+                            <i class="fa-solid fa-globe form-icon"></i>
+                        </div>
+                        <p id="form-register-extension-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone" class="form-label">Telefono</label>
+                        <div class="relative">
+                            <input type="number" class="form-field" name="telephone" required autocomplete="tel-national">
+                            <i class="fa-solid fa-phone form-icon"></i>
+                        </div>
+                        <p id="form-register-telephone-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate" class="form-label">Fecha de Nacimiento</label>
+                        <div class="relative">
+                            <input type="date" class="form-field" name="birthdate" autocomplete="bday" max="20" required>
+                            <i class="fa-solid fa-calendar-day form-icon"></i>
+                        </div>
+                        <p id="form-register-birthdate-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="pass" class="form-label">Contraseña</label>
+                        <div class="relative">
+                            <input type="password" class="form-field" name="pass" autocomplete="new-password" required>
+                            <i class="fa-solid fa-lock form-icon"></i>
+                        </div>
+                        <p id="form-register-pass-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-pass" class="form-label">Confirmar Contraseña</label>
+                        <div class="relative">
+                            <input type="password" class="form-field" name="confirm-pass" autocomplete="current-password" required>
+                            <i class="fa-solid fa-key form-icon"></i>
+                        </div>
+                        <p id="form-register-confirm-pass-helper" class="helper"></p>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="check-terms" id="check-terms">
+                        <label for="check-terms">
+                            Al registrarse, está creando una cuenta de 
+                            Mediconnect y acepta los Términos de uso y 
+                            la Política de privacidad de Mediconnect.
+                        </label>
+                    </div>
+                    <button type="button" id="button-register" class="button-blue-rounded">Crear una cuenta</button>
+                </form>
+                <div class="image">
+                    <img src="/images/register-form.png" alt="Imagen de Registro" title="Imagen de Registro">
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section class="contact">
+            <article class="logo">
+                <img src="/images/logo.png" alt="Logo de MediConnect">
+                <h2 class="name-logo">Medi<b>Connect</b></h2>
+            </article>  
+            <h3 class="title">Contacta con Nosotros</h3>
+            <a href="/">
+                <i class="fa-solid fa-location-dot"></i>
+                Localización
+            </a>
+            <a href="/">
+                <i class="fa-solid fa-phone"></i>
+                +57 301231312
+            </a>
+            <a href="/">
+                <i class="fa-solid fa-envelope"></i>
+                admin@gmail.com
+            </a>
+        </section>
+        <section class="doctors">
+            <h3 class="title">Doctores</h3>
+            <p>
+                El doctor debe tener la capacidad de comunicarse 
+                eficazmente con sus pacientes. Debe explicar los 
+                procedimientos y la terminología médica en un modo 
+                sencillo de entender.
+            </p>
+        </section>
+        <section class="links">
+            <h3 class="title">Enlaces Utiles</h3>
+            <a href="/">Enlace 1</a>
+            <a href="/">Enlace 2</a>
+            <a href="/">Enlace 3</a>
+            <a href="/">Enlace 4</a>
+        </section>
+        <section class="socials">
+            <h3 class="title">Redes Sociales</h3>
+            <a href="/">
+                <i class="fa-brands fa-facebook" style="color: #284bd7;"></i>
+                Facebook
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-square-twitter" style="color: #74C0FC;"></i>
+                Twitter
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-linkedin" style="color: #3061b5;"></i>
+                Linkedin
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-square-instagram" style="color: #8665ec;"></i>
+                Instagram
+            </a>
+        </section>
+        <section class="copy">
+            <p>2024© Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,299 @@
+main .content {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    position: relative;
+}
+
+main .subtitle {
+    width: 100%;
+    padding: 0rem;
+    overflow: hidden;
+    font-size: 1.25rem;
+    white-space: nowrap;
+    color: var(--gray-600);
+    text-overflow: ellipsis;
+}
+
+main .content .container-medical-records {
+    gap: 1rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    overflow: hidden;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main .content .medical-record {
+    gap: 1rem;
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    flex-direction: row;
+    border-radius: .5rem;
+    background-color: white;
+    justify-content: space-between;
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+main .content .medical-record .content-left, main .content .medical-record .content-right {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+main .content .medical-record .content-left {
+    position: relative;
+    padding: 2.25rem;
+    flex-wrap: wrap;
+    align-content: start;
+    align-items: center;    
+    flex-direction: row;
+    justify-content: start;
+}
+
+.medical-record .content-left .title, .medical-record .content-left .subtitle {
+    width: 100%;
+    font-size: 2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+}
+
+.medical-record .content-left .title {
+    font-weight: 500;
+    color: var(--gray-800);
+}
+
+.medical-record .content-left .subtitle {
+    font-weight: 500;
+    color: var(--blue-600);
+    margin-bottom: 2rem;
+}
+
+.medical-record .content-left .risk {
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--gray-700);
+}
+
+.medical-record .content-left .risk span {
+    color: var(--gray-900);
+}
+
+.medical-record .content-left .reason {
+    color: var(--gray-400);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-align: justify;
+    text-justify: inter-word;
+    margin-bottom: 1rem;
+}
+
+.medical-record .content-left .buttons-print {
+    gap: 2rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+}
+
+.medical-record .content-left .buttons-print button {
+    cursor: pointer;
+    overflow: hidden;
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    padding: .65rem 1rem;
+    border-radius: .25rem;
+    text-overflow: ellipsis;
+    max-width: calc(50% - 1rem);
+    border: 1px solid transparent;
+    transition: all ease-out .2s;
+}
+
+.medical-record .content-left .buttons-print button.button-rounded-gray {
+    background-color: var(--gray-200);
+}
+
+.medical-record .content-left .buttons-print button.button-rounded-gray:hover {
+    color: white;
+    background-color: var(--gray-600);
+}
+
+.medical-record .content-left .buttons-print button.button-rounded-blue {
+    color: white;
+    background-color: var(--blue-600);
+}
+
+.medical-record .content-left .buttons-print button.button-rounded-blue:hover {
+    background-color: var(--blue-700);
+}
+
+.medical-record .content-left .profiles {
+    gap: 2rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+
+.medical-record .content-left .profiles .doctor, .medical-record .content-left .profiles .patient {
+    gap: .25rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center
+}
+
+.medical-record .profiles .doctor .title-profile, .medical-record .profiles .patient .title-profile {
+    width: 100%;
+    overflow: hidden;
+    font-weight: 500;
+    white-space: nowrap;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    text-overflow: ellipsis;
+}
+
+.medical-record .profiles .doctor .profile, .medical-record .profiles .patient .profile {
+    gap: .5rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: start;
+    overflow: hidden;
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: var(--blue-100);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.medical-record .profiles .doctor .profile img, .medical-record .profiles .patient .profile img {
+    width: 3rem;
+    height: 3rem;
+    min-width: 3rem;
+    max-width: 3rem;
+    min-height: 3rem;
+    max-height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.medical-record .profiles .doctor .profile .name, .medical-record .profiles .patient .profile .name,
+.medical-record .profiles .doctor .profile .email, .medical-record .profiles .patient .profile .email {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.medical-record .profiles .doctor .profile .name, .medical-record .profiles .patient .profile .name {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: var(--gray-800);
+}
+
+.medical-record .profiles .doctor .profile .email, .medical-record .profiles .patient .profile .email {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: var(--gray-500);
+}
+
+.medical-record .content-left .created-at {
+    bottom: 0;
+    left: 0;
+    margin: 2rem;
+    position: absolute;
+    color: var(--gray-500);
+    font-weight: 400;
+    font-size: .875rem;
+    text-align: justify;
+    line-height: 1.25rem;
+    text-justify: inter-word;
+}
+
+.medical-record .content-left .created-at span {
+    color: var(--gray-800);
+    font-weight: 600;
+}
+
+main .content .medical-record .content-right {
+    display: none;
+    padding: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+main .medical-record .content-right iframe {
+    aspect-ratio: 1 / 1.41428571429;
+    width: 100%;
+    background-color: white;
+    border: 1px solid var(--gray-100);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+main .medical-record .content-right iframe.skeleton {
+    background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: skeleton-loading 1s linear infinite;
+}
+
+@keyframes skeleton-loading {
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+@media (min-width: 640px) {
+
+}
+
+@media (min-width: 768px) {
+    main .content .medical-record .content-right {
+        display: flex;
+        height: 100%;
+    }
+
+    main .content .medical-record .content-left, main .content .medical-record .content-right {
+        width: calc(50% - .5rem);
+    }
+
+    .medical-record .content-left .profiles .doctor, .medical-record .content-left .profiles .patient {
+        width: calc(50% - 1rem);
+    }
+}
+
+@media (min-width: 1024px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}
+
+@media (min-width: 1536px) {
+
+}

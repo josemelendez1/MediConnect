@@ -1,0 +1,399 @@
+main {
+    display: flex;
+    align-items: start;
+    align-content: start;
+    flex-direction: column;
+    justify-content: start;
+}
+
+main .content {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    position: relative;
+    align-items: start;
+    align-content: start;
+    flex-direction: column;
+    justify-content: start;
+}
+
+main .content .header-medicines {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+main .content .header-medicines h2 {
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    margin-bottom: .5rem;
+}
+
+
+main .content .container-medicines {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
+.container-medicines .medicines {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    align-content: start;
+    justify-content: center;
+}
+
+.container-medicines .medicines .medicine {
+    width: 100%;
+    height: auto;
+    margin-top: .75rem;
+    border-radius: .25rem;
+    background-color: white;
+    border: 1px solid var(--gray-100);
+    transition: all ease-in-out .2s;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.container-medicines .medicines .medicine:not(.skeleton) {
+    animation: opacity .5s;
+}
+
+.medicine.skeleton .image {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.medicine.skeleton .information .title, .medicine.skeleton .information .subtitle {
+    animation: skeleton-loading 1s linear infinite alternate;
+    width: 100%;
+    border-radius: .25rem;
+}
+
+.medicine.skeleton .information .title {
+    height: 1rem;
+}
+
+.medicine.skeleton .information .subtitle {
+    height: .75rem;
+}
+
+.medicine.skeleton .more-information i {
+    animation: skeleton-loading 1s linear infinite alternate;
+    border-radius: .25rem;
+    color: transparent;
+}
+
+.medicine .content-medicine {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.medicine .content-medicine .image {
+    width: 100%;
+    height: 12rem;
+    max-height: 12rem;
+    border-radius: .25rem;
+}
+
+.medicine .content-medicine .image img {
+    width: 100%;
+    height: 12rem;
+    border-radius: .25rem;
+    object-fit:cover;
+}
+
+.medicine .content-medicine .image.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.content-medicine .information {
+    width: 85%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0rem .5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    gap: .25rem;
+}
+
+.content-medicine .information p {
+    width: 100%;
+    overflow: hidden;
+    font-weight: 700;
+    font-size: .9rem;
+    white-space: nowrap;
+    color: var(--gray-700);
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+
+.content-medicine .information small {
+    width: 100%;
+    overflow: hidden;
+    font-weight: 500;
+    text-align: start;
+    font-size: .775rem;
+    color: var(--gray-600);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.content-medicine .more-information {
+    width: 15%;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-medicine .more-information i {
+    color: var(--gray-400);
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.content-medicine .more-information i:hover {
+    color: var(--blue-500);
+}
+
+.container-medicines-requests table td, .container-medicines-requests table th {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.25rem;   
+    padding: 0.6rem 1.25rem;
+    text-align: start;
+    max-height: 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.container-medicines-requests table th {
+    color: var(--gray-900);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.container-medicines-requests table td {
+    color: var(--gray-700);
+    vertical-align: middle;
+}
+
+.container-medicines-requests table td:nth-last-child(1) {
+    color: var(--blue-600);
+    cursor: pointer;
+}
+
+.container-medicines .absolute-center-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40%;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--gray-200);
+    text-align: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: -1;
+}
+
+main .content .footer-medicines {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: .5rem;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer-medicines .count {
+    font-weight: 500;
+    font-size: .875rem;
+    color: var(--gray-600);
+    text-align: center;
+    width: 100%;
+    margin-bottom: .25rem;
+}
+
+.footer-medicines .pagination {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.footer-medicines .pagination div {
+    width: 50%;
+    margin: .25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.25rem;
+    color: var(--gray-500);
+    padding: 0.65rem .8rem;
+    border-radius: .25rem;
+    transition: all ease-out .2s;
+}
+
+.footer-medicines .pagination div:hover {
+    background-color: var(--gray-200);
+    color: var(--gray-800);
+}
+
+.pagination p {
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.pagination .prev p {
+    margin-left: .25rem;
+}
+
+.pagination .next p {
+    margin-right: .25rem;
+}
+
+.pagination i {
+    height: .9rem;
+}
+
+main .content .form-modal .button-blue-rounded {
+    width: 100%;
+}
+
+.form-modal {
+    width: 100%;
+    padding-top: 1.5rem;
+    background-color: var(--gray-50);
+}
+
+.form-group .form-field {
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.modal .relative {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal .form-modal .relative {
+    overflow: initial;
+}
+
+.height-35rem {
+    height: 35rem !important;
+    min-height: 35rem !important;
+}
+
+@media (min-width: 640px) {
+    .container-medicines .medicines .medicine {
+        margin: .25rem;
+        width: calc(50% - .5rem);
+    }
+
+    main .content .header-medicines {
+        justify-content: space-between;
+    }
+
+    main .content .header-medicines h2 {
+        width: auto;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    main .content .footer-medicines .count {
+        width: auto;
+        margin-bottom: 0;
+    }
+
+    main .content .footer-medicines .pagination {
+        width: auto;
+    }
+
+    footer .content {
+        padding: 1rem !important;
+    }
+
+    .container-medicines .medicines {
+        justify-content: start;
+    }
+
+    .container-medicines .medicines .medicine {
+        margin: .25rem;
+        width: 32%;
+    }
+
+    .container-medicines .medicine p {
+        text-align: initial;
+        width: 100%;
+        margin-right: .5rem;
+    }
+
+    .container-medicines .medicine small {
+        text-align: initial;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-medicines .medicines .medicine {
+        width: 23.5%;
+    }
+}
+
+@media (min-width: 1280px) {
+    main .content {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    main .content .footer-medicines {
+        width: 98.3%;
+        padding: 0rem .5rem;
+    }
+
+    .container-medicines .medicines .medicine {
+        width: calc(25% - .90rem);
+        margin: .45rem;
+    }
+}
+
+@media (min-width: 1536px) {
+
+}

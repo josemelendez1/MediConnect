@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/administrator/css/index.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/administrator/css/users.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/screen.js"></script>
+    <script src="/navbar.js"></script>
+    <script type="module" src="/administrator/js/users.js"></script>
+    <script type="module" src="/administrator/js/assistants.js"></script>
+    <script type="module" src="/administrator/js/doctors.js"></script>
+    <script type="module" src="/administrator/js/profile-image.js"></script>
+    <script type="module" src="/administrator/js/administrator.js"></script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <title>Administrador | Usuarios</title>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <section>
+                <article class="menu-content">
+                    <div id="menu"><i class="fa-solid fa-bars"></i></div>
+                </article>
+                <article>
+                    <div id="buttonScreen"><i class="fa-solid fa-expand"></i></div>
+                </article>
+                <article class="profile">
+                    <input type="checkbox" id="check-profile">
+                    <label for="check-profile">
+                        <img src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                    </label>
+                    <section class="dropdown-profile">
+                        <article class="profile-information">
+                            <p>Registrado como</p>
+                            <p class="email-profile"></p>
+                        </article>
+                        <article class="profile-link">
+                            <i class="fa-solid fa-user"></i>
+                            <a href="/administrador/perfil">Perfil de usuario</a>
+                        </article>
+                        <article class="profile-logout logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                            <a href="/sesion/cerrar/administrador">Cerrar Sesión</a>
+                        </article>  
+                    </section>
+                </article>
+            </section>
+        </nav>
+    </header>
+    <aside id="navbar">
+        <section class="header">
+            <img src="/images/logo.jpg" alt="Imagen de logo" class="logo">
+            <h1>MEDI<span>CONNECT</span></h1>
+        </section>
+        <article class="item-nav">
+            <i class="fa-solid fa-house"></i>
+            <a href="/administrador">Inicio</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-prescription-bottle-medical"></i>
+            <a href="/administrador/medicinas">Medicinas</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-virus"></i>
+            <a href="/administrador/enfermedades">Enfermedades</a>
+        </article>
+        <article class="item-nav select">
+            <i class="fa-solid fa-users"></i>
+            <a href="/administrador/usuarios">Usuarios</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-chart-simple"></i>
+            <a href="/administrador/balance">Balance</a>
+        </article>
+        <section class="footer-aside">
+            <div class="content logout">
+                <a href="/sesion/cerrar/administrador">
+                    <p>Cerrar Sesión</p>
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                </a>
+            </div>
+        </section>
+    </aside>
+    <div id="shadow" class="shadow"></div>
+    <main id="main">
+        <section class="content">
+            <h2 class="title-main">Usuarios Registrados</h2>
+            <article class="table-container">
+                <section class="header-container">
+                    <h3>Pacientes <i class="fa-solid fa-user"></i></h3>
+                    <button id="button-show-modal" type="button">Nuevo Paciente</button>
+                </section>
+                <section class="content">
+                    <article class="relative">
+                        <input type="text" id="seeker-patients" class="seeker" autocomplete="on">
+                        <i class="fa-solid fa-magnifying-glass icon-seeker"></i>
+                    </article>
+                    <div class="overflow-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Perfil</th>
+                                    <th>Correo Electronico</th>
+                                    <th>Ultima Actualización</th>
+                                    <th>...</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-users"></tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="count">
+                    <p><b id="count-users"></b> Pacientes en total.</p>
+                </section>
+                <template id="template-patient">
+                    <tr class="skeleton">
+                        <td><span></span></td>
+                        <td>
+                            <div class="profile">
+                                <div class="image"></div>
+                                <span></span>
+                            </div>
+                        </td>
+                        <td><span></span></td>
+                        <td><span></span></td>
+                        <td><i class="fa-regular fa-eye view-information information-user"></i></td>
+                    </tr>
+                </template>
+            </article>
+            <article class="table-container">
+                <section class="header-container">
+                    <h3>Asistentes <i class="fa-solid fa-user-nurse"></i></h3>
+                    <button id="button-show-modal-assistants" type="button">Nuevo Asistente</button>
+                </section>
+                <section class="content">
+                    <article class="relative">
+                        <input type="text" id="seeker-assistants" class="seeker" autocomplete="on">
+                        <i class="fa-solid fa-magnifying-glass icon-seeker"></i>
+                    </article>
+                    <div class="overflow-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Perfil</th>
+                                    <th>Tipo de Identificación</th>
+                                    <th>Numero de Identificación</th>
+                                    <th>...</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-assistants"></tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="count">
+                    <p><b id="count-assistants"></b> Asistentes en total.</p>
+                </section>
+                <template id="template-assistant">
+                    <tr class="skeleton">
+                        <td><span></span></td>
+                        <td>
+                            <div class="profile">
+                                <div class="image"></div>
+                                <span></span>
+                            </div>
+                        </td>
+                        <td><span></span></td>
+                        <td><span></span></td>
+                        <td><i class="fa-regular fa-eye view-information information-assistant"></i></td>
+                    </tr>
+                </template>
+            </article>
+            <article class="table-container">
+                <section class="header-container">
+                    <h3>Doctores <i class="fa-solid fa-user-doctor"></i></h3>
+                    <button id="button-show-modal-doctors" type="button">Nuevo Doctor</button>
+                </section>
+                <section class="content">
+                    <article class="relative">
+                        <input type="text" id="seeker-doctors" class="seeker" autocomplete="on">
+                        <i class="fa-solid fa-magnifying-glass icon-seeker"></i>
+                    </article>
+                    <div class="overflow-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Perfil</th>
+                                    <th>Telefono</th>
+                                    <th>Ultima Actualización</th>
+                                    <th>...</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-doctors"></tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="count">
+                    <p><b id="count-doctors"></b> Doctores en total.</p>
+                </section>
+                <template id="template-doctor">
+                    <tr class="skeleton">
+                        <td><span></span></td>
+                        <td>
+                            <div class="profile">
+                                <div class="image"></div>
+                                <span></span>
+                            </div>
+                        </td>
+                        <td><span></span></td>
+                        <td><span></span></td>
+                        <td><i class="fa-regular fa-eye view-information information-doctor"></i></td>
+                    </tr>
+                </template>
+            </article>
+            <article class="table-container">
+                <section class="header-container">
+                    <h3>Administradores <i class="fa-solid fa-user-tie"></i></h3>
+                    <button id="button-show-modal-administrators" type="button">Nuevo Administrador</button>
+                </section>
+                <section class="content">
+                    <article class="relative">
+                        <input type="text" id="seeker-administrator" class="seeker" autocomplete="off">
+                        <i class="fa-solid fa-magnifying-glass icon-seeker"></i>
+                    </article>
+                    <div class="overflow-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Perfil</th>
+                                    <th>Correo Electronico</th>
+                                    <th>Telefono</th>
+                                    <th>...</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-administrator"></tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="count">
+                    <p><b id="count-administrators"></b> Administradores en total.</p>
+                </section>
+                <template id="template-administrator">
+                    <tr class="skeleton">
+                        <td><span></span></td>
+                        <td>
+                            <div class="profile">
+                                <div class="image"></div>
+                                <span></span>
+                            </div>
+                        </td>
+                        <td><span></span></td>
+                        <td><span></span></td>
+                        <td><i class="fa-regular fa-eye view-information information-administrator"></i></td>
+                    </tr>
+                </template>
+            </article>
+            <section id="modal-users" class="modal">
+                <article class="relative-content">
+                    <form id="form-users" class="form-modal" method="post">
+                        <i id="button-hide-modal" class="fa-solid fa-xmark fa-lg button-hide-modal"></i>
+                        <h2 id="title-users" class="title">Nuevo Paciente</h2>
+                        <p class="subtitle">Complete todos los campos para continuar.</p>
+                        <section class="form-group image-group">
+                            <label for="image-user">
+                                <img class="image-form" src="/images/user-solid.jpg" alt="Imagen de medicamento">
+                            </label>
+                            <input class="input-file" type="file" id="image-user" name="image-user" accept=".png, .jpg, .jpeg, .svg">
+                            <p id="form-users-image-user-helper" class="helper"></p>
+                        </section>
+                        <section id="message-users" class="message"></section>
+                        <section class="form-group">
+                            <label for="name" class="form-label">Nombre Completo</label>
+                            <article class="relative">
+                                <input type="text" name="name" class="form-field" required>
+                                <i class="fa-solid fa-user icon-input"></i>
+                            </article>
+                            <p id="form-users-name-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="email" class="form-label">Correo Electronico</label>
+                            <article class="relative">
+                                <input type="email" name="email" class="form-field" required>
+                                <i class="fa-regular fa-envelope icon-input"></i>
+                            </article>
+                            <p id="form-users-email-helper" class="helper"></p>
+                        </section>
+                        <div class="form-group">
+                            <label for="extension-telephone" class="form-label">Teléfono del país</label>
+                            <div class="relative">
+                                <select name="extension" class="extension-phone-number form-field" autocomplete="tel-country-code"></select>
+                                <i class="fa-solid fa-globe icon-input"></i>
+                            </div>
+                            <p id="form-users-extension-helper" class="helper"></p>
+                        </div>
+                        <section class="form-group">
+                            <label for="telephone" class="form-label">Telefono</label>
+                            <article class="relative">
+                                <input type="tel" name="telephone" class="form-field" required>
+                                <i class="fa-solid fa-phone icon-input"></i>
+                            </article>
+                            <p id="form-users-telephone-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="birthdate" class="form-label">Fecha de Nacimiento</label>
+                            <article class="relative">
+                                <input type="date" name="birthdate" class="form-field" required>
+                                <i class="fa-solid fa-calendar-days icon-input"></i>
+                            </article>
+                            <p id="form-users-birthdate-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="pass" class="form-label">Contraseña</label>
+                            <article class="relative">
+                                <input type="password" name="pass" class="form-field" autocomplete="new-password" required>
+                                <i class="fa-solid fa-lock icon-input"></i>
+                            </article>
+                            <p id="form-users-pass-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="confirm-pass" class="form-label">Confirmación de Contraseña</label>
+                            <article class="relative">
+                                <input type="password" name="confirm-pass" class="form-field" required>
+                                <i class="fa-solid fa-unlock icon-input"></i>
+                            </article>
+                            <p id="form-users-confirm-pass-helper" class="helper"></p>
+                        </section>
+                        <section class="form-buttons">
+                            <button id="button-create-users" type="button" class="button-outline-gray text-blue m-0 w-100">Crear <i class="fa-solid fa-user-plus"></i></button>
+                            <button id="button-update-users" type="button" class="button-outline-gray text-blue">Actualizar <i class="fa-solid fa-user-pen"></i></button>
+                            <button id="button-delete-users" type="button" class="button-outline-gray text-red">Eliminar <i class="fa-solid fa-delete-left"></i></button>
+                        </section>
+                    </form>
+                </article>
+            </section>
+            <section id="modal-assistants" class="modal">
+                <article class="relative-content content-assistants">
+                    <form id="form-assistants" class="form-modal" method="post">
+                        <i id="button-hide-modal-assistants" class="fa-solid fa-xmark fa-lg button-hide-modal"></i>
+                        <h2 id="title-assistants" class="title">Nuevo Asistente</h2>
+                        <p class="subtitle">Complete todos los campos para continuar.</p>
+                        <section class="form-group image-group">
+                            <label for="image-assistant">
+                                <img class="image-form" src="/images/user-solid.jpg" alt="Imagen de medicamento">
+                            </label>
+                            <input class="input-file" type="file" id="image-assistant" name="image-assistant" accept=".png, .jpg, .jpeg, .svg">
+                            <p id="form-assistants-image-assistant-helper" class="helper"></p>
+                        </section>
+                        <section id="message-assistants" class="message"></section>
+                        <section class="form-group">
+                            <label for="idType" class="form-label">Tipo de Identificación</label>
+                            <article class="relative">
+                                <select name="idType" class="form-field" required>
+                                    <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+                                    <option value="Cédula de Ciudadanía" selected>Cédula de Ciudadanía</option>
+                                    <option value="Cédula digital">Cédula digital</option>
+                                    <option value="Registro Civil">Registro Civil</option>
+                                    <option value="Tarjeta de extranjería">Tarjeta de extranjería</option>
+                                    <option value="Cedula de Extranjería">Cedula de Extranjería</option>
+                                    <option value="Número de identificación tributaria">Número de identificación tributaria</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                    <option value="Permiso especial de permanencia">Permiso especial de permanencia</option>
+                                </select>
+                                <i class="fa-solid fa-id-card icon-input"></i>
+                            </article>
+                            <p id="form-assistants-idType-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="idNumber" class="form-label">Numero de Identificación</label>
+                            <article class="relative">
+                                <input type="number" name="idNumber" class="form-field" required>
+                                <i class="fa-solid fa-hashtag icon-input"></i>
+                            </article>
+                            <p id="form-assistants-idNumber-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="name" class="form-label">Nombre Completo</label>
+                            <article class="relative">
+                                <input type="text" name="name" class="form-field" required>
+                                <i class="fa-solid fa-user icon-input"></i>
+                            </article>
+                            <p id="form-assistants-name-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="email" class="form-label">Correo Electronico</label>
+                            <article class="relative">
+                                <input type="email" name="email" class="form-field" required>
+                                <i class="fa-regular fa-envelope icon-input"></i>
+                            </article>
+                            <p id="form-assistants-email-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="pass" class="form-label">Contraseña</label>
+                            <article class="relative">
+                                <input type="password" name="pass" class="form-field" autocomplete="new-password" required>
+                                <i class="fa-solid fa-lock icon-input"></i>
+                            </article>
+                            <p id="form-assistants-pass-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="confirm-pass" class="form-label">Confirmación de Contraseña</label>
+                            <article class="relative">
+                                <input type="password" name="confirm-pass" class="form-field" required>
+                                <i class="fa-solid fa-unlock icon-input"></i>
+                            </article>
+                            <p id="form-assistants-confirm-pass-helper" class="helper"></p>
+                        </section>
+                        <section class="form-buttons">
+                            <button id="button-create-assistants" type="button" class="button-outline-gray text-blue m-0 w-100">Crear <i class="fa-solid fa-user-plus"></i></button>
+                            <button id="button-update-assistants" type="button" class="button-outline-gray text-blue">Actualizar <i class="fa-solid fa-user-pen"></i></button>
+                            <button id="button-delete-assistants" type="button" class="button-outline-gray text-red">Eliminar <i class="fa-solid fa-delete-left"></i></button>
+                        </section>
+                    </form>
+                </article>
+            </section>
+            <section id="modal-doctors" class="modal">
+                <article class="relative-content content-doctors">
+                    <form id="form-doctors" class="form-modal" method="post">
+                        <i id="button-hide-modal-doctors" class="fa-solid fa-xmark fa-lg button-hide-modal"></i>
+                        <h2 id="title-doctors" class="title">Nuevo Paciente</h2>
+                        <p class="subtitle">Complete todos los campos para continuar.</p>
+                        <section class="form-group image-group">
+                            <label for="image-doctor">
+                                <img class="image-form" src="/images/user-solid.jpg" alt="Imagen de medicamento">
+                            </label>
+                            <input class="input-file" type="file" id="image-doctor" name="image-doctor" accept=".png, .jpg, .jpeg, .svg">
+                            <p id="form-doctors-image-doctor-helper" class="helper"></p>
+                        </section>
+                        <section id="message-doctors" class="message"></section>
+                        <section class="form-group">
+                            <label for="idType" class="form-label">Tipo de Identificación</label>
+                            <article class="relative">
+                                <select name="idType" class="form-field" required>
+                                    <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+                                    <option value="Cédula de Ciudadanía" selected>Cédula de Ciudadanía</option>
+                                    <option value="Cédula digital">Cédula digital</option>
+                                    <option value="Registro Civil">Registro Civil</option>
+                                    <option value="Tarjeta de extranjería">Tarjeta de extranjería</option>
+                                    <option value="Cedula de Extranjería">Cedula de Extranjería</option>
+                                    <option value="Número de identificación tributaria">Número de identificación tributaria</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                    <option value="Permiso especial de permanencia">Permiso especial de permanencia</option>
+                                </select>
+                                <i class="fa-solid fa-id-card icon-input"></i>
+                            </article>
+                            <p id="form-doctors-idType-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="idNumber" class="form-label">Numero de Identificación</label>
+                            <article class="relative">
+                                <input type="number" name="idNumber" class="form-field" required>
+                                <i class="fa-solid fa-hashtag icon-input"></i>
+                            </article>
+                            <p id="form-doctors-idNumber-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="name" class="form-label">Nombre Completo</label>
+                            <article class="relative">
+                                <input type="text" name="name" class="form-field" required>
+                                <i class="fa-solid fa-user icon-input"></i>
+                            </article>
+                            <p id="form-doctors-name-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="telephone" class="form-label">Telefono</label>
+                            <article class="relative">
+                                <input type="tel" name="telephone" class="form-field" required>
+                                <i class="fa-solid fa-phone icon-input"></i>
+                            </article>
+                            <p id="form-doctors-telephone-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="address" class="form-label">Dirección</label>
+                            <article class="relative">
+                                <input type="text" name="address" class="form-field" required>
+                                <i class="fa-solid fa-location-dot icon-input"></i>
+                            </article>
+                            <p id="form-doctors-address-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="email" class="form-label">Correo Electronico</label>
+                            <article class="relative">
+                                <input type="email" name="email" class="form-field" required>
+                                <i class="fa-regular fa-envelope icon-input"></i>
+                            </article>
+                            <p id="form-doctors-email-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="pass" class="form-label">Contraseña</label>
+                            <article class="relative">
+                                <input type="password" name="pass" class="form-field" autocomplete="new-password" required>
+                                <i class="fa-solid fa-lock icon-input"></i>
+                            </article>
+                            <p id="form-doctors-pass-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="confirm-pass" class="form-label">Confirmación de Contraseña</label>
+                            <article class="relative">
+                                <input type="password" name="confirm-pass" class="form-field" required>
+                                <i class="fa-solid fa-unlock icon-input"></i>
+                            </article>
+                            <p id="form-doctors-confirm-pass-helper" class="helper"></p>
+                        </section>
+                        <section class="form-buttons">
+                            <button id="button-create-doctors" type="button" class="button-outline-gray text-blue m-0 w-100">Crear <i class="fa-solid fa-user-plus"></i></button>
+                            <button id="button-update-doctors" type="button" class="button-outline-gray text-blue">Actualizar <i class="fa-solid fa-user-pen"></i></button>
+                            <button id="button-delete-doctors" type="button" class="button-outline-gray text-red">Eliminar <i class="fa-solid fa-delete-left"></i></button>
+                        </section>
+                    </form>
+                </article>
+            </section>
+            <section id="modal-administrators" class="modal">
+                <article class="relative-content">
+                    <form id="form-administrators" class="form-modal" method="post">
+                        <i id="button-hide-modal-administrators" class="fa-solid fa-xmark fa-lg button-hide-modal"></i>
+                        <h2 id="title-administrator" class="title"></h2>
+                        <p class="subtitle">Complete todos los campos para continuar.</p>
+                        <section class="form-group image-group">
+                            <label for="image-administrator">
+                                <img class="image-form" src="/images/user-solid.jpg" alt="Imagen de medicamento">
+                            </label>
+                            <input class="input-file" type="file" id="image-administrator" name="image" accept=".png, .jpg, .jpeg, .svg">
+                            <p id="form-administrators-image-helper" class="helper"></p>
+                        </section>
+                        <section id="message-administrator" class="message"></section>
+                        <section class="form-group">
+                            <label for="name" class="form-label">Nombre Completo</label>
+                            <article class="relative">
+                                <input type="text" name="name" class="form-field" required>
+                                <i class="fa-solid fa-user icon-input"></i>
+                            </article>
+                            <p id="form-administrators-name-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="email" class="form-label">Correo Electronico</label>
+                            <article class="relative">
+                                <input type="email" name="email" class="form-field" required>
+                                <i class="fa-regular fa-envelope icon-input"></i>
+                            </article>
+                            <p id="form-administrators-email-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="telephone" class="form-label">Telefono</label>
+                            <article class="relative">
+                                <input type="tel" name="telephone" class="form-field" required>
+                                <i class="fa-solid fa-phone icon-input"></i>
+                            </article>
+                            <p id="form-administrators-telephone-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="birthdate" class="form-label">Area | Rol</label>
+                            <article class="relative">
+                                <input type="text" name="area" class="form-field" required>
+                                <i class="fa-solid fa-layer-group icon-input"></i>
+                            </article>
+                            <p id="form-administrators-area-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="pass" class="form-label">Contraseña</label>
+                            <article class="relative">
+                                <input type="password" name="pass" class="form-field" autocomplete="new-password" required>
+                                <i class="fa-solid fa-lock icon-input"></i>
+                            </article>
+                            <p id="form-administrators-pass-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="confirm-pass" class="form-label">Confirmación de Contraseña</label>
+                            <article class="relative">
+                                <input type="password" name="confirm-pass" class="form-field" required>
+                                <i class="fa-solid fa-unlock icon-input"></i>
+                            </article>
+                            <p id="form-administrators-confirm-pass-helper" class="helper"></p>
+                        </section>
+                        <section class="form-buttons">
+                            <button id="button-create-administrator" type="button" class="button-outline-gray text-blue m-0 w-100">Crear <i class="fa-solid fa-user-plus"></i></button>
+                            <button id="button-update-administrator" type="button" class="button-outline-gray text-blue">Actualizar <i class="fa-solid fa-user-pen"></i></button>
+                            <button id="button-delete-administrator" type="button" class="button-outline-gray text-red">Eliminar <i class="fa-solid fa-delete-left"></i></button>
+                        </section>
+                    </form>
+                </article>
+            </section>
+        </section>
+    </main>
+    <footer id="footer">
+        <section class="content">
+            <article class="references">
+                <div class="start">
+                    <p>Terminos y Condiciones</p>
+                    <p>Politica de Privacidad</p>
+                    <p>Licencia</p>
+                </div>
+                <div class="end">
+                    <i class="fa-solid fa-at"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </article>
+            <article class="copyright">
+                <p>© 2024 - <span id="copyright-date">2024</span> copyright. Todos los derechos resevados.</p>
+            </article>
+        </section>
+    </footer>
+</body>
+</html>

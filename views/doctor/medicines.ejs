@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/doctor/css/index.css">
+    <link rel="stylesheet" href="/doctor/css/medicines.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/screen.js"></script>
+    <script src="/seeker.js"></script>
+    <script src="/navbar.js"></script>
+    <script type="module" src="/doctor/js/medicines.js"></script>
+    <script type="module" src="/doctor/js/image-profile.js"></script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <title>Doctor | Medicamentos</title>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <section>
+                <article class="menu-content">
+                    <div id="menu"><i class="fa-solid fa-bars"></i></div>
+                </article>
+                <article id="seeker" class="seeker">
+                    <input type="text" id="input-seeker" class="input-seeker" placeholder="Buscar Medicina..." autocomplete="on">
+                    <div id="icon-seeker">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </article>
+                <article>
+                    <div id="buttonScreen"><i class="fa-solid fa-expand"></i></div>
+                </article>
+                <article class="profile">
+                    <input type="checkbox" id="check-profile">
+                    <label for="check-profile">
+                        <img id="profile-image" src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                    </label>
+                    <section class="dropdown-profile">
+                        <article class="profile-information">
+                            <p>Registrado como</p>
+                            <p class="email-profile"></p>
+                        </article>
+                        <article class="profile-link">
+                            <i class="fa-solid fa-user"></i>
+                            <a href="/doctor/perfil">Perfil de usuario</a>
+                        </article>
+                        <article class="profile-logout logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                            <a href="/sesion/cerrar/doctor">Cerrar Sesión</a>
+                        </article>  
+                    </section>
+                </article>
+            </section>
+        </nav>
+    </header>
+    <aside id="navbar">
+        <section class="header">
+            <img src="/images/logo.jpg" alt="Imagen de logo" class="logo">
+            <h1>MEDI<span>CONNECT</span></h1>
+        </section>
+        <article class="item-nav select">
+            <i class="fa-solid fa-prescription-bottle-medical"></i>
+            <a href="/doctor/">Medicinas</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-virus"></i>
+            <a href="/doctor/enfermedades">Enfermedades</a>
+        </article>
+        <article class="item-nav">
+            <i class="fa-solid fa-calendar-days"></i>
+            <a href="/doctor/citas">Citas Agendadas</a>
+        </article>
+        <section class="footer-aside">
+            <div class="content logout">
+                <a href="/sesion/cerrar/doctor">
+                    <p>Cerrar Sesión</p>
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                </a>
+            </div>
+        </section>
+    </aside>
+    <div id="shadow" class="shadow"></div>
+    <main id="main">
+        <section class="content">
+            <article class="header-medicines">
+                <h2>Medicinas Registradas</h2>
+                <button type="button" id="button-show-modal-medicines" class="button-outline-blue">Nueva Medicina</button>
+            </article>
+            <article class="container-medicines">
+                <section id="medicines" class="medicines">
+                </section>
+                <section class="footer-medicines">
+                    <p id="count-medicines" class="count"></p>
+                    <article class="pagination">
+                        <div id="prev-medicines" class="prev">
+                            <i class="fa-solid fa-angle-left"></i>
+                            <p>Anterior</p>
+                        </div>
+                        <div id="next-medicines" class="next">
+                            <p>Siguiente</p>
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                    </article>
+                </section>
+                <template id="template-medicine">
+                    <div class="medicine skeleton">
+                        <div class="content-medicine">
+                            <div class="image"></div>
+                            <div class="information">
+                                <p class="title"></p>
+                                <small class="subtitle"></small>
+                            </div>
+                            <div class="more-information">
+                                <i class="fa-solid fa-circle-info information-medicine"></i>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </article>
+            <section id="modal-medicines" class="modal">
+                <article class="relative">
+                    <form id="form-medicines" class="form-modal" method="post">
+                        <i id="button-hide-modal-medicines" class="fa-solid fa-xmark fa-lg button-hide-modal"></i>
+                        <h2 id="title-medicines" class="title">Nueva Medicina</h2>
+                        <p class="subtitle">Complete todos los campos para continuar.</p>
+                        <section class="form-group image-group">
+                            <label for="image-medicine">
+                                <img class="image-form" src="/images/medicine-default.jpg" alt="Imagen de medicamento">
+                            </label>
+                            <input class="input-file" type="file" id="image-medicine" name="image-medicine" accept=".png, .jpg, .jpeg, .svg">
+                            <p id="form-medicines-image-medicine-helper" class="helper"></p>
+                        </section>
+                        <section id="message-medicines" class="message"></section>
+                        <section class="form-group">
+                            <label for="name" class="form-label">Nombre</label>
+                            <article class="relative">
+                                <input type="text" name="name" class="form-field" required>
+                                <i class="fa-solid fa-user icon-input"></i>
+                            </article>
+                            <p id="form-medicines-name-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="quantities" class="form-label">Cantidades</label>
+                            <article class="relative">
+                                <input type="text" name="quantities" class="form-field" required>
+                                <i class="fa-regular fa-envelope icon-input"></i>
+                            </article>
+                            <p id="form-medicines-quantities-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="presentations" class="form-label">Presentaciones</label>
+                            <article class="relative">
+                                <input type="text" name="presentations" class="form-field" required>
+                                <i class="fa-solid fa-list-check icon-input"></i>
+                            </article>
+                            <p id="form-medicines-presentations-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="information" class="form-label">Información</label>
+                            <article class="relative">
+                                <textarea name="information" class="form-field optional" cols="30" rows="8"></textarea>
+                                <i class="fa-solid fa-comment icon-input"></i>
+                            </article>
+                            <p id="form-medicines-information-helper" class="helper"></p>
+                        </section>
+                        <section class="form-buttons">
+                            <button id="button-create-medicines" type="button" class="button-outline-gray text-blue w-100 m-0">Crear <i class="fa-solid fa-plus"></i></button>
+                            <button id="button-update-medicines" type="button" class="button-outline-gray text-blue">Actualizar <i class="fa-solid fa-pen-to-square"></i></button>
+                            <button id="button-delete-medicines" type="button" class="button-outline-gray text-red">Eliminar <i class="fa-solid fa-delete-left"></i></button>
+                        </section>
+                        
+                    </form>
+                </article>
+            </section>
+        </section>
+    </main>
+    <footer id="footer">
+        <section class="content">
+            <article class="references">
+                <div class="start">
+                    <p>Terminos y Condiciones</p>
+                    <p>Politica de Privacidad</p>
+                    <p>Licencia</p>
+                </div>
+                <div class="end">
+                    <i class="fa-solid fa-at"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </article>
+            <article class="copyright">
+                <p>© 2024 - <span id="copyright-date">2024</span> copyright. Todos los derechos resevados.</p>
+            </article>
+        </section>
+    </footer>
+</body>
+</html>

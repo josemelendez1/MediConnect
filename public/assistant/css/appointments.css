@@ -1,0 +1,400 @@
+main .content {
+    padding: .5rem;
+}
+
+main .content .header-content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main .content .header-content .title {
+    font-size: 1.25rem;
+    color: var(--gray-500);
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.appointments-container {
+    width: 100%;
+    display: block;
+    position: relative;
+    margin-top: 1.5rem;
+    background-color: transparent;
+}
+
+.appointments-container .header-appointments {
+    gap: .5rem;
+    align-items: center;
+    display: inline-flex;
+    justify-content: start;
+    width: 100%;
+}
+
+.header-appointments .tab-days, .header-appointments .tab-request {
+    width: 50%;
+    color: white;
+    display: block;
+    position: relative;
+    padding: .5rem 1.5rem;
+    transition: all ease-out .2s;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    border: 1px solid var(--gray-200);
+    border-bottom: none;
+    background-color: var(--blue-600);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.header-appointments .tab-days.active, .header-appointments .tab-request.active {
+    color: var(--gray-700);
+    background-color: white;
+}
+
+.header-appointments .tab-days:not(.active):hover, .header-appointments .tab-request:not(.active):hover {
+    cursor: pointer;
+    background-color: var(--blue-700);
+}
+
+.tab-days h4, .tab-days p, .tab-request h4, .tab-request p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.tab-days h4, .tab-request h4 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.tab-days p, .tab-request p {
+    font-size: .8rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+}
+
+.appointments-container .content-appointments {
+    width: 100%;
+    padding: 1rem;
+    display: block;
+    position: relative;
+    border-radius: .5rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: white;
+    border: 1px solid var(--gray-200);
+    z-index: 2;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.content-appointments .seeker-appointment {
+    width: 100%;
+    gap: .5rem;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    display: inline-flex;
+    justify-content: end;
+}
+
+.seeker-appointment .relative {
+    display: block;
+    position: relative;
+}
+
+.seeker-appointment .relative:nth-child(1) {
+    width: 100%
+}
+
+.seeker-appointment .relative:nth-child(2) {
+    width: 60%;
+}
+
+.seeker-appointment .relative input {
+    width: 100%;
+    display: block;
+    font-size: .875rem;
+    padding: .5rem .5rem;
+    padding: 0.5rem 1rem;
+    line-height: 1.25rem;
+    border-radius: .25rem;
+    color: var(--gray-800);
+    background-color: white;
+    transition: all ease-out .2s;
+    padding-inline-start: 2.75rem;
+    outline: 1px solid transparent;
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.seeker-appointment .relative input:focus {
+    border: solid 1px var(--blue-500);
+    outline: solid 1px var(--blue-500);
+}
+
+.seeker-appointment .relative i {
+    top: 0;
+    left: 0;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    position: absolute;
+    color: var(--gray-500);
+    padding-top: .7rem;
+    padding-inline-start: 1rem;
+}
+
+.content-appointments .appointments-tables {
+    width: 100%;
+    display: block;
+    margin-top: 1rem;
+    position: relative;
+    overflow: auto;
+}
+
+.appointments-tables .table-days, .appointments-tables .table-requests {
+    border-radius: .25rem;
+    display: none;
+}
+
+.appointments-tables .table-days.active, .appointments-tables .table-requests.active {
+    display: block;
+}
+
+.table-days table, .table-requests table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-days table thead th, .table-requests table thead th {
+    padding: .75rem 1rem;
+    font-weight: 500;
+    text-align: start;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    color: var(--gray-800);
+    text-transform: uppercase;
+}
+
+.table-days table thead th:nth-child(1), .table-requests table thead th:nth-child(1) {
+   width: 4rem;
+   max-width: 4rem;
+   text-align: center;
+}
+
+.table-days table thead th:nth-last-child(1), .table-requests table thead th:nth-last-child(1) {
+    width: 6%;
+    max-width: 6%;
+}
+
+.table-days table tbody, .table-requests table tbody {
+    border-radius: .5rem;
+}
+
+.table-days table tbody tr, .table-requests table tbody tr {
+    border-radius: .25rem;
+    transition: all ease-in-out .2s;
+    background-color: var(--gray-50);
+    border: 1px solid var(--gray-100);
+}
+
+.table-days table tbody tr:hover, .table-requests table tbody tr:hover {
+    background-color: var(--gray-100);
+}
+
+.table-days table tbody tr td, .table-requests table tbody tr td {
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    padding: .75rem 1rem;
+    text-transform: capitalize;
+    color: var(--gray-500);
+    white-space: nowrap;
+}
+
+.table-days td .image, .table-requests td .image {
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    margin-right: .5rem;
+    border: 1px solid var(--gray-100);
+}
+
+.table-days td .image.skeleton, .table-requests td .image.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate !important;
+} 
+
+.table-days td .image img, .table-requests td .image img {
+    width: 2.5rem;
+    height: 2.5rem;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.table-days td .profile-text, .table-requests td .profile-text {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.table-days td .profile-text .name, .table-requests td .profile-text .name {
+    color: var(--gray-950);
+    font-weight: 600;
+}
+
+.table-days td .profile-text .email, .table-requests td .profile-text .email {
+    text-transform: none;
+    color: var(--gray-500);
+}
+
+.table-days tbody tr td .bg-gray, .table-days tbody tr td .bg-yellow, .table-days tbody tr td .bg-green,
+.table-requests tbody tr td .bg-gray, .table-requests tbody tr td .bg-yellow, .table-requests tbody tr td .bg-green {
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+.table-days tbody tr td .bg-gray, .table-requests tbody tr td .bg-gray {
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+}
+
+.table-days tbody tr td .bg-yellow, .table-requests tbody tr td .bg-yellow {
+    background-color: rgb(254 249 195);
+    color: rgb(202 138 4);
+}
+
+.table-days tbody tr td .bg-green, .table-requests tbody tr td .bg-green {
+    background-color: rgb(220 252 231);
+    color: rgb(22 163 74);
+}
+
+.table-days tbody tr td:nth-child(1), .table-requests tbody tr td:nth-child(1) {
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+}
+
+.table-days tbody tr td:nth-child(1) span, .table-requests tbody tr td:nth-child(1) span {
+    color: white;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    background-color: var(--blue-200);
+}
+
+.table-days tbody tr td:nth-last-child(1), .table-requests tbody tr td:nth-last-child(1) {
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.table-days tbody tr.skeleton td, .table-requests tbody tr.skeleton td {
+    background-color: var(--gray-50);
+    height: 4rem;
+}
+
+.table-days tbody tr:not(.skeleton) td, .table-requests tbody tr:not(.skeleton) td {
+    animation: opacity .5s;
+}
+
+.table-days tbody tr.skeleton td div, .table-requests tbody tr.skeleton td div {
+    animation: skeleton-loading 1s linear infinite alternate;
+    width: 100%;
+    height: 70%;
+    border-radius: .5rem;
+}
+
+.form-modal #button-create-appointments {
+    width: 100%;
+}
+
+.form-modal #button-update-appointments {
+    width: 75%;
+}
+
+.form-modal #button-delete-appointments {
+    width: 25%;
+}
+
+.form-modal .message {
+    background-color: white !important;
+}
+
+@media (min-width: 640px) { 
+    .dates-month li {
+        height: 5rem !important;
+    }
+
+    .header-appointments .tab-days, .header-appointments .tab-request {
+        width: 30%;
+    }
+
+    .content-appointments .seeker-appointment {
+        gap: 1rem;
+        justify-content: start;
+    }
+
+    .seeker-appointment .relative:nth-child(1) {
+        width: 80%;
+    }
+
+    .seeker-appointment .relative:nth-child(2) {
+        width: calc(20% - 1rem);
+    }
+}
+
+@media (min-width: 768px) { 
+    .dates-month li {
+        height: 6rem !important;
+    }
+
+    .header-appointments .tab-days, .header-appointments .tab-request {
+        width: 20%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .dates-month li {
+        height: 6.5rem !important;
+    }
+
+    .header-appointments .tab-days, .header-appointments .tab-request {
+        width: 18%;
+    }
+
+    .table-days tbody tr td {
+        max-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-width: 1280px) {
+    .dates-month li {
+        height: 7rem !important;
+    }
+
+    .header-appointments .tab-days, .header-appointments .tab-request {
+        width: 15%;
+    }
+}
+
+@media (min-width: 1536px) {
+    .dates-month li {
+        height: 7.5rem !important;
+    }
+}

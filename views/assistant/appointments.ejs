@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assistant/css/index.css">
+    <link rel="stylesheet" href="/assistant/css/appointments.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/assistant/js/appointments.js"></script>
+    <script type="module" src="/assistant/js/image-profile.js"></script>
+    <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
+    <title>Asistente | Citas</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menu">
+                <input type="checkbox" id="open-navbar">
+                <label class="show-navbar" for="open-navbar">
+                    <i class="fa-solid fa-bars"></i>
+                </label>
+                <section class="navbar">
+                    <label class="close-navbar" for="open-navbar">
+                        <i class="fa-solid fa-xmark"></i>
+                    </label>
+                    <div class="logo">
+                        <div class="image">
+                            <a href="/">
+                                <img src="/images/logo.jpg" alt="Logo de MediConnect" title="Logo de MediConnect">
+                            </a>
+                        </div>
+                        <h2>Medi<span>Connect</span></h2>
+                    </div>
+                    <ul>
+                        <li><a href="/asistente"><i class="fa-solid fa-calendar-check"></i> Citas</a></li>
+                    </ul>
+                </section>
+            </div>
+            <div class="profile">
+                <input type="checkbox" id="check-profile">
+                <label for="check-profile">
+                    <img id="profile-image" src="/images/user-solid.jpg" alt="Imagen de perfil" class="img-circle image-profile">
+                </label>
+                <section class="dropdown-profile">
+                    <article class="profile-information">
+                        <p>Registrado como</p>
+                        <p class="email-profile"></p>
+                    </article>
+                    <article class="profile-link">
+                        <i class="fa-solid fa-user"></i>
+                        <a href="/asistente/perfil">Perfil de usuario</a>
+                    </article>
+                    <article class="profile-logout logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+                        <a href="/sesion/cerrar/asistente">Cerrar Sesión</a>
+                    </article>  
+                </section>
+            </div>
+        </nav>
+    </header>
+    <main id="main">
+        <section class="content">
+            <article class="header-content">
+                <h3 class="title">Citas Medicas</h3>
+                <a class="button-outline-blue" id="button-show-modal">Nueva Cita</a>
+            </article>
+            <article class="appointments-container">
+                <nav class="header-appointments">
+                    <div id="show-tab-days" class="tab-days">
+                        <h4 class="appointments-count"></h4>
+                        <p class="appointments-date"></p>
+                    </div>
+                    <div id="show-tab-requests" class="tab-request">
+                        <h4 class="appointments-count">citas</h4>
+                        <p>Solicitudes</p>
+                    </div>
+                </nav>
+                <section class="content-appointments">
+                    <div class="seeker-appointment">
+                        <div class="relative">
+                            <input type="text" name="seeker-appointments" id="seeker-appointments" placeholder="Buscar por tipo de cita">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div class="relative">
+                            <input type="date" name="date-appointments" id="date-appointments">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                    </div>
+                    <div class="appointments-tables">
+                        <div class="table-days">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Paciente</th>
+                                        <th>Doctor</th>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Tipo</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-appointments-days"></tbody>
+                            </table>
+                        </div>
+                        <div class="table-requests">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Paciente</th>
+                                        <th>Contacto</th>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Tipo</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-appointments-requests"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </article>
+            <section id="modal-appointments" class="modal">
+                <article class="relative-content">
+                    <form id="form-appointments" class="form-modal" method="post">
+                        <i id="button-hide-modal" class="fa-solid fa-xmark fa-lg button-hide-modal"></i>
+                        <section class="header-form">
+                            <h2 id="title-appointments" class="title">Nueva Cita</h2>
+                            <p class="subtitle">Complete todos los campos para continuar.</p>
+                        </section>
+                        <section id="message-appointments" class="message"></section>
+                        <section class="form-group">
+                            <label for="patient-list" class="form-label">Paciente</label>
+                            <article class="relative">
+                                <select name="patient" id="patient-list" class="form-field"></select>
+                                <i class="fa-solid fa-user icon-input"></i>
+                            </article>
+                            <p id="form-appointments-patient-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="doctor-list" class="form-label">Doctor</label>
+                            <article class="relative">
+                                <select name="doctor" id="doctor-list" class="form-field"></select>
+                                <i class="fa-solid fa-user-doctor icon-input"></i>
+                            </article>
+                            <p id="form-appointments-doctor-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="type" class="form-label">Tipo</label>
+                            <article class="relative">
+                                <select name="type" class="form-field">
+                                    <option value="" selected disabled hidden>Selecciona un tipo</option>
+                                    <option value="Cita de control">Cita de control</option>
+                                    <option value="Cita preoperatoria">Cita preoperatoria</option>
+                                    <option value="Cita de seguimiento">Cita de seguimiento</option>
+                                    <option value="Cita por dolencia">Cita por dolencia</option>
+                                    <option value="Cita de urgencia">Cita de urgencia</option>
+                                    <option value="Medicina de familia">Medicina de familia</option>
+                                    <option value="Pediatría">Pediatría</option>
+                                    <option value="Enfermería">Enfermería</option>
+                                    <option value="Matrona">Matrona</option>
+                                    <option value="Odontología">Odontología</option>
+                                    <option value="Trabajo social">Trabajo social</option>
+                                </select>
+                                <i class="fa-solid fa-font-awesome icon-input"></i>
+                            </article>
+                            <p id="form-appointments-type-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="confirm-pass" class="form-label">Fecha</label>
+                            <article class="relative">
+                                <input type="date" name="date" class="form-field">
+                                <i class="fa-solid fa-calendar-day icon-input"></i>
+                            </article>
+                            <p id="form-appointments-date-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label class="form-label" for="time">Hora</label>
+                            <div class="relative">
+                                <select name="time" class="form-field">
+                                    <option value="" selected disabled hidden>Selecciona una hora</option>
+                                    <option value="06:00">6:00 AM</option>
+                                    <option value="07:00">7:00 AM</option>
+                                    <option value="08:00">8:00 AM</option>
+                                    <option value="09:00">9:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM (Mediodia)</option>
+                                    <option value="13:00">01:00 PM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="17:00">05:00 PM</option>
+                                </select>
+                                <i class="fa-solid fa-clock icon-input"></i>
+                            </div>
+                            <p id="form-appointments-time-helper" class="helper"></p>
+                        </section>
+                        <section class="form-group">
+                            <label for="reason" class="form-label">Razón</label>
+                            <article class="relative">
+                                <textarea name="reason" cols="30" rows="8" class="form-field"></textarea>
+                                <i class="fa-solid fa-message icon-input"></i>
+                            </article>
+                            <p id="form-appointments-reason-helper" class="helper"></p>
+                        </section>
+                        <section class="form-check">
+                            <input type="checkbox" id="permission" name="permission" class="optional">
+                            <label for="permission" class="form-label">Permitir cita. (Si la cita ha sido cancelada, desmarca esta casilla)</label>
+                        </section>
+                        <section class="form-button">
+                            <button id="button-create-appointments" type="button" class="button-outline-gray text-blue">Crear</button>
+                            <button id="button-update-appointments" type="button" class="button-outline-gray text-blue">Actualizar</button>
+                            <button id="button-delete-appointments" type="button" class="button-outline-gray text-red">Eliminar</button>
+                        </section>
+                    </form>
+                </article>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <section class="contact">
+            <article class="logo">
+                <img src="/images/logo.png" alt="Logo de MediConnect">
+                <h2 class="name-logo">Medi<b>Connect</b></h2>
+            </article>  
+            <h3 class="title">Contacta con Nosotros</h3>
+            <a href="/">
+                <i class="fa-solid fa-location-dot"></i>
+                Localización
+            </a>
+            <a href="/">
+                <i class="fa-solid fa-phone"></i>
+                +57 301231312
+            </a>
+            <a href="/">
+                <i class="fa-solid fa-envelope"></i>
+                admin@gmail.com
+            </a>
+        </section>
+        <section class="doctors">
+            <h3 class="title">Doctores</h3>
+            <p>
+                El doctor debe tener la capacidad de comunicarse 
+                eficazmente con sus pacientes. Debe explicar los 
+                procedimientos y la terminología médica en un modo 
+                sencillo de entender.
+            </p>
+        </section>
+        <section class="links">
+            <h3 class="title">Enlaces Utiles</h3>
+            <a href="/">Enlace 1</a>
+            <a href="/">Enlace 2</a>
+            <a href="/">Enlace 3</a>
+            <a href="/">Enlace 4</a>
+        </section>
+        <section class="socials">
+            <h3 class="title">Redes Sociales</h3>
+            <a href="/">
+                <i class="fa-brands fa-facebook" style="color: #284bd7;"></i>
+                Facebook
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-square-twitter" style="color: #74C0FC;"></i>
+                Twitter
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-linkedin" style="color: #3061b5;"></i>
+                Linkedin
+            </a>
+            <a href="/">
+                <i class="fa-brands fa-square-instagram" style="color: #8665ec;"></i>
+                Instagram
+            </a>
+        </section>
+        <section class="copy">
+            <p>2024© Todos los derechos reservados.</p>
+        </section>
+    </footer>
+</body>
+</html>

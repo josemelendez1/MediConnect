@@ -1,0 +1,91 @@
+<%
+    function risk (value) {
+        let response = `${value}`;
+        switch(value) {
+            case 1: response = 'Bajo Riesgo'; break;
+            case 2: response = 'Riesgo Moderado'; break;
+            case 3: response = 'Riesgo Alto'; break; 
+            case 4: response = 'Muy Alto Riesgo'; break;
+        }
+
+        return response;
+    }
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Medico <%= medicalRecord.createdAt.toLocaleDateString() %></title>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="data:image/jpeg;base64,<%= logo %>" alt="Logo del sitio web" title="MediConnect">
+            <h1>Historia clinica</h1>
+        </div>
+        <div class="header-right">
+            <p class="bold">Número de Historia: <span><%= medicalRecord.id %></span></p>
+            <p class="bold">Fecha de Creación: <span><%= medicalRecord.createdAt.toLocaleDateString() %></span></p>
+        </div>
+    </header>
+    <main>
+        <section class="header-main">
+            <h2 class="title">Anamnesis</h2>
+            <small>
+                Exploración clínica que se realiza a través de preguntas al paciente, 
+                o sus acompañantes, durante la primera etapa del proceso diagnóstico.
+            </small>
+        </section>
+        <section class="content-main">
+            <article>
+                <h3 class="subtitle">Datos Personales:</h3>
+                <div class="profile">
+                    <p class="bold">Paciente: <span><%= patient.name %></span>.</p>
+                    <p class="bold">Fecha de Nacimiento: <span><%= patient.birthdate.toLocaleDateString() %></span>.</p>
+                    <p class="bold">Edad: <span><%= new Date().getFullYear() - patient.birthdate.getFullYear() %></span>.</p>
+                    <p class="bold">Numero de Telefono: <span><%= (patient.extensionTelephone && patient.telephone) ? `+${patient.extensionTelephone} ${patient.telephone}` : 'Desconocido' %></span>.</p>
+                    <p class="bold">Correo Electronico: <span><%= patient.email %></span>.</p>
+                    <p class="bold">Fecha de Registro: <span><%= patient.createdAt.toLocaleDateString() %></span>.</p>
+                </div>
+            </article>
+            <article>
+                <h3 class="subtitle">Motivo de Consulta:</h3>
+                <p class="description"><%= appointment.reason %></p>
+                <p class="bold">Severidad: <span><%= risk(medicalRecord.risk) %></span>.</p>
+            </article>
+            <article>
+                <h3 class="subtitle">Enfermedad(es) Actual(es):</h3>
+                <p class="description"><%= medicalRecord.reason %></p>
+                <div class="container-table">
+                    <h4 class="title-table">Cuadro de enfermedad(es) detallada</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Severidad</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (diseases instanceof Array) for(let i = 0; i < diseases.length; i++) { %>
+                                <% if (diseases[i] instanceof Object) { %>
+                            <tr>
+                                <td><%= diseases[i].name %></td>
+                                <td><%= diseases[i].severity %></td>
+                                <td><%= diseases[i].description %></td>
+                            </tr>
+                                <% } %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <a href="http://localhost:5000/">MEDICONNECT</a>
+    </footer>
+</body>
+</html

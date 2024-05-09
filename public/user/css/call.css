@@ -1,0 +1,215 @@
+.modal-call {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: grid;
+    position: fixed;
+    transform: translateY(-100%);
+    align-items: center;
+    place-content: center;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
+    transition: all ease-in-out .5s;
+    background-color: rgba(80, 80, 80, .7);
+}
+
+.modal-call.modal-open {
+    opacity: 1;
+    z-index: 100;
+    transform: translateY(0);
+}
+
+.modal .container-call {
+    gap: .5rem;
+    width: 100%;
+    max-height: 50%;
+    padding: 1rem;
+    display: flex;
+    overflow: auto;
+    align-items: center;
+    border-radius: .5rem;
+    flex-direction: column;
+    justify-content: start;
+    background-color: white;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.modal-call .container-call .header-call {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.modal-call .container-call .header-call p {
+    color: var(--gray-500);
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+}
+
+.modal-call .container-call .content-call {
+    gap: 1rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.modal-call .container-call .content-call .title-call {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    color: var(--gray-800);
+}
+
+.modal-call .container-call .content-call .profile-user {
+    gap: .25rem;
+    width: 100%;
+    display: flex;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.modal-call .container-call .content-call .profile-user .image,
+.modal-call .container-call .content-call .profile-user .image img {
+    border-radius: 50%;
+    width: 3.5rem;
+    min-width: 3.5rem;
+    max-width: 3.5rem;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.modal-call .container-call .content-call .profile-user .image {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.modal-call .container-call .content-call .profile-user .name {
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--gray-800);
+}
+
+.modal-call .container-call .content-call .profile-user .email {
+    width: 100%;
+    text-align: center;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--gray-500);
+}
+
+.modal-call .container-call .header-call .logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    gap: 1rem;
+    width: auto;
+    height: auto;
+    flex-wrap: nowrap;
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.modal-call .container-call .header-call .logo .image, 
+.modal-call .container-call .header-call .logo .image img {
+    width: 2.5rem;
+    min-width: 2.5rem;
+    max-width: 2.5rem;
+    height: 2.5rem;
+    min-height: 2.5rem;
+    max-height: 2.5rem;
+    object-fit: cover;
+}
+
+.modal-call .container-call .footer-call {
+    gap: 1rem;
+    width: 100%;
+    display: flex;
+    margin-top: .5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-call .container-call .footer-call button {
+    width: 3rem;
+    height: 3rem;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    transition: all ease-out .2s;
+}
+
+.modal-call .container-call .footer-call button.accept-call {
+    color: #22c55e;
+}
+
+.modal-call .container-call .footer-call button.accept-call:hover {
+    color: white;
+    background-color: #22c55e;
+}
+
+.modal-call .container-call .footer-call button.cancel-call {
+    color: #ef4444;
+}
+
+.modal-call .container-call .footer-call button.cancel-call:hover {
+    color: white;
+    background-color: #ef4444;
+}
+
+@media (min-width: 640px) {
+    .modal-call {
+        grid-template-columns: 60%;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-call {
+        grid-template-columns: 45%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .modal-call {
+        grid-template-columns: 35%;
+    }
+}
+
+@media (min-width: 1280px) {
+    .modal-call {
+        grid-template-columns: 25%;
+    }
+}
+
+@media (min-width: 1536px) {
+    .modal-call {
+        grid-template-columns: 20%;   
+    }
+}
