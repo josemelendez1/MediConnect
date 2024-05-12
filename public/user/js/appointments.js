@@ -167,7 +167,7 @@ function create() {
             setTimeout(async () => {
                 hideMessage(messageForm);
                 reloadForm(form);
-                await socket.timeout(2000).emit('appointment-eager/read', patient._id, true, (error, response) => {});
+                await socket.timeout(2000).emit('appointment-patient-eager/read', patient._id, true, (error, response) => {});
             }, 3000);
             break;
 

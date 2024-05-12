@@ -38,8 +38,22 @@ document.addEventListener('DOMContentLoaded', function() {
             if (Number(patient._id) === Number(patientCall._id) && Number(doctor._id) === Number(doctorCall._id)) cancelCall();
         });
 
+        socket.on('acept-call', (patientCall, doctorCall, roomId) => {
+            if (!isset([roomId])) return;
+            if (!(patient instanceof Object) || !(doctor instanceof Object)) return;
+            if (!(patientCall instanceof Object) || !(doctorCall instanceof Object)) return;
+            if (Number(patient._id) === Number(patientCall._id) && Number(doctor._id) === Number(doctorCall._id)) {
+                redirectCallRoom(roomId);
+                buttonCancelCall.click();
+            }
+        });
+
         buttonCancelCall.addEventListener('click', () => {
             if (patient instanceof Object && doctor instanceof Object) socket.emit('cancel-call', patient, doctor, (error, response) => {});
+        });
+
+        buttonAceptCall.addEventListener('click', () => {
+            if (patient instanceof Object && doctor instanceof Object) socket.emit('acept-call', patient, doctor);
         });
     }
 });
@@ -84,4 +98,30 @@ function cancelCall() {
 
     let profile = modalCall.querySelector('.profile-user');
     if (isset([profile])) setTimeout(() => {profile.innerHTML = ''}, 500);
+}
+
+function redirectCallRoom(roomId) {
+    const container = document.getElementById('form-hidden');
+    const form = document.createElement('form');
+    form.target = '_blank';
+    form.method = 'POST';
+    form.action = 'http://localhost:5000/sala';
+
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.value = roomId;
+    input.name = 'room';
+    form.appendChild(input);
+
+    input = document.createElement('input');
+    input.type = 'hidden';
+    input.value = (patient instanceof Object) ? JSON.stringify(patient) : null;
+    input.name = 'user';
+    form.appendChild(input);
+    
+    container.innerHTML = '';
+    container.appendChild(form);
+
+    form.submit();
+    input.value = '';
 }

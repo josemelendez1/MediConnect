@@ -24,19 +24,18 @@ import { CarrouselImageController } from "./controllers/carrousel-image-controll
 import { PatientController } from "./controllers/patient-controller";
 import { Patient } from "./models/patient.entity";
 import { Pdf } from "./controllers/pdf";
-import { Twilio } from "twilio";
-import { PrescriptionMedication } from "./models/prescriptionMedication.entity";
 import { PrescriptionMedicationController } from "./controllers/preescriptionMedication-controller";
 import { DiagnosedDiseaseController } from "./controllers/diagnosedDisease-controller";
+import { isset } from "./controllers/requests";
 
 const router : Router = express.Router();
 
-router.get('/sala', (req, res) => {
-    res.redirect(`/sala/${uuidv4()}`);
-});
-
-router.get('/sala/:room', (req, res) => {
-    res.render('room', { roomId: req.params.room });
+router.post('/sala', (req, res) => {
+    if (isset([req.body.room]) && isset([req.body.user])) {
+        res.render('room', { roomId: req.body.room, user: JSON.parse(req.body.user) });
+    } else {
+        res.redirect('/');
+    }
 });
 
 // views/administrador

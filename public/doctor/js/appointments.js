@@ -486,6 +486,24 @@ async function call(id) {
             });
         }).catch((error) => {
             console.error(error);
+            socket.on('cancel-call', (patient, doc) => {
+                if (!(patient instanceof Object) || !(doc instanceof Object)) return;
+                if (!(patientCall instanceof Object) || !(doctor instanceof Object)) return;
+                if (Number(patient._id) === Number(patientCall._id) && Number(doc._id) === Number(doctor._id)) {
+                    hideModal(modalCall);
+                    patientCall = null;
+                    document.body.style.overflow = "auto";
+                }
+            });
+        });
+        
+        socket.on('acept-call', (patient, doctorCall, roomId) => {
+            if (!isset([roomId])) return;
+            if (!(patient instanceof Object) || !(doctorCall instanceof Object)) return;
+            if (!(patientCall instanceof Object) || !(doctor instanceof Object)) return;
+            if (Number(patient._id) === Number(patientCall._id) && Number(doctorCall._id) === Number(doctor._id)) {
+                redirectCallRoom(roomId);
+            }
         });
     }
 }
@@ -564,6 +582,32 @@ function showPatientVideo(id) {
 
     let dateCall = modalCall.querySelector('.date-call');
     if (dateCall) dateCall.textContent = `Fecha de llamada: ${new Date().toLocaleString()}`;
+}
+
+function redirectCallRoom(roomId) {
+    const container = document.getElementById('form-hidden');
+    const form = document.createElement('form');
+    form.target = '_blank';
+    form.method = 'POST';
+    form.action = 'http://localhost:5000/sala';
+
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.value = roomId;
+    input.name = 'room';
+    form.appendChild(input);
+
+    input = document.createElement('input');
+    input.type = 'hidden';
+    input.value = (doctor instanceof Object) ? JSON.stringify(doctor) : null;
+    input.name = 'user';
+    form.appendChild(input);
+
+    container.innerHTML = '';
+    container.appendChild(form);
+
+    form.submit();
+    input.value = '';
 }
 
 export { diseases };

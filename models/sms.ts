@@ -17,16 +17,15 @@ export class SMS {
     }
 
     public send() {
-        try {
-            const client = new Twilio(this.accountSid, this.authToken);
-            client.messages
-            .create({
-                from: this.twilioNumber,
-                to: (this.to) ? this.to : '',
-                body: this.msg,
-            })
-            .then((message) => {});            
-        } catch (error) {}
+        const client = new Twilio(this.accountSid, this.authToken);
+        client.messages
+        .create({
+            from: this.twilioNumber,
+            to: (this.to) ? this.to : '',
+            body: this.msg,
+        })
+        .then((message) => {})
+        .catch((error) => {});
     }
 
     public get to(): string | undefined {

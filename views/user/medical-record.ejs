@@ -6,8 +6,10 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/user/css/index.css">
     <link rel="stylesheet" href="/user/css/home.css">
+    <link rel="stylesheet" href="/user/css/call.css">
     <link rel="stylesheet" href="/user/css/medical-record.css">
     <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/user/js/call.js"></script>
     <script type="module" src="/user/js/image-profile.js"></script>
     <script type="module" src="/user/js/medical-record.js"></script>
     <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
@@ -107,6 +109,25 @@
             </template>
             <div id="container-hidden" class="hidden"></div>
         </section>
+        <section class="modal modal-call">
+            <article class="container-call">
+                <div class="header-call">
+                    <p class="date-call">12:00 PM</p>
+                    <div class="logo">
+                        <div class="image"><img src="/images/logo.jpg" alt="Logo de imagen"></div>
+                    </div>
+                </div>
+                <div class="content-call">
+                    <h4 class="title-call">LLamada Entrante</h4>
+                    <div class="profile-user"></div>
+                </div>
+                <div class="footer-call">
+                    <button id="button-accept-call" class="accept-call" type="button"><i class="fa-solid fa-phone"></i></button>
+                    <button id="button-cancel-call" class="cancel-call" type="button"><i class="fa-solid fa-phone fa-rotate-by" style="--fa-rotate-angle: 135deg;"></i></button>
+                </div>
+            </article>
+        </section>
+        <section id="form-hidden" class="hidden"></section>
     </main>
     <footer>
         <section class="contact">

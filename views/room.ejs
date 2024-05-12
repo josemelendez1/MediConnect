@@ -6,7 +6,10 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/room.css">
     <title>MEDICONNECT | Sala de Atención</title>
-    <script>const ROOM_ID = "<%= roomId %>";</script>
+    <script>
+        const ROOM_ID = "<%= roomId %>";
+        const USER = `<%- JSON.stringify(user || null) %>`;
+    </script>
     <script src="https://kit.fontawesome.com/8cf6f6ded8.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js" defer></script>
     <script src="/socket.io/socket.io.js" defer></script>
@@ -14,30 +17,73 @@
 </head>
 <body>
     <main>
+        <label class="toggle-nav" for="toggle-nav">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+        <input id="toggle-nav" type="checkbox" class="hidden">
+        <input id="toggle-chat" type="checkbox" class="hidden">
+        <input id="toggle-users" type="checkbox" class="hidden">
         <nav>
             <img class="logo" src="/images/logo.jpg" alt="logo">
             <ul>
-                <li><div class="icon"><i class="fa-solid fa-comments"></i></div></li>
-                <li><div class="icon"><i class="fa-solid fa-users-rectangle"></i></div></li>
-                <li><div class="icon"><i class="fa-solid fa-gear"></i></div></li>
+                <li>
+                    <label title="Mensajes" class="icon" for="toggle-chat"><i class="fa-solid fa-comments"></i></label>
+                </li>
+                <li>
+                    <label title="Personas" class="icon" for="toggle-users"><i class="fa-solid fa-users-rectangle"></i></label>
+                </li>
             </ul>
         </nav>
         <section class="content">
             <div class="row">
-                <div class="col-1">
-                    <div id="video-main"></div>
-                    <div class="controls">
-                        <div id="button-toggle-audio" class="icon"><i class="fa-solid fa-microphone" style="color:#22c55e;"></i></div>
-                        <a href="/" class="icon"><i class="fa-solid fa-phone fa-rotate-by" style="--fa-rotate-angle: 135deg;"></i></a>
-                        <div id="button-toggle-cam" class="icon"><i class="fa-solid fa-video" style="color:#22c55e;"></i></div>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div id="video-container" class="joined">
-                        <h3 class="title">Personas en la sala</h3>
-                    </div>
-                </div>
+                <div class="col-1"></div>
+                <div class="col-2"></div>
             </div>
+            <div class="controls">
+                <div id="button-toggle-audio" class="icon"><i class="fa-solid fa-microphone" style="color:#22c55e;"></i></div>
+                <div id="button-end-call" class="icon"><i class="fa-solid fa-phone fa-rotate-by" style="--fa-rotate-angle: 135deg;"></i></div>
+                <div id="button-toggle-cam" class="icon"><i class="fa-solid fa-video" style="color:#22c55e;"></i></div>
+            </div>
+        </section>
+        <section class="modal chat-container">
+            <article class="chat-content">
+                <div class="container-header-messages">
+                    <label class="icon" for="toggle-chat">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </label>
+                    <h2 class="title">Mensajes <i class="fa-solid fa-comment"></i></h2>
+                </div>
+                <div class="container-messages">
+                    <ul id="messages-chat">
+                        <!--<li class="right-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos ullam commodi expedita minus. Dolores fugiat in nam possimus officia perferendis corrupti explicabo amet est. Rem reiciendis tempore illum veritatis unde!</li>
+                        <li class="left-message">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, perspiciatis. Voluptatem, fuga, temporibus dignissimos aspernatur voluptatum accusamus minus vitae ipsa beatae voluptas molestias eaque facere magnam consequuntur, velit distinctio necessitatibus?</li>
+                        <li class="right-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut quam a quas atque cum perspiciatis laborum eligendi blanditiis labore repellat! Eum iusto minus a doloremque quibusdam porro distinctio recusandae cumque!</li>
+                        <li class="left-message">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit accusantium labore quo rerum amet dicta molestias, iusto unde iure quaerat cum saepe. Unde blanditiis autem molestiae. Recusandae enim aut nam.</li>
+                        -->
+                    </ul>
+                </div>
+                <div class="container-footer-messages">
+                    <div class="relative">
+                        <input id="text-message-chat" type="text" placeholder="Escribe tu mensaje aquí!" required>
+                        <div id="button-send-message" class="icon">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <section class="modal users-container">
+            <article class="users-content">
+                <div class="container-header-users">
+                    <label class="icon" for="toggle-users">
+                        <i class="fa-solid fa-angle-down"></i>
+                    </label>
+                    <h2 class="title">Usuarios <i class="fa-solid fa-users"></i></h2>
+                </div>
+                <div class="container-users">
+                    <ul id="users-chat"></ul>
+                </div>
+            </article>
         </section>
     </main>
 </body>

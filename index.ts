@@ -1,5 +1,6 @@
 import express, { Express, Router, response } from 'express';
 import session from 'express-session';
+import { v4 as uuidv4 } from 'uuid';
 import fileUpload from 'express-fileupload';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
@@ -75,7 +76,7 @@ io.on('connection', (socket) => {
             }
             if (global) io.emit('administrators/read', (administrators));
             else socket.emit('administrators/read', (administrators));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
     
         socket.on('administrator/read', async (id: number | undefined, global : boolean | undefined) => {
@@ -138,7 +139,7 @@ io.on('connection', (socket) => {
             }
             if (global) io.emit('medicine/read', (medicines));
             else socket.emit('medicine/read', (medicines));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('medicine/updated', (id: number | undefined) => {
@@ -158,7 +159,7 @@ io.on('connection', (socket) => {
             }
             if (global) io.emit('disease/read', (diseases));
             else socket.emit('disease/read', (diseases));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
     
         socket.on('disease/updated', (id: number | undefined) => {
@@ -178,7 +179,7 @@ io.on('connection', (socket) => {
             }
             if (global) io.emit('patient/read', (patients));
             else socket.emit('patient/read', (patients));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('patient/session/read', async (callback: any | undefined) => {
@@ -186,7 +187,7 @@ io.on('connection', (socket) => {
             const patient = await AppDataSource.getRepository(Patient).findOneBy({_id: idPatient});
             if (patient instanceof Patient) patient.imageURL = await read(imagesPatient, idPatient);
             socket.emit('patient/session/read', (patient));
-            if (isset([callback])) callback({status: SUCCESS});
+            if (callback instanceof Function) callback({status: SUCCESS});
         });
 
         socket.on('patient/updated', (id: number | undefined) => {
@@ -206,7 +207,7 @@ io.on('connection', (socket) => {
             }
             if (global) io.emit('doctor/read', (doctors));
             else socket.emit('doctor/read', (doctors));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('doctor/session/read', async () => {
@@ -232,7 +233,7 @@ io.on('connection', (socket) => {
             }
             if (global) io.emit('assistant/read', (assistants));
             else socket.emit('assistant/read', (assistants));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('assistant/session/read', async () => {
@@ -254,14 +255,14 @@ io.on('connection', (socket) => {
             const appointments = await AppDataSource.getRepository(Appointment).createQueryBuilder().getMany();
             if (global) io.emit('appointment/read', (appointments));
             else socket.emit('appointment/read', (appointments));
-            if (isset([callback]) && callback instanceof Function) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('appointment-eager/read', async (global: boolean | undefined, callback: any | undefined) => {
             const appointments = await AppointmentController.readEager();
             if (global) io.emit('appointment-eager/read', (appointments));
             else socket.emit('appointment-eager/read', (appointments));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('appointment-patient-eager/read', async (id: number, global: boolean | undefined, callback: any | undefined) => {
@@ -270,9 +271,9 @@ io.on('connection', (socket) => {
                 if (patient instanceof Patient) patient.imageURL = await read(imagesPatient, patient.id);
                 if (global) io.emit('appointment-patient-eager/read', (patient));
                 else socket.emit('appointment-patient-eager/read', (patient))
-                if (isset([callback]) && callback instanceof Function) return callback({response: SUCCESS});
+                if (callback instanceof Function) return callback({response: SUCCESS});
             } else {
-                if (isset([callback]) && callback instanceof Function) return callback({response: ERROR});
+                if (callback instanceof Function) return callback({response: ERROR});
             }
             
         });
@@ -289,14 +290,14 @@ io.on('connection', (socket) => {
             const medicalRecords: MedicalRecord[] | null = await MedicalRecordController.read();
             if (global) io.emit('medical-record/read', (medicalRecords));
             else socket.emit('medical-record/read', (medicalRecords));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('medical-record-eager/read', async (global: boolean | undefined, callback: any | undefined) => {
             const medicalRecords: MedicalRecord[] | null = await MedicalRecordController.readEager();
             if (global) io.emit('medical-record-eager/read', (medicalRecords));
             else socket.emit('medical-record-eager/read', (medicalRecords));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('medical-record/updated', (id: number | undefined) => {
@@ -311,21 +312,21 @@ io.on('connection', (socket) => {
             const diagnosedDisease = await DiagnosedDiseaseController.readByRecord(id);
             if (global) io.emit('diagnosed-disease/read-by-record', (diagnosedDisease));
             else socket.emit('diagnosed-disease/read-by-record', (diagnosedDisease));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('recipe/read', async (global: boolean | undefined, callback: any | undefined) => {
             const recipes = await RecipeController.read();
             if (global) io.emit('recipe/read', (recipes));
             else socket.emit('recipe/read', (recipes));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('recipe-eager/read', async (global: boolean | undefined, callback: any | undefined) => {
             const recipes = await RecipeController.readEager();
             if (global) io.emit('recipe-eager/read', (recipes));
             else socket.emit('recipe-eager/read', (recipes));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('recipe/updated', (id: number | undefined) => {
@@ -340,7 +341,7 @@ io.on('connection', (socket) => {
             const preescriptionMedications = await PrescriptionMedicationController.readByRecipe(id);
             if (global) io.emit('preescription-medication/read-by-recipe', (preescriptionMedications));
             else socket.emit('preescription-medication/read-by-recipe', (preescriptionMedications));
-            if (isset([callback])) return callback({response: SUCCESS});
+            if (callback instanceof Function) return callback({response: SUCCESS});
         });
 
         socket.on('call', (patient: Object | undefined, doctor: Object | undefined, callback: any | undefined) => {
@@ -373,6 +374,10 @@ io.on('connection', (socket) => {
                 if (callback instanceof Function) return callback({response: ERROR});
             }
         });
+
+        socket.on('acept-call', (patient: Object | undefined, doctor: Object) => {
+            io.emit('acept-call', patient, doctor, uuidv4());
+        });
     }
 
     socket.on('join-room', (roomId, userId) => {
@@ -380,6 +385,12 @@ io.on('connection', (socket) => {
         socket.broadcast.to(roomId).emit('user-connected', userId);
         socket.on('disconnect', () => {
             socket.broadcast.to(roomId).emit('user-disconnected', userId);
+        });
+        socket.on('end-call', () => {
+            socket.broadcast.to(roomId).emit('end-call', userId);
+        });
+        socket.on('chat-message', (msg: string, user: Object) => {
+            if (isset([msg]) && user instanceof Object) io.to(roomId).emit('chat-message', msg, user);            
         });
     });
 
