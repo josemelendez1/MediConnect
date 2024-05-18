@@ -331,7 +331,7 @@ function read() {
         };
 
         contentImage.classList.add('skeleton');
-        img.src = dataWithLimit[i]._imageURL !== undefined ? dataWithLimit[i]._imageURL : '/images/medicine-default.jpg';
+        img.src = (isset([dataWithLimit[i]._imageURL])) ? dataWithLimit[i]._imageURL : '/images/medicine-default.jpg';
         img.alt = 'Imagen de Medicina';
 
         medicine.classList.remove('skeleton');

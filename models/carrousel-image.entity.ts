@@ -17,7 +17,7 @@ export class CarrouselImage extends BaseEntity {
     @UpdateDateColumn()
     public updatedAt!: Date
     
-    private _imageURL!: string | undefined;
+    private _imageURL!: string | null;
 
     public constructor(name: string, extension: string) {
         super();
@@ -48,11 +48,11 @@ export class CarrouselImage extends BaseEntity {
         this._extension = value;
     }
 
-    public get imageURL(): string | undefined {
+    public get imageURL(): string | null {
         return this._imageURL;
     }
 
-    public set imageURL(value: string | undefined) {
+    public set imageURL(value: string | null) {
         this._imageURL = value;
     }
 }

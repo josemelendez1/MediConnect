@@ -8,7 +8,7 @@ var limit = 12;
 var offset = 0;
 var medicinesData = [];
 var doctorsData = [];
-var medicines, medicinesRequests, prevMedicines, nextMedicines, form, title, count, modal, messageForm, inputSeeker, inputSeekerRequests, buttonCreate, buttonUpdate, buttonDelete, buttonShowModal, buttonHideModal, template;
+var medicines, prevMedicines, nextMedicines, form, title, count, modal, messageForm, inputSeeker, buttonCreate, buttonUpdate, buttonDelete, buttonShowModal, buttonHideModal, template;
 
 socket.on('medicine/read', (medicines) => {
     if (!(medicines instanceof Array)) return;
@@ -17,7 +17,6 @@ socket.on('medicine/read', (medicines) => {
     setTimeout(() => {
         read();
     }, 500);
-    readRequests();
 });
 
 socket.on('medicine/updated', (id) => {
@@ -59,7 +58,6 @@ socket.on('medicine/deleted', (id) => {
 
 document.addEventListener("DOMContentLoaded", function() {
     medicines = document.getElementById('medicines');
-    medicinesRequests = document.getElementById('medicines-requests');
     prevMedicines = document.getElementById('prev-medicines');
     nextMedicines = document.getElementById('next-medicines');
     form = document.getElementById('form-medicines');
@@ -68,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
     modal = document.getElementById('modal-medicines');
     messageForm = document.getElementById('message-medicines');
     inputSeeker = document.getElementById('input-seeker');
-    inputSeekerRequests = document.getElementById('input-seeker-requests'); 
     buttonCreate = document.getElementById('button-create-medicines');
     buttonUpdate = document.getElementById('button-update-medicines');
     buttonDelete = document.getElementById('button-delete-medicines');
@@ -78,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     copyright();
 
-    if (medicines && medicinesRequests && prevMedicines && nextMedicines && form && title && count && modal && messageForm && inputSeeker && inputSeekerRequests && buttonCreate && buttonUpdate && buttonDelete && buttonShowModal && buttonHideModal && template) {
+    if (medicines && prevMedicines && nextMedicines && form && title && count && modal && messageForm && inputSeeker && buttonCreate && buttonUpdate && buttonDelete && buttonShowModal && buttonHideModal && template) {
         skeleton();
         placeImage();
         socket.emit('medicine/read', false, (error, response) => {});
@@ -133,10 +130,6 @@ document.addEventListener("DOMContentLoaded", function() {
         inputSeeker.addEventListener('input', function() {
             offset = 0;
             read();
-        });
-
-        inputSeekerRequests.addEventListener('input', function() {
-            readRequests();
         });
     }
 });
@@ -341,7 +334,7 @@ function read() {
         };
 
         contentImage.classList.add('skeleton');
-        img.src = dataWithLimit[i]._imageURL !== undefined ? dataWithLimit[i]._imageURL : '/images/medicine-default.jpg';
+        img.src = (isset([dataWithLimit[i]._imageURL])) ? dataWithLimit[i]._imageURL : '/images/medicine-default.jpg';
         img.alt = 'Imagen de Medicina';
 
         medicine.classList.remove('skeleton');
@@ -349,41 +342,6 @@ function read() {
         medicines.append(medicine);
     }
 
-    if (data.length > 0) initClicksMedicines();
-}
-
-function readRequests() {
-    let content = '';
-    const data = medicinesData.toReversed().filter(x => x._idAdministrator === null);
-
-    if (inputSeekerRequests.value.trim().length > 0) {
-        data = data.filter(x => x._name.includes(inputSeekerRequests.value.trim()));
-        return;
-    }
-
-    if (!isset(data) || !(data instanceof Array)) {
-        medicinesRequests.innerHTML = '';
-        return;
-    }
-
-    for (let i = 0; i < data.length; i++) {
-        if (isset([data[i]]) && data[i] instanceof Object && isset([data[i]._id, data[i]._idDoctor, data[i]._name, data[i]._quantities, data[i]._presentations, data[i].createdAt, data[i]._id]) && !isNaN(data[i]._id) && !isNaN(data[i]._idDoctor) && isDate(data[i].createdAt)) {
-            const indiceDoctor = doctorsData.findIndex(x => x._id === data[i]._idDoctor);
-            content += `
-            <tr>
-                <td>${i + 1}</td>
-                <td>${(indiceDoctor !== -1) ? doctorsData[indiceDoctor]._name : "Desconocido"}</td>
-                <td>${data[i]._name}</td>
-                <td>${data[i]._quantities}</td>
-                <td>${data[i]._presentations}</td>
-                <td>${new Date(data[i].createdAt).toLocaleString()}</td>
-                <td data-id="${data[i]._id}" class="information-medicine">Ver</td>
-            </tr>
-            `
-        }
-    }
-
-    medicinesRequests.innerHTML = content;
     if (data.length > 0) initClicksMedicines();
 }
 

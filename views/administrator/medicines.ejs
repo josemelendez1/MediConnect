@@ -126,29 +126,6 @@
                     </div>
                 </template>
             </article>
-            <article class="aside-medicines">
-                <h4 class="title">Solicitudes de Medicinas <i class="fa-solid fa-globe"></i></h4>
-                <div class="relative">
-                    <input type="text" class="seeker-field" id="input-seeker-requests" placeholder="Buscar...">
-                    <i class="fa-solid fa-magnifying-glass icon-seeker"></i>
-                </div>
-                <section class="container-medicines-requests">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Doctor</th>
-                                <th>Nombre</th>
-                                <th>Cantidades</th>
-                                <th>Presentaciones</th>
-                                <th>Fecha de Creación</th>
-                                <th>...</th>
-                            </tr>
-                        </thead>
-                        <tbody id="medicines-requests"></tbody>
-                    </table>
-                </section>
-            </article>
             <section id="modal-medicines" class="modal">
                 <article class="relative">
                     <form id="form-medicines" class="form-modal" method="post">
@@ -167,7 +144,7 @@
                             <label for="name" class="form-label">Nombre</label>
                             <article class="relative">
                                 <input type="text" name="name" class="form-field" required>
-                                <i class="fa-solid fa-user icon-input"></i>
+                                <i class="fa-solid fa-file-signature icon-input"></i>
                             </article>
                             <p id="form-medicines-name-helper" class="helper"></p>
                         </section>
@@ -175,7 +152,7 @@
                             <label for="quantities" class="form-label">Cantidades</label>
                             <article class="relative">
                                 <input type="text" name="quantities" class="form-field" required>
-                                <i class="fa-regular fa-envelope icon-input"></i>
+                                <i class="fa-solid fa-list-ol icon-input"></i>
                             </article>
                             <p id="form-medicines-quantities-helper" class="helper"></p>
                         </section>

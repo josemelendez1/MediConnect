@@ -70,8 +70,8 @@ async function remove(url: string, id:number | undefined ) : Promise<boolean> {
     return done;
 }
 
-async function read(url: string, id: number | undefined) : Promise<string | undefined> {
-    let imageURL: string | undefined = undefined;
+async function read(url: string, id: number | undefined) : Promise<string | null> {
+    let imageURL: string | null = null;
 
     if (id === undefined || id === null) {
         return imageURL;

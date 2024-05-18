@@ -44,7 +44,7 @@
             </div>
             <div class="buttons-container">
                 <a href="" class="button-blue-rounded">Contacta ahora</a>
-                <a href="" class="button-gray-rounded">Solicitar una Cita</a>
+                <a data-id="patient" class="button-gray-rounded button-session">Solicitar una Cita</a>
             </div>
             <div class="footer-carrousel">
                 <button id="carrousel-button-prev" type="button"><i class="fa-solid fa-angle-left"></i></button>
@@ -102,12 +102,41 @@
                         <p id="form-appointment-date-helper" class="helper"></p>
                     </div>
                     <div class="form-group">
+                        <label class="form-label" for="time">Hora de la cita</label>
+                        <div class="relative">
+                            <select name="time" class="form-field">
+                                <option value="06:00">6:00 AM</option>
+                                <option value="07:00">7:00 AM</option>
+                                <option value="08:00">8:00 AM</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM (Mediodia)</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                                <option value="17:00">05:00 PM</option>
+                            </select>
+                            <i class="fa-solid fa-clock form-icon"></i>
+                        </div>
+                        <p id="form-appointment-time-helper" class="helper"></p>
+                    </div>
+                    <div class="form-group">
                         <label class="form-label" for="type">Tipo</label>
                         <div class="relative">
                             <select name="type" class="form-field" required>
-                                <option value=""></option>
-                                <option value=""></option>
-                                <option value=""></option>
+                                <option value="Cita de control">Cita de control</option>
+                                <option value="Cita preoperatoria">Cita preoperatoria</option>
+                                <option value="Cita de seguimiento">Cita de seguimiento</option>
+                                <option value="Cita por dolencia">Cita por dolencia</option>
+                                <option value="Cita de urgencia">Cita de urgencia</option>
+                                <option value="Medicina de familia">Medicina de familia</option>
+                                <option value="Pediatría">Pediatría</option>
+                                <option value="Enfermería">Enfermería</option>
+                                <option value="Matrona">Matrona</option>
+                                <option value="Odontología">Odontología</option>
+                                <option value="Trabajo social">Trabajo social</option>
                             </select>
                             <i class="fa-solid fa-layer-group icon-field"></i>
                         </div>
@@ -121,7 +150,7 @@
                         </div>
                         <p id="form-appointment-reason-helper" class="helper"></p>
                     </div>
-                    <button class="button-blue-rounded">Enviar</button>
+                    <button data-id="patient" type="button" class="button-blue-rounded button-session">Enviar</button>
                 </form>
             </article>
         </section>
@@ -190,7 +219,7 @@
                     <div class="form-group">
                         <label for="telephone" class="form-label">Telefono</label>
                         <div class="relative">
-                            <input type="number" class="form-field" name="telephone" required autocomplete="tel-national">
+                            <input type="number" class="form-field" name="telephone" maxlength="10" required autocomplete="tel-national">
                             <i class="fa-solid fa-phone form-icon"></i>
                         </div>
                         <p id="form-register-telephone-helper" class="helper"></p>
@@ -198,7 +227,7 @@
                     <div class="form-group">
                         <label for="birthdate" class="form-label">Fecha de Nacimiento</label>
                         <div class="relative">
-                            <input type="date" class="form-field" name="birthdate" autocomplete="bday" max="20" required>
+                            <input type="date" class="form-field" name="birthdate" autocomplete="bday" required>
                             <i class="fa-solid fa-calendar-day form-icon"></i>
                         </div>
                         <p id="form-register-birthdate-helper" class="helper"></p>

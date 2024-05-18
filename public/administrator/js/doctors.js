@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!(data instanceof Array)) return;    
             doctors = data;
             setTimeout(read, 500);
-            console.log(data);
         });
         
         socket.on('doctor/updated', (id) => {

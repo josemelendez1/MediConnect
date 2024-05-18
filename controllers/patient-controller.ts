@@ -21,7 +21,10 @@ export class PatientController {
             patient = await this.repository.save(patient);
 
             if (patient instanceof Patient) {
-                await upload(req, this.dirImages, patient.id);
+                if (await upload(req, this.dirImages, patient.id)) {
+                    patient.imageURL = await readImage(this.dirImages, patient.id);
+                    await this.repository.save(patient);
+                }
                 req.session.patient = patient.id;
                 return SUCCESS;
             } else {
@@ -84,7 +87,10 @@ export class PatientController {
             patient = await this.repository.save(patient);
 
             if (patient instanceof Patient) {
-                upload(req, this.dirImages, patient.id);
+                if (await upload(req, this.dirImages, patient.id)) {
+                    patient.imageURL = await readImage(this.dirImages, patient.id);
+                    await this.repository.save(patient);
+                }
                 return SUCCESS;
             } else {
                 return ERROR;
@@ -113,11 +119,11 @@ export class PatientController {
         }
     }
 
-    public static async findById(req: Request) : Promise<Patient | null> {
+    public static async findById(req: Request): Promise<Patient | null> {
         try {
             if (!isset(req.body.id) || isNaN(req.body.id)) return null;
             const patient = await this.repository.findOneBy({_id: req.body.id});
-            if (patient instanceof Patient) patient .imageURL = await readImage(this.dirImages, patient.id);
+            if (patient instanceof Patient) patient.imageURL = await readImage(this.dirImages, patient.id);
             return patient;
         } catch (error) {
             return null;  
@@ -143,7 +149,7 @@ export class PatientController {
         }
     }
 
-    public static async session(req: Request) : Promise<number> {
+    public static async session(req: Request): Promise<number> {
         try {
             if (!req.xhr || !isset([req.body.email, req.body.pass])) return ERROR;
             const patient: Patient | null = await this.repository.findOneBy({_email: req.body.email, _pass: req.body.pass});
@@ -158,7 +164,7 @@ export class PatientController {
         }
     }
 
-    public static async findBySession(req: Request) : Promise<Patient | null> {
+    public static async findBySession(req: Request): Promise<Patient | null> {
         try {
             if (!req.xhr || !sessionPatient(req)) return null;
             const patient = await this.repository.findOneBy({_id: Number(req.session.patient)});
@@ -169,15 +175,29 @@ export class PatientController {
         }
     }
 
-    public static async uploadImage(req: Request) : Promise<number> {
+    public static async uploadImage(req: Request): Promise<number> {
         if (!isset([req.body.id]) || isNaN(req.body.id)) return ERROR;
-        if (await upload(req, this.dirImages, Number(req.body.id))) return SUCCESS;
+        let patient = await this.findById(req);
+        if (!(patient instanceof Object)) return ERROR;
+
+        if (await upload(req, this.dirImages, patient.id)) {
+            patient.imageURL = await readImage(this.dirImages, patient.id);
+            await this.repository.save(patient);
+            return SUCCESS;
+        }
         else return ERROR;
     }
 
-    public static async deleteImage(req: Request) : Promise<number> {
+    public static async deleteImage(req: Request): Promise<number> {
         if (!isset([req.body.id]) || isNaN(req.body.id)) return ERROR;
-        if (await removeImage(this.dirImages, Number(req.body.id))) return SUCCESS;
+        let patient = await this.findById(req);
+        if (!(patient instanceof Object)) return ERROR;
+
+        if (await removeImage(this.dirImages, patient.id)) {
+            patient.imageURL = null;
+            await this.repository.save(patient);
+            return SUCCESS;
+        }
         else return ERROR;
     }
 

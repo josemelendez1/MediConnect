@@ -21,7 +21,10 @@ export class DoctorController {
             doctor = await this.repository.save(doctor);
         
             if (doctor !== null && doctor !== undefined && doctor instanceof Doctor) {
-                await upload(req, this.dirImages, doctor.id);
+                if (await upload(req, this.dirImages, doctor.id)) {
+                    doctor.imageURL = await readImage(this.dirImages, doctor.id);
+                    await this.repository.save(doctor);
+                } 
                 return SUCCESS;
             } else {
                 return ERROR;
@@ -51,7 +54,10 @@ export class DoctorController {
             doctor = await this.repository.save(doctor);
 
             if (doctor !== null && (doctor instanceof Doctor)) {
-                await upload(req, this.dirImages, doctor.id);
+                if (await upload(req, this.dirImages, doctor.id)) {
+                    doctor.imageURL = await readImage(this.dirImages, doctor.id);
+                    await this.repository.save(doctor);
+                }
                 return SUCCESS;
             } else {
                 return ERROR;
@@ -169,13 +175,29 @@ export class DoctorController {
 
     public static async uploadImage(req: Request) : Promise<number> {
         if (!isset([req.body.id]) || isNaN(req.body.id)) return ERROR;
-        if (await upload(req, this.dirImages, Number(req.body.id))) return SUCCESS;
+
+        let doctor = await this.findId(req);
+        if (!(doctor instanceof Doctor)) return ERROR;
+
+        if (await upload(req, this.dirImages, doctor.id)) {
+            doctor.imageURL = await readImage(this.dirImages, doctor.id);
+            await this.repository.save(doctor);
+            return SUCCESS;
+        }
         else return ERROR;
     }
 
     public static async deleteImage(req: Request) : Promise<number> {
         if (!isset([req.body.id]) || isNaN(req.body.id)) return ERROR;
-        if (await removeImage(this.dirImages, Number(req.body.id))) return SUCCESS;
+
+        let doctor = await this.findId(req);
+        if (!(doctor instanceof Doctor)) return ERROR;
+
+        if (await removeImage(this.dirImages, Number(req.body.id))) {
+            doctor.imageURL = null;
+            await this.repository.save(doctor);
+            return SUCCESS;
+        }
         else return ERROR;
     }
 

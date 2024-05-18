@@ -22,7 +22,11 @@ document.addEventListener("DOMContentLoaded", async function() {
         });
 
         socket.on('appointment-patient-eager/read', (data) => {
-            if (data instanceof Object) {
+            if (
+                data instanceof Object && 
+                patient instanceof Object &&
+                Number(patient._id) === (data._id)
+            ) {
                 patientEagle = data;
                 read();
             }

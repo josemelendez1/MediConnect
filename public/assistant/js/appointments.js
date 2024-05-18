@@ -577,6 +577,7 @@ function list(target) {
     switch (target) {
         case 'patient':
             if (!isset([patients]) || !(patients instanceof Array)) return;
+            listPatients.innerHTML = '';
 
             option = document.createElement('option');
             option.value = '';
@@ -597,6 +598,7 @@ function list(target) {
             break;
         case 'doctor':
             if (!isset([doctors]) || !(doctors instanceof Array)) return;
+            listDoctors.innerHTML = '';
             
             option = document.createElement('option');
             option.value = '';

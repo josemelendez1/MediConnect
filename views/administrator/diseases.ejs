@@ -129,24 +129,6 @@
                     </div>
                 </template>
             </section>
-            <section id="aside-diseases-doctors" class="aside-diseases">
-                <h4 class="title">Enfermedades de Doctores <i class="fa-solid fa-globe"></i></h4>
-                <div class="relative">
-                    <input type="text" class="seeker-field" id="input-seeker-requests" placeholder="Buscar...">
-                    <i class="fa-solid fa-magnifying-glass icon-seeker"></i>
-                </div>
-                <section id="diseases-requests" class="diseases-requests"></section>
-                <template id="template-disease-request">
-                    <article class="disease-request information-disease skeleton">
-                        <div class="image"></div>
-                        <div class="content-text">
-                            <p class="name"></p>
-                            <p class="date"></p>
-                        </div>
-                    </article>
-                    <hr class="horizontal-divisor">
-                </template>
-            </section>
             <section id="modal-diseases" class="modal">
                 <article class="relative">
                     <form id="form-diseases" class="form-modal" method="post">
@@ -165,7 +147,7 @@
                             <label for="name" class="form-label">Nombre</label>
                             <article class="relative">
                                 <input type="text" name="name" class="form-field" required>
-                                <i class="fa-solid fa-arrow-up-9-1 icon-input"></i>
+                                <i class="fa-solid fa-file-signature icon-input"></i>
                             </article>
                             <p id="form-diseases-name-helper" class="helper"></p>
                         </section>
@@ -186,7 +168,7 @@
                                     <option value="Severa">Severa</option>
                                     <option value="Fatal">Fatal</option>
                                 </select>
-                                <i class="fa-solid fa-chart-column icon-input"></i>
+                                <i class="fa-solid fa-arrow-up-9-1 icon-input"></i>
                             </article>
                             <p id="form-diseases-severity-helper" class="helper"></p>
                         </section>

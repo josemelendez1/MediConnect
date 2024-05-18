@@ -22,7 +22,10 @@ export class AdministratorController {
             administrator = await this.repository.save(administrator);
             
             if (administrator instanceof Administrator) {
-                await upload(req, this.dirImages, administrator.id);
+                if (await upload(req, this.dirImages, administrator.id)) {
+                    administrator.imageURL = await readImage(this.dirImages, administrator.id);
+                    await this.repository.save(administrator);
+                }
                 return SUCCESS; 
             } else {
                 return ERROR;
@@ -67,7 +70,10 @@ export class AdministratorController {
             administrator = await this.repository.save(administrator);
 
             if (isset([administrator]) && administrator instanceof Administrator) {
-                await upload(req, this.dirImages, administrator.id);
+                if (await upload(req, this.dirImages, administrator.id)) {
+                    administrator.imageURL = await readImage(this.dirImages, administrator.id);
+                    await this.repository.save(administrator);
+                }
                 return SUCCESS;
             } else {
                 return ERROR;
@@ -123,7 +129,49 @@ export class AdministratorController {
         }
     }
 
-    public static async findSessionId(req: Request) : Promise<Administrator | null> {
+    public static async uploadImage(req: Request): Promise<boolean> {
+        let done = false;
+        if (!sessionAdministrator(req)) return done;
+
+        let administrador = await this.findSessionId(req);
+        if (!(administrador instanceof Administrator)) return done;
+
+        if (await upload(req, this.dirImages, administrador.id)) {
+            administrador.imageURL = await readImage(this.dirImages, administrador.id);
+            await this.repository.save(administrador);
+            return !done;
+        } else {
+            return done;
+        }
+    }
+
+    public static async deleteImage(req: Request): Promise<Boolean> {
+        let done = false;
+        if (!sessionAdministrator(req)) return done;
+
+        let administrador = await this.findSessionId(req);
+        if (!(administrador instanceof Administrator)) return done;
+
+        if (await removeImage(this.dirImages, administrador.id)) {
+            administrador.imageURL = null;
+            await this.repository.save(administrador);
+            return !done;
+        } else {
+            return done;
+        }
+    }
+
+    public static async readImageProfile(req: Request): Promise<string | null> {
+        let image: string | null = null;
+        if (!sessionAdministrator(req)) return image;
+
+        let administrador = await this.findSessionId(req);
+        if (!(administrador instanceof Administrator)) return image;
+
+        return await readImage(this.dirImages, administrador.id);
+    }
+
+    public static async findSessionId(req: Request): Promise<Administrator | null> {
         try {
             if (!req.xhr || !sessionAdministrator(req)) return null;
             const administrator = await this.repository.findOneBy({_id: Number(req.session.administrator)});
@@ -134,14 +182,14 @@ export class AdministratorController {
         }
     }
 
-    private static async emailAvailable(req: Request) : Promise<boolean> {
+    private static async emailAvailable(req: Request): Promise<boolean> {
         if (!req.xhr || !isset([req.body.email])) return false;
         const id = (isset([req.body.id]) && !isNaN(req.body.id)) ? Number(req.body.id) : 0;
         const result = await this.repository.createQueryBuilder('user').where('user._email = :email AND NOT user._id = :id', {email: req.body.email, id: id}).getCount() === 0;
         return result;
     }
 
-    private static async passAvailable(req: Request) : Promise<boolean> {
+    private static async passAvailable(req: Request): Promise<boolean> {
         if (!req.xhr || !isset([req.body.pass])) return false;
         const id = (isset([req.body.id]) && !isNaN(req.body.id)) ? Number(req.body.id) : 0;
         return (await this.repository.createQueryBuilder('user').where('user._pass = :pass AND NOT user._id = :id', {pass: req.body.pass, id: id}).getCount()) === 0;

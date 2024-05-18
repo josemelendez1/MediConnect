@@ -174,7 +174,6 @@ function create() {
 }
 
 function read() {
-    console.log(administradorsData);
     let data = diseasesData.toReversed();
     if (inputSeeker.value.trim().length > 0) data = data.filter(x => x._name.includes(inputSeeker.value.trim()));
     if (!(data instanceof Array) || !(administradorsData instanceof Array)) return;

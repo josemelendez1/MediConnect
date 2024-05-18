@@ -21,7 +21,10 @@ export class AssistantController {
             assistant = await this.repository.save(assistant);
         
             if (assistant != null && assistant != undefined && assistant instanceof Assistant) {
-                await upload(req, this.dirImages, assistant.id);
+                if (await upload(req, this.dirImages, assistant.id)) {
+                    assistant.imageURL = await readImage(this.dirImages, assistant.id);
+                    await this.repository.save(assistant);
+                }
                 return SUCCESS;
             } else {
                 return ERROR;
@@ -66,7 +69,10 @@ export class AssistantController {
             assistant = await this.repository.save(assistant);
     
             if (assistant !== null && (assistant instanceof Assistant)) {
-                await upload(req, this.dirImages, assistant.id);
+                if (await upload(req, this.dirImages, assistant.id)) {
+                    assistant.imageURL = await readImage(this.dirImages, assistant.id);
+                    await this.repository.save(assistant);
+                }
                 return SUCCESS;
             } else {
                 return ERROR;
@@ -99,7 +105,7 @@ export class AssistantController {
 
     public static async findId(req: Request) : Promise<Assistant | null> {
         try {
-            if (!req.xhr || !isset([req.body.id]) || isNaN(req.body.id)) return null;
+            if (!isset([req.body.id]) || isNaN(req.body.id)) return null;
             const assistant = await this.repository.findOneBy({_id: Number(req.body.id)});
             if (assistant instanceof Assistant) {
                 assistant.imageURL = await readImage(this.dirImages, assistant.id);
@@ -138,13 +144,29 @@ export class AssistantController {
 
     public static async uploadImage(req: Request) : Promise<number> {
         if (!isset([req.body.id]) || isNaN(req.body.id)) return ERROR;
-        if (await upload(req, this.dirImages, Number(req.body.id))) return SUCCESS;
+
+        let assistant = await this.findId(req);
+        if (!(assistant instanceof Assistant)) return ERROR;
+
+        if (await upload(req, this.dirImages, assistant.id)) {
+            assistant.imageURL = await readImage(this.dirImages, assistant.id);
+            await this.repository.save(assistant);
+            return SUCCESS;
+        }
         else return ERROR;
     }
 
     public static async deleteImage(req: Request) : Promise<number> {
         if (!isset([req.body.id]) || isNaN(req.body.id)) return ERROR;
-        if (await removeImage(this.dirImages, Number(req.body.id))) return SUCCESS;
+
+        let assistant = await this.findId(req);
+        if (!(assistant instanceof Assistant)) return ERROR;
+
+        if (await removeImage(this.dirImages, assistant.id)) {
+            assistant.imageURL = null;
+            await this.repository.save(assistant);
+            return SUCCESS;
+        }
         else return ERROR;
     }
 

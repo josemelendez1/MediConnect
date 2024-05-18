@@ -100,13 +100,15 @@ function initCalendar() {
     }
 
     for (let i = 1; i <= endDate; i++) {
-        let className = (
-            i === date.getDate() &&
-            month === new Date().getMonth() &&
-            year === new Date().getFullYear()
-        ) ? ' class="today"' : '';
+        let className = '';
 
-        content += `<li ${className}>${i}</li>`
+        if (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
+            className = 'today';
+        } else if (year < new Date().getFullYear() || (month < new Date().getMonth() && year <= new Date().getFullYear()) || (i < new Date().getDate() && month <= new Date().getMonth() && year <= new Date().getFullYear())) {
+            className = 'inactive';
+        }
+
+        content += `<li class="${className}">${i}</li>`
     }
 
     for (let i = end; i < 6; i++) {
@@ -168,6 +170,7 @@ function create() {
                 hideMessage(messageForm);
                 reloadForm(form);
                 await socket.timeout(2000).emit('appointment-patient-eager/read', patient._id, true, (error, response) => {});
+                socket.emit('appointment-eager/read', true, (error, response) => {});
             }, 3000);
             break;
 
@@ -199,6 +202,7 @@ function remove() {
         case SUCCESS:
             const container = document.querySelector('.container-appointment');
             if (container && container.classList.contains('active')) container.classList.remove('active');
+            socket.emit('appointment-eager/read', true, (error, response) => {});
             break;
         case ERROR:
             alert('Error en el servidor. Contáctenos si este persiste.');

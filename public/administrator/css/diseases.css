@@ -7,15 +7,16 @@ main {
 }
 
 main .content {
+    gap: .5rem;
     width: 100%;
     height: 100%;
     padding: 1rem;
     display: flex;
     position: relative;
-    align-items: start;
+    align-items: center;
     align-content: start;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
 }
 
 main .content .header-diseases {
@@ -62,16 +63,17 @@ main .content .container-diseases {
     flex-wrap: wrap;
     position: relative;
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     justify-content: start;
 }
 
 .container-diseases .diseases {
+    gap: .5rem;
     width: 100%;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: start;
     flex-direction: row;
     align-content: start;
     justify-content: center;
@@ -81,7 +83,6 @@ main .content .container-diseases {
     width: 100%;
     height: auto;
     padding: .4rem;
-    margin-top: .75rem;
     border-radius: .25rem;
     background-color: white;
     border: 1px solid var(--gray-100);
@@ -193,6 +194,7 @@ main .content .container-diseases {
 
 .disease .footer-disease {
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -214,7 +216,7 @@ main .content .container-diseases {
 
 .disease .footer-disease .information-user {
     gap: .1rem;
-    width: 80%;
+    width: calc(100% - 2.5rem - 2rem);
     display: flex;
     flex-wrap: nowrap;
     margin: 0rem .5rem;
@@ -532,13 +534,11 @@ main .content .form-modal .button-blue-rounded {
     }
 
     .container-diseases .diseases .disease {
-        margin: .25rem;
-        width: calc(50% - .5rem);
+        width: calc(50% - .25rem);
     }
 }
 
 @media (min-width: 768px) {
-
     main .content .footer-diseases .count {
         width: auto;
         margin-bottom: 0;
@@ -557,8 +557,7 @@ main .content .form-modal .button-blue-rounded {
     }
 
     .container-diseases .diseases .disease {
-        margin: .25rem;
-        width: 32%;
+        width: calc(33% - .2rem);
     }
 
     .container-diseases .disease p {
@@ -583,11 +582,11 @@ main .content .form-modal .button-blue-rounded {
     }
 
     main .content .container-diseases {
-        width: 75%;
+        width: 100%;
     }
 
     .container-diseases .diseases .disease {
-        width: 31%;
+        width: calc(25% - .5rem);
     }
 
     main .content .footer-diseases {
@@ -600,10 +599,6 @@ main .content .form-modal .button-blue-rounded {
         width: 25%;
         max-height: 50rem !important;
         margin-top: .35rem;
-    }
-
-    .container-diseases .diseases .disease {
-        margin: .45rem;
     }
 }
 

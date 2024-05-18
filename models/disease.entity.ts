@@ -24,7 +24,7 @@ export class Disease extends BaseEntity {
     @OneToMany(() => DiagnosedDisease, (diagnosedDisease) => diagnosedDisease._medicalRecord)
     public _diagnosedDiseases!: DiagnosedDisease[];
 
-    private _imageURL!: string | undefined;
+    private _imageURL!: string | null;
 
     @CreateDateColumn()
     public createdAt!: Date;
@@ -96,11 +96,11 @@ export class Disease extends BaseEntity {
         this._diagnosedDiseases = value;
     }
 
-    public get imageURL(): string | undefined {
+    public get imageURL(): string | null {
         return this._imageURL;
     }
     
-    public set imageURL(value: string | undefined) {
+    public set imageURL(value: string | null) {
         this._imageURL = value;
     }
 }

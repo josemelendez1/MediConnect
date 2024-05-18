@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     socket.on('assistant/session/read', (assistant) => {
         if (!(assistant instanceof Object)) return;
         data = assistant;
-        console.log(data);
         edit();
         asignDates();
     });

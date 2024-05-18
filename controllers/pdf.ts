@@ -99,12 +99,8 @@ export class Pdf {
             
             const medicalRecord = await MedicalRecordController.findId(req);
             if (!(medicalRecord instanceof MedicalRecord)) return done;
-            console.log(medicalRecord);
             if (!(medicalRecord.appointment instanceof Appointment)) return done;
-            console.log(medicalRecord);
             if (!(medicalRecord.appointment.patient instanceof Patient)) return done;
-
-            console.log(medicalRecord);
 
             let disease: Disease | null;
             const diseases: Disease[] = medicalRecord.diagnosedDiseases.map(d => {return d.disease;});

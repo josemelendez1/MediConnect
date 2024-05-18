@@ -30,7 +30,7 @@ export class Medicine extends BaseEntity {
     @OneToMany(() => PrescriptionMedication, (prescriptionMedication) => prescriptionMedication._recipe)
     public _prescriptionMedications!: PrescriptionMedication[];
 
-    private _imageURL!: string | undefined;
+    private _imageURL!: string | null;
 
     public constructor(name: string, quantities: string, presetnations: string, information: string) {
         super();
@@ -88,11 +88,11 @@ export class Medicine extends BaseEntity {
         this._information = value;
     }
 
-    public get imageURL(): string | undefined {
+    public get imageURL(): string | null {
         return this._imageURL;
     }
 
-    public set imageURL(value: string | undefined) {
+    public set imageURL(value: string | null) {
         this._imageURL = value;
     }
 

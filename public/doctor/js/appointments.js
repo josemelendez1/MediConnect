@@ -329,7 +329,7 @@ function showProfiles(id) {
     if (!isset([id]) || isNaN(id)) return;
     let patient, appointment;
     appointment = appointments.find(x => Number(x._id) === Number(id));
-    patient = appointment._patient;
+    if (appointment instanceof Object) patient = appointment._patient;
     if (!isset([appointment, doctor, patient])) return;
 
     let p, containerImagePatient, containerImageDoctor, imgPatient, imgDoctor, profile, div;
@@ -610,4 +610,4 @@ function redirectCallRoom(roomId) {
     input.value = '';
 }
 
-export { diseases };
+export { diseases, appointments };

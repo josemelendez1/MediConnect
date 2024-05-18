@@ -324,32 +324,20 @@ router.post('/solicitud/administradores/buscar/id', async (req: Request, res: Re
 });
 
 router.post('/solicitud/administrador/imagen/subir', async (req: Request, res: Response) => {
-    if (sessionAdministrator(req)) {
-        const result = await upload(req, 'D:/proyectos/MediConnect/uploads/images/administrator/', Number(req.session.administrator));
-        if (result) {
-            res.send(JSON.stringify(SUCCESS));
-        }
-    } else {
-        res.send(JSON.stringify(ERROR));
-    }
+    const done = await AdministratorController.uploadImage(req);
+    const code = (done) ? SUCCESS : ERROR;
+    res.send(JSON.stringify(code));
 });
 
 router.post('/solicitud/administrador/imagen/eliminar', async (req: Request, res: Response) => {
-    if (sessionAdministrator(req)) {
-        await removeImage('D:/proyectos/MediConnect/uploads/images/administrator/', Number(req.session.administrator));
-        res.send(JSON.stringify(SUCCESS));
-    } else {
-        res.send(JSON.stringify(ERROR));
-    }
+    const done = await AdministratorController.deleteImage(req);
+    const code = (done) ? SUCCESS : ERROR;
+    res.send(JSON.stringify(code));
 });
 
 router.post('/solicitud/administrador/imagen/leer', async (req: Request, res: Response) => {
-    if (sessionAdministrator(req)) {
-        const urlImage = await readImage('D:/proyectos/MediConnect/uploads/images/administrator/', Number(req.session.administrator));
-        res.send(JSON.stringify(urlImage));
-    } else {
-        res.send(JSON.stringify(null));
-    }
+    const imageURL = await AdministratorController.readImageProfile(req);
+    res.send(JSON.stringify(imageURL));
 });
 
 //Appointment

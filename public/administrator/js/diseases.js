@@ -4,11 +4,11 @@ import { SUCCESS, ERROR } from "../../codes.js";
 import { buttonDisabled, buttonEnabled, isDate, isset, reloadField, reloadForm, verifyForm, verifyImage } from "../../form.js";
 import { socket } from "../../socket.js";
 
-var limit = 9;
+var limit = 12;
 var offset = 0;
 var diseasesData = [];
 var administradorsData = [];
-var diseases, diseasesRequests, prevDiseases, nextDiseases, form, title, count, modal, messageForm, inputSeeker, inputSeekerRequests, buttonCreate, buttonUpdate, buttonDelete, buttonShowModal, buttonHideModal, template, templateRequest;
+var diseases, prevDiseases, nextDiseases, form, title, count, modal, messageForm, inputSeeker, buttonCreate, buttonUpdate, buttonDelete, buttonShowModal, buttonHideModal, template;
 
 socket.on('disease/read', (diseases) => {
     if (!(diseases instanceof Array)) return;
@@ -16,7 +16,6 @@ socket.on('disease/read', (diseases) => {
     diseasesData = diseases;
     setTimeout(() => {
         read();
-        readRequests();
     }, 500);
 });
 
@@ -59,7 +58,6 @@ socket.on('disease/deleted', (id) => {
 
 document.addEventListener("DOMContentLoaded", function() {
     diseases = document.getElementById('diseases');
-    diseasesRequests = document.getElementById('diseases-requests');
     prevDiseases = document.getElementById('prev-diseases');
     nextDiseases = document.getElementById('next-diseases');
     form = document.getElementById('form-diseases');
@@ -68,18 +66,16 @@ document.addEventListener("DOMContentLoaded", function() {
     modal = document.getElementById('modal-diseases');
     messageForm = document.getElementById('message-diseases');
     inputSeeker = document.getElementById('input-seeker');
-    inputSeekerRequests = document.getElementById('input-seeker-requests'); 
     buttonCreate = document.getElementById('button-create-diseases');
     buttonUpdate = document.getElementById('button-update-diseases');
     buttonDelete = document.getElementById('button-delete-diseases');
     buttonShowModal = document.getElementById('button-show-modal-diseases');
     buttonHideModal = document.getElementById('button-hide-modal-diseases');
     template = document.getElementById('template-disease');
-    templateRequest = document.getElementById('template-disease-request');
     
     copyright();
 
-    if (diseases && diseasesRequests && prevDiseases && nextDiseases && form && title && count && modal && messageForm && inputSeeker && inputSeekerRequests && buttonCreate && buttonUpdate && buttonDelete && buttonShowModal && buttonHideModal && template && templateRequest) {
+    if (diseases && prevDiseases && nextDiseases && form && title && count && modal && messageForm && inputSeeker && buttonCreate && buttonUpdate && buttonDelete && buttonShowModal && buttonHideModal && template) {
         placeImage();
         skeleton();
         socket.emit('disease/read', false, (error, response) => {});
@@ -135,10 +131,6 @@ document.addEventListener("DOMContentLoaded", function() {
             offset = 0;
             read();
         });
-
-        inputSeekerRequests.addEventListener('input', function() {
-            readRequests();
-        });
     }
 });
 
@@ -185,7 +177,7 @@ function create() {
 }
 
 function read() {
-    let data = diseasesData.toReversed().filter(x => x._idAdministrator !== null);
+    let data = diseasesData.toReversed();
     if (inputSeeker.value.trim().length > 0) data = data.filter(x => x._name.includes(inputSeeker.value.trim()));
     if (!(data instanceof Array) || !(administradorsData instanceof Array)) return;
     count.innerHTML = `Mostrando <b>${(offset + 1 > data.length) ? data.length : (offset + 1)}</b> a <b>${(offset + limit > data.length) ? data.length : (offset + limit) }</b> de <b>${data.length}</b> Enfermedades.`;
@@ -236,6 +228,8 @@ function read() {
 
         if (isset([administradorsData, dataWithLimit[i]._idAdministrator]) && !isNaN(dataWithLimit[i]._idAdministrator)) {
             user = administradorsData[administradorsData.findIndex(x => x._id == dataWithLimit[i]._idAdministrator)];
+        } else {
+            user = Object();
         }
         
         imageUser.onload = function () {
@@ -255,52 +249,6 @@ function read() {
     }
 
     if (diseasesData.length > 0) initClicksDiseases();
-}
-
-function readRequests() {
-    let data = diseasesData.toReversed().filter(x => x._idAdministrator === null && x._idDoctor !== null);
-    if (inputSeekerRequests.value.trim().length > 0) data = data.filter(x => x._name.includes(inputSeekerRequests.value.trim()));
-
-    if (!(data instanceof Array)) {
-        diseasesRequests.innerHTML = '';   
-        return;
-    }
-
-    diseasesRequests.innerHTML = '';
-
-    for (let i = 0; i < data.length; i++) {
-        if (!isset([data[i]]) || !data[i] instanceof Object && isset([data[i]._name, data[i].createdAt, data[i]._id]) || !isDate(data[i].createdAt)) continue;
-
-        let clone = templateRequest.content.cloneNode(true);
-        let disease = clone.querySelector('.disease-request');
-        let name = clone.querySelector('.name');
-        let date = clone.querySelector('.date');
-        let img = document.createElement('img');
-        let contentImage = clone.querySelector('.image');
-        let divisor = clone.querySelector('.horizontal-divisor');
-
-        if (!isset([clone, disease, name, date, img, contentImage, divisor])) continue;
-
-        img.onload = function () {
-            contentImage.classList.remove('skeleton');
-            contentImage.append(img);
-        };
-        
-        contentImage.classList.add('skeleton');
-        img.src = data[i]._imageURL !== undefined ? data[i]._imageURL : '/images/disease-default.jpg';
-        img.alt = 'Imagen de Enfermedad';
-
-        name.textContent = data[i]._name;
-        date.textContent = new Date(data[i].createdAt).toLocaleString();
-
-        disease.dataset.id = data[i]._id;
-        disease.classList.remove('skeleton');
-        diseasesRequests.append(disease);
-        diseasesRequests.append(divisor);
-
-    }
-
-    if (data.length > 0) initClicksDiseases();
 }
 
 function update(id) {
@@ -484,10 +432,5 @@ function skeleton() {
     for (let i = 0; i < limit; i++) {
         let clone = template.content.cloneNode(true);
         diseases.append(clone);
-    }
-
-    for (let i = 0; i < limit; i++) {
-        let clone = templateRequest.content.cloneNode(true);
-        diseasesRequests.append(clone);
     }
 }

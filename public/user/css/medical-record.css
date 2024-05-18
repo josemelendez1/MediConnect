@@ -49,7 +49,7 @@ main .content .medical-record .content-left, main .content .medical-record .cont
 
 main .content .medical-record .content-left {
     position: relative;
-    padding: 2.25rem;
+    padding: .25rem;
     flex-wrap: wrap;
     align-content: start;
     align-items: center;    
@@ -74,7 +74,7 @@ main .content .medical-record .content-left {
 .medical-record .content-left .subtitle {
     font-weight: 500;
     color: var(--blue-600);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .medical-record .content-left .risk {
@@ -143,7 +143,7 @@ main .content .medical-record .content-left {
 }
 
 .medical-record .content-left .profiles {
-    gap: 2rem;
+    gap: 1rem;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -224,7 +224,8 @@ main .content .medical-record .content-left {
 .medical-record .content-left .created-at {
     bottom: 0;
     left: 0;
-    margin: 2rem;
+    display: none;
+    margin: .25rem;
     position: absolute;
     color: var(--gray-500);
     font-weight: 400;
@@ -284,10 +285,24 @@ main .medical-record .content-right iframe.skeleton {
     .medical-record .content-left .profiles .doctor, .medical-record .content-left .profiles .patient {
         width: calc(50% - 1rem);
     }
+
+    main .content .medical-record .content-left {
+        padding: 1rem;
+    }
 }
 
 @media (min-width: 1024px) {
+    .medical-record .content-left .subtitle {
+        margin-bottom: 2rem;
+    }
 
+    .medical-record .content-left .created-at {
+        display: block;
+    }
+
+    .medical-record .content-left .profiles {
+        gap: 1.5rem;
+    }
 }
 
 @media (min-width: 1280px) {

@@ -12,7 +12,6 @@ socket.on('patient/read', (data) => {
     if (!(data instanceof Array)) return;
     users = data;
     setTimeout(read, 500);
-    console.log(data);
 });
 
 socket.on('patient/updated', (id) => {
@@ -292,7 +291,6 @@ function edit(id) {
 
     const image = form.querySelector('.image-form');
     if (image) image.src = (isset([user._imageURL])) ? user._imageURL : '/images/user-solid.jpg';
-    console.log(user);
     const elements = document.forms.namedItem(form.id).elements;
     const birthdate = new Date(user._birthdate);
     elements.namedItem('name').value = user._name;

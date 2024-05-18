@@ -172,11 +172,6 @@ io.on('connection', (socket) => {
 
         socket.on('patient/read', async (global: boolean | undefined, callback: any | undefined) => {
             const patients = await PatientController.read();
-            if (patients instanceof Array) {
-                for (let i = 0; i < patients.length; i++) {
-                    if (patients[i] instanceof Patient) patients[i].imageURL = await read(imagesPatient, patients[i].id);
-                }
-            }
             if (global) io.emit('patient/read', (patients));
             else socket.emit('patient/read', (patients));
             if (callback instanceof Function) return callback({response: SUCCESS});

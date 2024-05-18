@@ -195,8 +195,8 @@ function addVideoStream(video, stream, user) {
     }
 
     let img = document.createElement('img');
-    img.src = (user instanceof Object && user._imageURL !== undefined) ? user._imageURL : '/images/user-solid.jpg';
-    img.title = (user instanceof Object && user._name !== undefined) ? user._name : 'Desconocido';
+    img.src = (user instanceof Object && isset(user._imageURL)) ? user._imageURL : '/images/user-solid.jpg';
+    img.title = (user instanceof Object && isset(user._name)) ? user._name : 'Desconocido';
     img.alt = 'Imagen de usuario';
 
     let div = document.createElement('div');
@@ -276,11 +276,11 @@ function showUsers() {
 
         containerImage.classList.add('image');
         img.onload = function () {containerImage.appendChild(img);}
-        img.src = (user._imageURL !== undefined) ? user._imageURL : '/images/user-solid.jpg';
+        img.src = (isset(user._imageURL)) ? user._imageURL : '/images/user-solid.jpg';
         img.alt = 'Imagen de usuario';
-        img.title = (user._name !== undefined) ? user._name : 'Desconocido';
+        img.title = (isset(user._name)) ? user._name : 'Desconocido';
 
-        p.textContent = (user._name !== undefined) ? user._name : 'Desconocido';
+        p.textContent = (isset(user._name)) ? user._name : 'Desconocido';
 
         li.appendChild(containerImage);
         li.appendChild(p);
@@ -290,8 +290,6 @@ function showUsers() {
 }
 
 function newMessage(msg, userSocket) {
-    console.log(user);
-    console.log(userSocket);
     if (msg === undefined || msg === null || msg === '' || !(user instanceof Object) || !(userSocket instanceof Object)) return;
 
     let className = (user.peerID === userSocket.peerID) ? 'right-message' : 'left-message';
@@ -299,4 +297,9 @@ function newMessage(msg, userSocket) {
     li.classList.add(className);
     li.textContent = msg;
     containerMessages.appendChild(li);
+    containerMessages.scrollIntoView(false);
+}
+
+function isset(value) {
+    return (value !== undefined && value !== null);
 }

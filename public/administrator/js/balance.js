@@ -2,18 +2,6 @@ import { isset } from "../../form.js";
 import { socket } from "../../socket.js";
 import { ajax } from "../../ajax.js";
 
-socket.on('Appointment count of the week', (data) => {
-    console.log(data);
-});
-
-socket.on('Appointment count per user', (data) => {
-    console.log(data);
-});
-
-socket.on('Most frequent disease',  (data) => {
-    console.log(data);
-});
-
 document.addEventListener("DOMContentLoaded", function () {
     const containerBalance = document.querySelector('.container-balances');
     const balances = containerBalance.querySelectorAll('.balance');

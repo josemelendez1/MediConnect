@@ -2,7 +2,7 @@ import { socket } from "../../socket.js";
 import { ajax, hideMessage, message } from "../../ajax.js";
 import { ERROR, SUCCESS } from "../../codes.js";
 import { isset, reloadForm, verifyField, verifyForm } from "../../form.js";
-import { buttonSaveRecipe, buttonSaveRecord, optionsSelect } from "./appointments.js";
+import { appointments, buttonSaveRecipe, buttonSaveRecord, optionsSelect } from "./appointments.js";
 import { preescriptionMedications } from "./recipe.js";
 
 export var form, elements, messageForm, buttonPrint, containerFormHidden;
@@ -36,10 +36,18 @@ export function save(id) {
     if (!isset([form])) return;
     if (!isset([elements])) return;
     if (!isset([id]) || isNaN(id)) return;
-    if (!(medicalRecords instanceof Array)) return;
+    if (!(medicalRecords instanceof Array) || !(appointments instanceof Array)) return;
     if (!verifyField(elements.namedItem('risk'), form.id) || !verifyField(elements.namedItem('reason'), form.id)) return;
 
-    const medicalRecord = medicalRecords.find(m => (m._appointment instanceof Object) && Number(m._appointment._id) === Number(id));
+    let patient, appointment, medicalRecord;
+    appointment = appointments.find(x => Number(x._id) === Number(id));
+    if (appointment instanceof Object) {
+        medicalRecord = appointment._medicalRecord;
+        patient = appointment._patient;
+    }
+
+    if (!(appointment instanceof Object) || !(patient instanceof Object)) return;
+
     const diseases = [];
     for (let i = 0; i < elements.namedItem('diseases').length; i++) {
         if (elements.namedItem('diseases')[i].selected) diseases.push(elements.namedItem('diseases')[i].value);
@@ -66,6 +74,8 @@ export function save(id) {
                 await socket.timeout(2000).emit('medical-record-eager/read', true, (error, response) => {
                     socket.emit('medical-record/updated', (Number(id)))
                 });
+                socket.emit('appointment-patient-eager/read', patient._id, true, (error, response) => {});
+                socket.emit('appointment-eager/read', true, (error, response) => {});
             }, 3000);
             break;
 

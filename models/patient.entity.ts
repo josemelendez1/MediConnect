@@ -14,7 +14,7 @@ export class Patient extends User {
     public _birthdate: Date;
 
     @OneToMany(() => Appointment, (appointment) => appointment._patient, {
-        onDelete: 'CASCADE', onUpdate: 'CASCADE'
+        onDelete: 'SET NULL', onUpdate: 'SET NULL'
     })
     public _appointments!: Appointment[];
 

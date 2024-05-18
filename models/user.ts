@@ -19,7 +19,8 @@ export abstract class User {
     @UpdateDateColumn()
     public _updatedAt!: Date;
 
-    public _imageURL!: string | undefined;
+    @Column({ type: 'varchar', nullable: true})
+    public _imageURL?: string | null;
 
     public constructor(name: string, email: string, pass: string) {
         this._name = name;
@@ -75,11 +76,11 @@ export abstract class User {
         this._updatedAt = value;
     }
 
-    public get imageURL(): string | undefined {
+    public get imageURL(): string | null | undefined {
         return this._imageURL;
     }
 
-    public set imageURL(value: string | undefined) {
+    public set imageURL(value: string | null | undefined) {
         this._imageURL = value;
     }
 }

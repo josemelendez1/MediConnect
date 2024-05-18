@@ -70,6 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
             date.setFullYear(date.getFullYear() - 1);
             dateField.max = date.toISOString().split("T")[0];
         }
+        
+        let telephoneField = document.forms.namedItem(form.id).elements.namedItem('telephone');
+        if (telephoneField) telephoneField.addEventListener('input', () => {
+            if (telephoneField.value.length > telephoneField.maxLength) telephoneField.value = telephoneField.value.slice(0, telephoneField.maxLength); 
+        });
     }
 });
 

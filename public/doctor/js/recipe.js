@@ -2,7 +2,7 @@ import { socket } from "../../socket.js";
 import { ajax, hideMessage, message } from "../../ajax.js";
 import { ERROR, NOT_ALLOWED, SUCCESS } from "../../codes.js";
 import { isset, reloadForm, verifyField } from "../../form.js";
-import { buttonSaveRecipe, buttonSaveRecord, optionsSelect } from "./appointments.js";
+import { appointments, buttonSaveRecipe, buttonSaveRecord, optionsSelect } from "./appointments.js";
 import { diagnosedDiseases, medicalRecords } from "./record-medical.js";
 
 export var form, elements, messageForm, buttonPrint, containerFormHidden;
@@ -36,11 +36,18 @@ export function save(id) {
     if (!isset([form])) return;
     if (!isset([elements])) return;
     if (!isset([id]) || isNaN(id)) return;
+    if (!(appointments instanceof Array)) return;
     if (buttonSaveRecipe.classList.contains('is-disabled')) return;
     if (!verifyField(elements.namedItem('preescription'), form.id)) return;
 
-    const medicalRecord = medicalRecords.find(r => (r._appointment instanceof Object) && Number(r._appointment._id) === Number(id));
-    if (!(medicalRecord instanceof Object)) return;
+    let patient, appointment, medicalRecord;
+    appointment = appointments.find(x => Number(x._id) === Number(id));
+    if (appointment instanceof Object) {
+        medicalRecord = appointment._medicalRecord;
+        patient = appointment._patient;
+    }
+
+    if (!(appointment instanceof Object) || !(patient instanceof Object) || !(medicalRecord instanceof Object)) return;
 
     const medicines = [];
     for (let i = 0; i < elements.namedItem('medicines').length; i++) {
@@ -68,6 +75,7 @@ export function save(id) {
                 await socket.timeout(2000).emit('recipe-eager/read', true, (error, response) => {
                     socket.emit('recipe/updated', (Number(id)))
                 });
+                socket.emit('appointment-patient-eager/read', patient._id, true, (error, response) => {});
             }, 3000);
             break;
 
