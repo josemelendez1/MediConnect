@@ -45,7 +45,7 @@ Para poner en funcionamiento el proyecto, sigue estos sencillos pasos.
    ```sh
    npm install
    ```
-3. Configurar los parametros de MySql en las variables de entorno. (Archivo .env) 
+3. Crear el archivo .env y configurar los parametros de MySql en las variables de entorno. 
     ```js
     MYSQL_HOST="localhost"
     MYSQL_PORT=3306
