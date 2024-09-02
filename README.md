@@ -19,7 +19,7 @@ expertos en el centro de salud. `josemelendez1`, `MediConnect.git`, `josemelende
 
 ### Construido con
 
-* [![Next][Npm]][Npm-url]
+* [![Npm][Npm]][Npm-url]
 
 
 <!-- GETTING STARTED -->
@@ -71,3 +71,6 @@ Distribuido bajo la licencia MIT. Consulte `LICENSE.txt` para obtener más infor
 Jose Angel Melendez Ramos - josemelendezramos123@gmail.com
 
 Enlace del proyecto: https://github.com/josemelendez1/MediConnect.git
+
+[Npm]: https://img.shields.io/npm/v/npm.svg?logo=nodedotjs
+[Npm-url]: https://www.npmjs.com/
