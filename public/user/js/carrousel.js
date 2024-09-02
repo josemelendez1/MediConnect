@@ -41,25 +41,52 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function read() {
-    if (!(images instanceof Array)) return;
-
     container.innerHTML = '';
-    for (let i = 0; i < images.length; i++) {
-        let div = document.createElement('div');
 
+    if (images instanceof Array && images.length > 0) {
+        //show buttons
+        buttonPrev.style.display = 'block';
+        buttonNext.style.display = 'block';
+
+        //load images
+        for (let i = 0; i < images.length; i++) {
+            let div = document.createElement('div');
+    
+            let img = document.createElement('img');
+            img.onload = function() {
+                div.classList.remove('skeleton');
+                div.append(img);
+            };
+    
+            div.classList.add('image', 'skeleton');
+            if (i === 0) div.classList.add('show');
+            else div.classList.add('down');
+    
+            img.src = images[i]._imageURL;
+            img.title = images[i]._name;
+            img.alt = 'Imagen de Carrousel';
+    
+            container.append(div);
+        }
+    } else {
+        //hide buttons
+        buttonPrev.style.display = 'none';
+        buttonNext.style.display = 'none';
+
+        //load default image
+        let div = document.createElement('div');
         let img = document.createElement('img');
-        img.onload = function() {
+        
+        div.classList.add('image', 'skeleton', 'show');
+
+        img.onload = () => {
             div.classList.remove('skeleton');
             div.append(img);
-        };
+        }
 
-        div.classList.add('image', 'skeleton');
-        if (i === 0) div.classList.add('show');
-        else div.classList.add('down');
-
-        img.src = images[i]._imageURL;
-        img.title = images[i]._name;
-        img.alt = 'Imagen de Carrousel';
+        img.src = "/images/carrousel-1.jpg";
+        img.title = "Imagen de Doctor";
+        img.alt = "Imagen de Doctor";
 
         container.append(div);
     }
