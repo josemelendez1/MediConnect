@@ -9,8 +9,8 @@ import { Disease } from "../models/disease.entity";
 
 export class DiseaseController {
     private static repository: Repository<Disease> = AppDataSource.getRepository(Disease);
-    private static readonly dirImages : string = 'D:/proyectos/MediConnect/uploads/images/disease/'; 
-
+    private static readonly dirImages : string = (__dirname + '/uploads/images/disease/').replace(/\\/g, '/').replace('/controllers', ''); 
+    
     public static async create(req: Request) : Promise<number> {
         try {
             if (!req.xhr || !isset([req.body.name, req.body.scientificName, req.body.severity, req.body.description])) return ERROR;

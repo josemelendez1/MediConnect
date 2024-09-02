@@ -10,8 +10,7 @@ import { Administrator } from "../models/administrator.entity";
 
 export class AdministratorController {
     private static repository: Repository<Administrator> = AppDataSource.getRepository(Administrator);
-    private static readonly dirImages : string = 'D:/proyectos/MediConnect/uploads/images/administrator/';
-
+    private static readonly dirImages : string = (__dirname + '/uploads/images/administrator/').replace(/\\/g, '/').replace('/controllers', '');
     public static async create(req: Request): Promise<number> {
         try {
             if (!req.xhr) return ERROR;

@@ -10,7 +10,7 @@ import { upload, remove as removeImage, read as readImage } from './image';
 
 export class CarrouselImageController {
     private static repository: Repository<CarrouselImage> = AppDataSource.getRepository(CarrouselImage);
-    private static readonly dirImages : string = 'D:/proyectos/MediConnect/uploads/images/carrousel/';
+    private static readonly dirImages : string = (__dirname + '/uploads/images/carrousel/').replace(/\\/g, '/').replace('/controllers', '');
 
     public static async create(req: Request): Promise<number | undefined> {
         try {
@@ -28,6 +28,7 @@ export class CarrouselImageController {
             image = await this.repository.save(image);
 
             if (isset([image]) && (image instanceof CarrouselImage)) {
+                console.log(this.dirImages);
                 const uploaded : boolean = await upload(req, this.dirImages, image.id);
                 return SUCCESS;
             } else {

@@ -9,7 +9,7 @@ import { Medicine } from "../models/medicine.entity";
 
 export class MedicineController {
     private static repository: Repository<Medicine> = AppDataSource.getRepository(Medicine);
-    private static readonly dirImages : string = 'D:/proyectos/MediConnect/uploads/images/medicine/';
+    private static readonly dirImages : string = (__dirname + '/uploads/images/medicine/').replace(/\\/g, '/').replace('/controllers', '');
 
     public static async create(req: Request) : Promise<number> {
         try {

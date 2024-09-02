@@ -84,6 +84,7 @@ async function read(url: string, id: number | undefined) : Promise<string | null
             let name : string = files[i].substring(0, files[i].lastIndexOf('.'));
             if (isNumeric(name) && name === id.toString()) {
                 imageURL = url.replace('D:/proyectos/MediConnect/uploads', '') + files[i];
+                imageURL = url.replace((__dirname + '/uploads/').replace(/\\/g, '/').replace('/controllers', ''), '') + files[i];
                 break;
             }
         }

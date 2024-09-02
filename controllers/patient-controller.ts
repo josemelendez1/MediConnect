@@ -9,7 +9,7 @@ import { sessionPatient } from "./session";
 
 export class PatientController {
     private static repository: Repository<Patient> = AppDataSource.getRepository(Patient);
-    private static readonly dirImages : string = 'D:/proyectos/MediConnect/uploads/images/patient/';
+    private static readonly dirImages : string = (__dirname + '/uploads/images/patient/').replace(/\\/g, '/').replace('/controllers', '');
 
     public static async create(req: Request): Promise<number> {
         try {

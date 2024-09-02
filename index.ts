@@ -59,12 +59,12 @@ io.on('connection', (socket) => {
     const idPatient: number | undefined = socket.request.session.patient;
     const idDoctor: number | undefined = socket.request.session.doctor;
     const idAssistant: number | undefined = socket.request.session.assistant;
-    const imagesAdministrator = 'D:/proyectos/MediConnect/uploads/images/administrator/';
-    const imagesMedicine = 'D:/proyectos/MediConnect/uploads/images/medicine/';
-    const imagesDisease = 'D:/proyectos/MediConnect/uploads/images/disease/';
-    const imagesPatient = 'D:/proyectos/MediConnect/uploads/images/patient/';
-    const imagesDoctor = 'D:/proyectos/MediConnect/uploads/images/doctor/';
-    const imagesAssistant = 'D:/proyectos/MediConnect/uploads/images/assistant/';
+    const imagesAdministrator = (__dirname + '/uploads/images/administrator/').replace(/\\/g, '/');
+    const imagesMedicine = (__dirname + '/uploads/images/medicine/').replace(/\\/g, '/');
+    const imagesDisease = (__dirname + '/uploads/images/disease/').replace(/\\/g, '/');
+    const imagesPatient = (__dirname + '/uploads/images/patient/').replace(/\\/g, '/');
+    const imagesDoctor = (__dirname + '/uploads/images/doctor/').replace(/\\/g, '/');
+    const imagesAssistant = (__dirname + '/uploads/images/assistant/').replace(/\\/g, '/');
 
     if (idAdministrator !== undefined && idAdministrator !== null && !isNaN(idAdministrator)) {
         socket.on('administrators/read', async (global: boolean | undefined, callback: any | undefined) => {

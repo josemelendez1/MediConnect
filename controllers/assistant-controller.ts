@@ -9,7 +9,7 @@ import { Assistant } from "../models/assistant.entity";
 
 export class AssistantController {
     private static repository: Repository<Assistant> = AppDataSource.getRepository(Assistant);
-    private static readonly dirImages : string = 'D:/proyectos/MediConnect/uploads/images/assistant/';
+    private static readonly dirImages : string = (__dirname + '/uploads/images/assistant/').replace(/\\/g, '/').replace('/controllers', '');
 
     public static async create(req: Request) : Promise<number> {
         try {

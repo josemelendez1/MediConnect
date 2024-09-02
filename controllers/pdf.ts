@@ -1,9 +1,7 @@
 import { isDate, isset } from "./requests";
 import { Request, Response } from "express";
-import { AppointmentController } from "./appointment-controller";
 import { Appointment } from "../models/appointment.entity";
 import { Patient } from "../models/patient.entity";
-import { PatientController } from "./patient-controller";
 import { DoctorController } from "./doctor-controller";
 import { Doctor } from "../models/doctor.entity";
 import puppeteer from "puppeteer";
@@ -12,14 +10,10 @@ import path from 'path';
 import fs from 'fs';
 import { MedicalRecordController } from "./medicalRecord-controller";
 import { MedicalRecord } from "../models/medicalRecord.entity";
-import { DiagnosedDiseaseController } from "./diagnosedDisease-controller";
 import { Disease } from "../models/disease.entity";
-import { DiseaseController } from "./disease-controller";
 import { RecipeController } from "./recipe-controller";
 import { Recipe } from "../models/recipe.entity";
 import { Medicine } from "../models/medicine.entity";
-import { PrescriptionMedicationController } from "./preescriptionMedication-controller";
-import { MedicineController } from "./medicine-controller";
 
 export class Pdf {
     public static async generateAppointments(req: Request, res: Response) : Promise<boolean> {
